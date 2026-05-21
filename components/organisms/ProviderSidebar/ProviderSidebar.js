@@ -12,11 +12,8 @@ import styles from '@/components/organisms/Sidebar/Sidebar.module.css';
 import { cn } from '@/utils/cn';
 
 const NAV_ITEMS = [
-  { href: '/provider/schedule', labelKey: 'nav.providerSchedule', icon: 'orders' },
+  { href: '/provider/schedule', labelKey: 'nav.providerSchedule', icon: 'schedule' },
   { href: '/provider/history', labelKey: 'nav.providerHistory', icon: 'history' },
-  { href: '/provider/inventory', labelKey: 'nav.providerInventory', icon: 'inventory' },
-  { href: '/provider/contracts', labelKey: 'nav.providerContracts', icon: 'contracts' },
-  { href: '/provider/settings', labelKey: 'nav.settings', icon: 'settings' },
   { href: '/provider/profile', labelKey: 'nav.profile', icon: 'users' },
 ];
 
@@ -30,7 +27,9 @@ export default function ProviderSidebar({ isOpen, onClose, collapsed = false, on
   const isActive = (item) =>
     pathname === item.href ||
     pathname.startsWith(`${item.href}/`) ||
-    (item.href === '/provider/schedule' && pathname.startsWith('/provider/execution'));
+    (item.href === '/provider/schedule' && pathname.startsWith('/provider/execution')) ||
+    (item.href === '/provider/profile' &&
+      ['/provider/inventory', '/provider/settings'].some((path) => pathname.startsWith(path)));
 
   const handleLogout = () => {
     onClose?.();

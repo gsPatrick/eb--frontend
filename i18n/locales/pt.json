@@ -71,7 +71,7 @@
     "contractTemplates": "Modelos de Contrato",
     "quality": "Qualidade",
     "syncLog": "Sync iCal",
-    "providerSchedule": "Ordens de Serviço",
+    "providerSchedule": "Agenda do Dia",
     "providerHistory": "Histórico",
     "providerInventory": "Atualizar Estoque",
     "providerContracts": "Meus Contratos"
@@ -490,8 +490,8 @@
   },
   "provider": {
     "schedule": {
-      "title": "Ordens de Serviço — Hoje",
-      "subtitle": "Limpezas atribuídas a você para hoje. Selecione uma OS para iniciar ou continuar a execução.",
+      "title": "Agenda do Dia",
+      "subtitle": "Limpezas atribuídas a você para hoje. Toque em uma OS para iniciar ou continuar a execução.",
       "client": "Cliente",
       "timeTbc": "Horário a confirmar",
       "continueService": "Continuar serviço",

@@ -298,6 +298,31 @@
   margin-bottom: var(--space-2);
 }
 
+.profileLinks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.profileLinkRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-elevated);
+  color: var(--color-primary);
+  font-weight: var(--font-medium);
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.profileLinkRow:hover {
+  background: var(--color-bg-muted);
+}
+
 @media (max-width: 960px) {
   .executionSteps {
     grid-template-columns: 1fr;

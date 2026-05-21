@@ -71,7 +71,7 @@
     "contractTemplates": "Contract Templates",
     "quality": "Quality",
     "syncLog": "iCal Sync",
-    "providerSchedule": "Work Orders",
+    "providerSchedule": "Today's Schedule",
     "providerHistory": "History",
     "providerInventory": "Update Inventory",
     "providerContracts": "My Contracts"
@@ -490,8 +490,8 @@
   },
   "provider": {
     "schedule": {
-      "title": "Work Orders — Today",
-      "subtitle": "Cleanings assigned to you for today. Select a work order to start or continue execution.",
+      "title": "Today's Schedule",
+      "subtitle": "Cleanings assigned to you for today. Tap a work order to start or continue execution.",
       "client": "Client",
       "timeTbc": "Time to be confirmed",
       "continueService": "Continue service",

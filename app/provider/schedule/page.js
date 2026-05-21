@@ -19,13 +19,8 @@ import styles from '@/styles/provider.module.css';
 
 function isToday(dateStr) {
   if (!dateStr) return false;
-  const date = new Date(dateStr);
-  const today = new Date();
-  return (
-    date.getFullYear() === today.getFullYear() &&
-    date.getMonth() === today.getMonth() &&
-    date.getDate() === today.getDate()
-  );
+  const today = new Date().toISOString().slice(0, 10);
+  return String(dateStr).slice(0, 10) === today;
 }
 
 export default function ProviderSchedulePage() {
