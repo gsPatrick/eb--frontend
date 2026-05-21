@@ -20,7 +20,7 @@ export function mapUser(user) {
     phone: user.phone || '',
     role: user.role,
     active: user.active ?? true,
-    avatar: resolveMediaUrl(user.avatar),
+    avatar: resolveMediaUrl(user.avatarUrl || user.avatar),
     lastLoginAt: user.lastLoginAt || user.updatedAt,
     locale: user.locale,
   };
