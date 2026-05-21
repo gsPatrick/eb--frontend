@@ -71,7 +71,8 @@
     "contractTemplates": "Contract Templates",
     "quality": "Quality",
     "syncLog": "iCal Sync",
-    "providerSchedule": "Today's Schedule",
+    "providerSchedule": "Work Orders",
+    "providerHistory": "History",
     "providerInventory": "Update Inventory",
     "providerContracts": "My Contracts"
   },
@@ -489,8 +490,8 @@
   },
   "provider": {
     "schedule": {
-      "title": "Today's Schedule",
-      "subtitle": "Cleanings assigned to you for today. Tap a work order to start or continue execution.",
+      "title": "Work Orders — Today",
+      "subtitle": "Cleanings assigned to you for today. Select a work order to start or continue execution.",
       "client": "Client",
       "timeTbc": "Time to be confirmed",
       "continueService": "Continue service",
@@ -538,6 +539,15 @@
       "acceptSuccess": "Contract accepted",
       "acceptSuccessMessage": "Your digital acceptance was recorded successfully.",
       "contractText": "Cleaning and maintenance service agreement between the Provider and EB Services and Solutions, including SLA, confidentiality, and compensation terms."
+    },
+    "history": {
+      "title": "Service History",
+      "subtitle": "Completed services and accumulated earnings.",
+      "totalEarned": "Total earned",
+      "completedCount": "{{count}} completed service(s)",
+      "client": "Client",
+      "photoCount": "{{count}} photo(s)",
+      "noPhotos": "No photos recorded for this service."
     }
   },
   "client": {

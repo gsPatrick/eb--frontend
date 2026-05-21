@@ -71,7 +71,8 @@
     "contractTemplates": "Modèles de Contrat",
     "quality": "Qualité",
     "syncLog": "Sync iCal",
-    "providerSchedule": "Agenda du Jour",
+    "providerSchedule": "Ordres de Service",
+    "providerHistory": "Historique",
     "providerInventory": "Mettre à Jour l'Inventaire",
     "providerContracts": "Mes Contrats"
   },

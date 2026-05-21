@@ -33,8 +33,11 @@ export default function ProviderSchedulePage() {
   const { intlLocale } = useLocale();
 
   const fetchTodayOrders = useCallback(async () => {
-    const { items } = await ordersApi.list({ status: 'pending,in_progress' });
-    return items.filter((order) => isToday(order.scheduledDate));
+    const { items } = await ordersApi.list({ limit: 50 });
+    return items.filter(
+      (order) =>
+        ['pending', 'in_progress'].includes(order.status) && isToday(order.scheduledDate)
+    );
   }, []);
 
   const { data: orders, loading } = useApiQuery(fetchTodayOrders, []);

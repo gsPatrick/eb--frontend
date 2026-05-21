@@ -2,23 +2,22 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Icon from '@/components/atoms/Icon';
 import Logo from '@/components/atoms/Logo';
 import LanguageDropdown from '@/components/molecules/LanguageDropdown';
-import { CURRENT_PROVIDER } from '@/constants/providerMockData';
 import { useAuthTransition } from '@/context/AuthTransitionProvider';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { loadProfileUser } from '@/utils/profileHelpers';
 import styles from '@/components/organisms/Sidebar/Sidebar.module.css';
 import { cn } from '@/utils/cn';
 
 const NAV_ITEMS = [
-  { href: '/provider/schedule', labelKey: 'nav.providerSchedule', icon: 'schedule' },
+  { href: '/provider/schedule', labelKey: 'nav.providerSchedule', icon: 'orders' },
+  { href: '/provider/history', labelKey: 'nav.providerHistory', icon: 'history' },
   { href: '/provider/inventory', labelKey: 'nav.providerInventory', icon: 'inventory' },
   { href: '/provider/contracts', labelKey: 'nav.providerContracts', icon: 'contracts' },
   { href: '/provider/settings', labelKey: 'nav.settings', icon: 'settings' },
+  { href: '/provider/profile', labelKey: 'nav.profile', icon: 'users' },
 ];
 
 export default function ProviderSidebar({ isOpen, onClose, collapsed = false, onToggleCollapse }) {
@@ -27,11 +26,6 @@ export default function ProviderSidebar({ isOpen, onClose, collapsed = false, on
   const { playLogout } = useAuthTransition();
   const isDesktop = useMediaQuery('(min-width: 769px)');
   const isCompact = collapsed && isDesktop;
-  const [user, setUser] = useState(CURRENT_PROVIDER);
-
-  useEffect(() => {
-    setUser(loadProfileUser(CURRENT_PROVIDER));
-  }, []);
 
   const isActive = (item) =>
     pathname === item.href ||
@@ -103,19 +97,6 @@ export default function ProviderSidebar({ isOpen, onClose, collapsed = false, on
               );
             })}
           </nav>
-
-          {!isCompact && (
-            <Link
-              href="/provider/profile"
-              className={cn(styles.promoCard, pathname === '/provider/profile' && styles.promoCardActive)}
-              onClick={onClose}
-            >
-              <p className={styles.promoTitle}>
-                <strong>{user.firstName}</strong> · {t('roles.provider')}
-              </p>
-              <p className={styles.promoText}>{user.email}</p>
-            </Link>
-          )}
 
           <div className={styles.sidebarFooter}>
             <LanguageDropdown

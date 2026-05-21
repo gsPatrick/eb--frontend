@@ -245,6 +245,59 @@
   color: #f59e0b;
 }
 
+.historySummary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-elevated);
+  box-shadow: var(--shadow-card);
+}
+
+.historySummaryLabel {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.historySummaryValue {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+}
+
+.historySummaryMeta {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.historyCard {
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-elevated);
+  box-shadow: var(--shadow-card);
+}
+
+.historyCardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
 @media (max-width: 960px) {
   .executionSteps {
     grid-template-columns: 1fr;

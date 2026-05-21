@@ -71,7 +71,8 @@
     "contractTemplates": "Modelos de Contrato",
     "quality": "Qualidade",
     "syncLog": "Sync iCal",
-    "providerSchedule": "Agenda do Dia",
+    "providerSchedule": "Ordens de Serviço",
+    "providerHistory": "Histórico",
     "providerInventory": "Atualizar Estoque",
     "providerContracts": "Meus Contratos"
   },
@@ -489,8 +490,8 @@
   },
   "provider": {
     "schedule": {
-      "title": "Agenda do Dia",
-      "subtitle": "Limpezas atribuídas a você para hoje. Toque em uma OS para iniciar ou continuar a execução.",
+      "title": "Ordens de Serviço — Hoje",
+      "subtitle": "Limpezas atribuídas a você para hoje. Selecione uma OS para iniciar ou continuar a execução.",
       "client": "Cliente",
       "timeTbc": "Horário a confirmar",
       "continueService": "Continuar serviço",
@@ -538,6 +539,15 @@
       "acceptSuccess": "Contrato aceito",
       "acceptSuccessMessage": "Seu aceite digital foi registrado com sucesso.",
       "contractText": "Contrato de prestação de serviços de limpeza e manutenção entre o Prestador e EB Services and Solutions, incluindo termos de SLA, confidencialidade e remuneração."
+    },
+    "history": {
+      "title": "Histórico de Serviços",
+      "subtitle": "Serviços concluídos e ganhos acumulados.",
+      "totalEarned": "Total recebido",
+      "completedCount": "{{count}} serviço(s) concluído(s)",
+      "client": "Cliente",
+      "photoCount": "{{count}} foto(s)",
+      "noPhotos": "Nenhuma foto registrada neste serviço."
     }
   },
   "client": {

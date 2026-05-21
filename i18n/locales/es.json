@@ -71,7 +71,8 @@
     "contractTemplates": "Plantillas de Contrato",
     "quality": "Calidad",
     "syncLog": "Sync iCal",
-    "providerSchedule": "Agenda del Día",
+    "providerSchedule": "Órdenes de Servicio",
+    "providerHistory": "Historial",
     "providerInventory": "Actualizar Inventario",
     "providerContracts": "Mis Contratos"
   },

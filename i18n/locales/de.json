@@ -71,7 +71,8 @@
     "contractTemplates": "Vertragsvorlagen",
     "quality": "Qualität",
     "syncLog": "iCal-Sync",
-    "providerSchedule": "Tagesplan",
+    "providerSchedule": "Serviceaufträge",
+    "providerHistory": "Verlauf",
     "providerInventory": "Inventar aktualisieren",
     "providerContracts": "Meine Verträge"
   },
