@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { io } from 'socket.io-client';
 import { SOCKET_URL } from '@/src/services/api/api-client';
@@ -18,14 +18,21 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
   const toast = useToast();
   const router = useRouter();
   const toastRef = useRef(toast);
-  const [refreshToken, setRefreshToken] = useState(0);
   const listenersRef = useRef(new Map());
 
   toastRef.current = toast;
 
   const bumpRefresh = useCallback((scope) => {
-    setRefreshToken((prev) => prev + 1);
     listenersRef.current.get(scope)?.forEach((callback) => callback());
+  }, []);
+
+  const subscribe = useCallback((scope, callback) => {
+    if (!listenersRef.current.has(scope)) {
+      listenersRef.current.set(scope, new Set());
+    }
+
+    listenersRef.current.get(scope).add(callback);
+    return () => listenersRef.current.get(scope)?.delete(callback);
   }, []);
 
   useEffect(() => {
@@ -38,6 +45,8 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
       auth: { token },
       transports: ['websocket', 'polling'],
       reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 2000,
     });
 
     socket.on('notification', (payload) => {
@@ -68,7 +77,11 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
     socket.on('force_logout', (payload) => {
       toastRef.current.warning(payload?.title || 'Sessão encerrada', payload?.message || '');
       clearAuthSession();
-      router.push('/login');
+      router.replace('/login');
+    });
+
+    socket.on('connect_error', (error) => {
+      console.warn('[realtime] connect_error', error?.message || error);
     });
 
     return () => {
@@ -78,17 +91,10 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
 
   const value = useMemo(
     () => ({
-      refreshToken,
       bumpRefresh,
-      subscribe(scope, callback) {
-        if (!listenersRef.current.has(scope)) {
-          listenersRef.current.set(scope, new Set());
-        }
-        listenersRef.current.get(scope).add(callback);
-        return () => listenersRef.current.get(scope)?.delete(callback);
-      },
+      subscribe,
     }),
-    [bumpRefresh, refreshToken]
+    [bumpRefresh, subscribe]
   );
 
   return <RealtimeContext.Provider value={value}>{children}</RealtimeContext.Provider>;

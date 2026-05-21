@@ -1,10 +1,8 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { usePanelLoadingContext } from '@/context/PanelLoadingContext';
 
 export function useApiQuery(fetcher, deps = [], options = {}) {
-  const { beginLoading, endLoading } = usePanelLoadingContext();
   const { initialData = null, enabled = true, onError } = options;
 
   const [data, setData] = useState(initialData);
@@ -13,30 +11,47 @@ export function useApiQuery(fetcher, deps = [], options = {}) {
 
   const fetcherRef = useRef(fetcher);
   const onErrorRef = useRef(onError);
+  const inFlightRef = useRef(false);
+  const mountedRef = useRef(true);
 
   fetcherRef.current = fetcher;
   onErrorRef.current = onError;
 
-  const refetch = useCallback(async () => {
-    if (!enabled) return null;
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
+  const refetch = useCallback(async () => {
+    if (!enabled || inFlightRef.current) {
+      return null;
+    }
+
+    inFlightRef.current = true;
     setLoading(true);
-    beginLoading();
     setError(null);
 
     try {
       const result = await fetcherRef.current();
-      setData(result);
+      if (mountedRef.current) {
+        setData(result);
+      }
       return result;
     } catch (err) {
-      setError(err);
-      onErrorRef.current?.(err);
+      if (mountedRef.current) {
+        setError(err);
+        onErrorRef.current?.(err);
+      }
       return null;
     } finally {
-      setLoading(false);
-      endLoading();
+      inFlightRef.current = false;
+      if (mountedRef.current) {
+        setLoading(false);
+      }
     }
-  }, [beginLoading, enabled, endLoading]);
+  }, [enabled]);
 
   useEffect(() => {
     refetch();

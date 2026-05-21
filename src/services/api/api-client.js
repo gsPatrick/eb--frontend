@@ -35,6 +35,36 @@ const apiClient = axios.create({
 });
 
 let isRedirectingToLogin = false;
+let lastUnauthorizedRedirectAt = 0;
+
+function shouldRedirectToLogin(requestUrl = '') {
+  if (typeof window === 'undefined' || isRedirectingToLogin) {
+    return false;
+  }
+
+  const path = window.location.pathname;
+  if (path === '/login' || path === '/register' || path === '/forgot-password') {
+    return false;
+  }
+
+  if (String(requestUrl).includes('/users/login')) {
+    return false;
+  }
+
+  const now = Date.now();
+  if (now - lastUnauthorizedRedirectAt < 5000) {
+    return false;
+  }
+
+  return true;
+}
+
+function redirectToLogin() {
+  isRedirectingToLogin = true;
+  lastUnauthorizedRedirectAt = Date.now();
+  clearAuthSession();
+  window.location.replace('/login');
+}
 
 apiClient.interceptors.request.use((config) => {
   if (typeof window !== 'undefined') {
@@ -50,11 +80,10 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     const status = error.response?.status;
+    const requestUrl = error.config?.url || '';
 
-    if (status === 401 && typeof window !== 'undefined' && !isRedirectingToLogin) {
-      isRedirectingToLogin = true;
-      clearAuthSession();
-      window.location.href = '/login';
+    if (status === 401 && shouldRedirectToLogin(requestUrl)) {
+      redirectToLogin();
     }
 
     const data = error.response?.data;

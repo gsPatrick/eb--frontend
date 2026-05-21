@@ -8,7 +8,8 @@ export function saveAuthSession(token, user) {
   localStorage.setItem('eb_user', JSON.stringify(user));
 
   const payload = encodeURIComponent(JSON.stringify({ token, role: user?.role || 'client' }));
-  document.cookie = `${AUTH_COOKIE}=${payload}; path=/; max-age=${AUTH_MAX_AGE_SECONDS}; SameSite=Lax`;
+  const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+  document.cookie = `${AUTH_COOKIE}=${payload}; path=/; max-age=${AUTH_MAX_AGE_SECONDS}; SameSite=Lax${secure}`;
 }
 
 export function clearAuthSession() {
@@ -17,7 +18,7 @@ export function clearAuthSession() {
   localStorage.removeItem('eb_token');
   localStorage.removeItem('eb_user');
   localStorage.removeItem('eb_locale');
-  document.cookie = `${AUTH_COOKIE}=; path=/; max-age=0; SameSite=Lax`;
+  document.cookie = `${AUTH_COOKIE}=; path=/; max-age=0; SameSite=Lax${window.location.protocol === 'https:' ? '; Secure' : ''}`;
 }
 
 export function getAuthRedirectPath(role) {
