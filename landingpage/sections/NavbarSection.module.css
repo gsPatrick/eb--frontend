@@ -1,0 +1,85 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--z-navbar);
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-primary);
+  box-shadow: var(--shadow-glow-soft);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+}
+
+.logo img {
+  height: 48px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.nav {
+  display: none;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+@media (min-width: 900px) {
+  .nav {
+    display: flex;
+  }
+}
+
+.navLink {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: rgba(252, 252, 252, 0.82);
+  transition: color var(--transition-fast);
+}
+
+.navLink:hover {
+  color: var(--color-text-inverse);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.loginLink {
+  display: none;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: rgba(252, 252, 252, 0.85);
+}
+
+.loginLink:hover {
+  color: var(--color-accent);
+}
+
+@media (min-width: 640px) {
+  .loginLink {
+    display: inline;
+  }
+}
+
+.ctaLink {
+  flex-shrink: 0;
+}
+
+.ctaBtn {
+  background: var(--color-text-inverse) !important;
+  color: var(--color-primary) !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.ctaBtn:hover {
+  filter: brightness(0.97);
+  background: rgba(252, 252, 252, 0.92) !important;
+}

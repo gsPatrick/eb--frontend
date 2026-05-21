@@ -1,0 +1,83 @@
+.propertyGrid,
+.inventoryGrid,
+.historyList,
+.scheduleGrid,
+.contractList {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.propertyGrid {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.inventoryGrid {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.historyList,
+.contractList {
+  grid-template-columns: 1fr;
+}
+
+.scheduleGrid {
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+
+.propertyCard,
+.inventoryCard,
+.historyCard,
+.scheduleCard,
+.contractCard {
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-elevated);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.propertyCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.propertyImage {
+  height: 180px;
+}
+
+.propertyBody {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.inventoryCard {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.historyCard,
+.contractCard {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.scheduleCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.scheduleImage {
+  height: 160px;
+}
+
+.scheduleBody {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}

@@ -1,0 +1,28 @@
+.textarea {
+  width: 100%;
+  min-height: 96px;
+  padding: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  resize: vertical;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+.error {
+  border-color: var(--color-error);
+}
+
+.disabled {
+  background: var(--color-bg-muted);
+  cursor: not-allowed;
+  opacity: 0.7;
+}

@@ -1,0 +1,10 @@
+export { default as NavbarSection } from './NavbarSection';
+export { default as HeroSection } from './HeroSection';
+export { default as FeaturesSection } from './FeaturesSection';
+export { default as HowItWorksSection } from './HowItWorksSection';
+export { default as StatsSection } from './StatsSection';
+export { default as LanguagesSection } from './LanguagesSection';
+export { default as ImpactSection } from './ImpactSection';
+export { default as PortalsSection } from './PortalsSection';
+export { default as CtaSection } from './CtaSection';
+export { default as FooterSection } from './FooterSection';

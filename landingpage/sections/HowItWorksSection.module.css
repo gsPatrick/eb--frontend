@@ -1,0 +1,114 @@
+.section {
+  background: linear-gradient(165deg, #061d4d 0%, var(--color-primary) 45%, #0a2d6e 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(84, 204, 139, 0.3), transparent);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.sectionLabel {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-4);
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: var(--font-bold);
+  line-height: 1.15;
+  color: var(--color-text-inverse);
+}
+
+.accent {
+  color: var(--color-accent);
+}
+
+.timeline {
+  list-style: none;
+  display: grid;
+  gap: 0;
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-6);
+}
+
+.marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stepNum {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-text-inverse);
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  flex-shrink: 0;
+}
+
+.line {
+  width: 2px;
+  flex: 1;
+  min-height: 48px;
+  margin-block: var(--space-2);
+  background: linear-gradient(180deg, var(--color-accent), rgba(84, 204, 139, 0.2));
+  border-radius: var(--radius-full);
+}
+
+.content {
+  padding-bottom: var(--space-8);
+}
+
+.itemTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-inverse);
+  margin-bottom: var(--space-2);
+}
+
+.itemDesc {
+  font-size: var(--text-sm);
+  line-height: 1.65;
+  color: rgba(252, 252, 252, 0.72);
+}
+
+.item:last-child .content {
+  padding-bottom: 0;
+}
+
+.item:last-child .line {
+  display: none;
+}

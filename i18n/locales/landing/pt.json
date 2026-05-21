@@ -1,0 +1,130 @@
+{
+  "nav": {
+    "features": "Recursos",
+    "howItWorks": "Como funciona",
+    "languages": "Idiomas",
+    "experiences": "Experiências",
+    "login": "Entrar",
+    "register": "Cadastro",
+    "cta": "Começar grátis",
+    "languageLabel": "Idioma"
+  },
+  "hero": {
+    "videoBadge": "Execução em campo",
+    "badge": "EB Services · Prestador & Cliente",
+    "title": "Limpeza profissional com",
+    "titleHighlight": "prova visual",
+    "titleEnd": "e GPS validado",
+    "subtitle": "O prestador executa no app com geofence, fotos e check-out. O cliente acompanha propriedades, histórico e contratos pelo portal web — tudo em tempo real.",
+    "createAccount": "Criar conta",
+    "login": "Entrar",
+    "trust1": "Check-in a 200 m do imóvel",
+    "trust2": "Fotos antes e depois",
+    "trust3": "App mobile + portal cliente"
+  },
+  "features": {
+    "label": "Recursos",
+    "title": "Funcionalidades para",
+    "titleHighlight": "prestador e cliente",
+    "subtitle": "Cada recurso foi desenhado para quem executa a limpeza em campo e quem acompanha o serviço com confiança.",
+    "forProvider": "Prestador",
+    "forClient": "Cliente",
+    "forBoth": "Ambos",
+    "geofence": {
+      "title": "Geofence GPS",
+      "description": "Check-in e check-out validados a 200 m do imóvel — rigor contratual com alerta visual."
+    },
+    "photos": {
+      "title": "Prova visual",
+      "description": "Fotos antes e depois integradas ao fluxo. O cliente vê o resultado no histórico."
+    },
+    "realtime": {
+      "title": "Tempo real",
+      "description": "Nova OS, estoque crítico e atualizações sincronizadas instantaneamente."
+    },
+    "inventory": {
+      "title": "Inventário",
+      "description": "Prestador consulta estoque em campo; cliente recebe alertas de nível crítico."
+    },
+    "billing": {
+      "title": "Ganhos & faturamento",
+      "description": "Prestador acompanha total recebido; cliente visualiza contratos e cobranças."
+    },
+    "reviews": {
+      "title": "Avaliações",
+      "description": "Cliente avalia cada limpeza concluída — feedback direto após o serviço."
+    }
+  },
+  "howItWorks": {
+    "label": "Como funciona",
+    "title": "Do check-in ao check-out,",
+    "titleHighlight": "sem fricção",
+    "step1Title": "Nova OS no app",
+    "step1Desc": "O prestador recebe a limpeza atribuída em tempo real no celular e ela aparece na agenda do dia.",
+    "step2Title": "Check-in com GPS",
+    "step2Desc": "Validação de proximidade (200 m), fotos “antes” e início da execução — tudo guiado passo a passo.",
+    "step3Title": "Extras & inventário",
+    "step3Desc": "Serviços adicionais marcados em campo. Cliente e prestador acompanham estoque crítico.",
+    "step4Title": "Check-out & avaliação",
+    "step4Desc": "Fotos “depois”, GPS novamente e serviço concluído. Cliente revisa e avalia pelo portal."
+  },
+  "languages": {
+    "label": "Global",
+    "stripLabel": "Disponível em 5 idiomas",
+    "title": "Sua operação fala",
+    "titleHighlight": "5 idiomas",
+    "subtitle": "App mobile e portais web disponíveis em português, inglês, espanhol, francês e alemão. Troque o idioma a qualquer momento — a escolha fica salva para a próxima visita.",
+    "hint": "PT · EN · ES · FR · DE — mesma experiência EB Services em qualquer idioma."
+  },
+  "impact": {
+    "line1": "Tecnologia que transforma",
+    "line2": "cada limpeza em confiança."
+  },
+  "experiences": {
+    "label": "Experiências",
+    "title": "Prestador e cliente,",
+    "titleHighlight": "conectados",
+    "subtitle": "Duas interfaces pensadas para quem executa a limpeza e quem confia no serviço — com funcionalidades completas em cada perfil.",
+    "providerTitle": "Prestador",
+    "providerTagline": "App mobile · execução em campo",
+    "providerDesc": "Agenda do dia, fluxo cinematográfico de execução, GPS, fotos e sincronização offline.",
+    "providerCta": "Acessar como prestador",
+    "providerFeatures": [
+      "Check-in com geofence de 200 m",
+      "Fotos antes/depois pela câmera nativa",
+      "Serviços extras e inventário de campo",
+      "Histórico de ganhos e OS concluídas",
+      "Notificação instantânea de nova OS"
+    ],
+    "clientTitle": "Cliente",
+    "clientTagline": "Portal web · acompanhamento total",
+    "clientDesc": "Visão completa das propriedades, limpezas realizadas, estoque e contratos digitais.",
+    "clientCta": "Acessar como cliente",
+    "clientFeatures": [
+      "Propriedades e calendário de limpezas",
+      "Histórico com fotos do serviço",
+      "Alertas de estoque crítico",
+      "Contratos e faturamento",
+      "Avaliação pós-limpeza"
+    ]
+  },
+  "stats": {
+    "geofence": "Raio de geofence",
+    "languages": "Idiomas suportados",
+    "portals": "Portais web & mobile",
+    "sync": "Sync em tempo real",
+    "ariaLabel": "Números EB Services"
+  },
+  "cta": {
+    "title": "Pronto para elevar sua operação de limpeza?",
+    "subtitle": "App mobile para prestadores e portal web para clientes — geofence, fotos, inventário e notificações em tempo real, em 5 idiomas.",
+    "createAccount": "Criar conta",
+    "hasAccess": "Já tenho acesso"
+  },
+  "footer": {
+    "tagline": "Limpeza profissional com tecnologia — prestador em campo, cliente conectado.",
+    "product": "Produto",
+    "access": "Acesso",
+    "copyright": "© {{year}} EB Services. Todos os direitos reservados."
+  }
+}

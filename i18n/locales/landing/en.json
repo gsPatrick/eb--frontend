@@ -1,0 +1,100 @@
+{
+  "nav": {
+    "features": "Features",
+    "howItWorks": "How it works",
+    "languages": "Languages",
+    "experiences": "Experiences",
+    "login": "Sign in",
+    "register": "Register",
+    "cta": "Get started",
+    "languageLabel": "Language"
+  },
+  "hero": {
+    "videoBadge": "Field execution",
+    "badge": "EB Services · Provider & Client",
+    "title": "Professional cleaning with",
+    "titleHighlight": "visual proof",
+    "titleEnd": "and validated GPS",
+    "subtitle": "Providers execute in the app with geofence, photos and check-out. Clients track properties, history and contracts on the web portal — all in real time.",
+    "createAccount": "Create account",
+    "login": "Sign in",
+    "trust1": "Check-in within 200 m",
+    "trust2": "Before & after photos",
+    "trust3": "Mobile app + client portal"
+  },
+  "features": {
+    "label": "Features",
+    "title": "Built for",
+    "titleHighlight": "provider and client",
+    "subtitle": "Every feature is designed for field execution and client trust.",
+    "forProvider": "Provider",
+    "forClient": "Client",
+    "forBoth": "Both",
+    "geofence": { "title": "GPS geofence", "description": "Check-in and check-out validated within 200 m — contract rigor with visual alerts." },
+    "photos": { "title": "Visual proof", "description": "Before and after photos in the flow. Clients see results in history." },
+    "realtime": { "title": "Real time", "description": "New orders, critical stock and updates synced instantly." },
+    "inventory": { "title": "Inventory", "description": "Providers check stock in the field; clients get critical alerts." },
+    "billing": { "title": "Earnings & billing", "description": "Providers track earnings; clients view contracts and charges." },
+    "reviews": { "title": "Reviews", "description": "Clients rate each completed cleaning — direct feedback after service." }
+  },
+  "howItWorks": {
+    "label": "How it works",
+    "title": "From check-in to check-out,",
+    "titleHighlight": "frictionless",
+    "step1Title": "New order in the app",
+    "step1Desc": "Provider receives the cleaning in real time on their phone — it appears on today's schedule.",
+    "step2Title": "GPS check-in",
+    "step2Desc": "Proximity validation (200 m), before photos and guided step-by-step execution.",
+    "step3Title": "Extras & inventory",
+    "step3Desc": "Additional services marked in the field. Client and provider track critical stock.",
+    "step4Title": "Check-out & review",
+    "step4Desc": "After photos, GPS again and service completed. Client reviews via the portal."
+  },
+  "languages": {
+    "label": "Global",
+    "stripLabel": "Available in 5 languages",
+    "title": "Your operation speaks",
+    "titleHighlight": "5 languages",
+    "subtitle": "Mobile app and web portals in Portuguese, English, Spanish, French and German. Switch anytime — your choice is saved.",
+    "hint": "PT · EN · ES · FR · DE — the same EB Services experience in any language."
+  },
+  "impact": {
+    "line1": "Technology that turns",
+    "line2": "every cleaning into trust."
+  },
+  "experiences": {
+    "label": "Experiences",
+    "title": "Provider and client,",
+    "titleHighlight": "connected",
+    "subtitle": "Two interfaces for those who execute the cleaning and those who trust the service — full features in each profile.",
+    "providerTitle": "Provider",
+    "providerTagline": "Mobile app · field execution",
+    "providerDesc": "Daily schedule, cinematic execution flow, GPS, photos and offline sync.",
+    "providerCta": "Sign in as provider",
+    "providerFeatures": ["200 m geofence check-in", "Before/after photos via native camera", "Extra services & field inventory", "Earnings history & completed orders", "Instant new order notification"],
+    "clientTitle": "Client",
+    "clientTagline": "Web portal · full visibility",
+    "clientDesc": "Complete view of properties, cleanings, inventory and digital contracts.",
+    "clientCta": "Sign in as client",
+    "clientFeatures": ["Properties & cleaning calendar", "History with service photos", "Critical stock alerts", "Contracts & billing", "Post-cleaning review"]
+  },
+  "stats": {
+    "geofence": "Geofence radius",
+    "languages": "Supported languages",
+    "portals": "Web & mobile portals",
+    "sync": "Real-time sync",
+    "ariaLabel": "EB Services metrics"
+  },
+  "cta": {
+    "title": "Ready to elevate your cleaning operation?",
+    "subtitle": "Mobile app for providers and web portal for clients — geofence, photos, inventory and real-time notifications in 5 languages.",
+    "createAccount": "Create account",
+    "hasAccess": "I already have access"
+  },
+  "footer": {
+    "tagline": "Professional cleaning with technology — provider in the field, client connected.",
+    "product": "Product",
+    "access": "Access",
+    "copyright": "© {{year}} EB Services. All rights reserved."
+  }
+}

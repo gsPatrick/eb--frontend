@@ -1,0 +1,62 @@
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3);
+  min-height: 96px;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: var(--font-regular);
+  color: var(--color-text-secondary);
+  letter-spacing: var(--tracking-wide);
+}
+
+.value {
+  margin-top: 4px;
+  font-family: var(--font-sans);
+  font-size: 28px;
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+  line-height: 1.1;
+}
+
+.change {
+  margin-top: 6px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: var(--font-medium);
+}
+
+.change_up {
+  color: var(--color-success);
+}
+
+.change_down {
+  color: var(--color-error);
+}
+
+.change_neutral {
+  color: var(--color-text-secondary);
+}
+
+.icon {
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+
+.skeletonValue {
+  margin: var(--space-2) 0;
+}

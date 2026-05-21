@@ -1,0 +1,223 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+.formPanel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-6);
+  background: var(--color-bg);
+  animation: authPanelInLeft 0.65s var(--ease-out);
+}
+
+.brandPanel {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: var(--space-8);
+  background: linear-gradient(145deg, var(--color-primary) 0%, #0a3078 55%, #061d4d 100%);
+  color: var(--color-text-inverse);
+  animation: authPanelInRight 0.65s var(--ease-out);
+}
+
+.brandGlow {
+  position: absolute;
+  inset: auto -20% -30% auto;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(84, 204, 139, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.brandContent {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.brandContent a {
+  color: #ffffff;
+}
+
+.brandContent a:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.desktopLogoLink {
+  display: inline-block;
+  width: fit-content;
+  line-height: 0;
+}
+
+.desktopLogo {
+  display: block;
+  width: min(100%, 320px);
+  height: auto;
+  max-height: 100px;
+  object-fit: contain;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.heroEyebrow {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.heroTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: var(--font-semibold);
+  line-height: 1.2;
+  color: #ffffff;
+}
+
+.heroText {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: #ffffff;
+  max-width: 420px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.statCard {
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+}
+
+.statCard strong {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: #ffffff;
+}
+
+.statCard span {
+  display: block;
+  margin-top: var(--space-1);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  color: #ffffff;
+}
+
+.formWrap {
+  width: 100%;
+  max-width: 420px;
+  animation: pageEnter 0.5s 0.08s var(--ease-out) both;
+}
+
+.formBrandMobile {
+  display: none;
+  margin-bottom: var(--space-6);
+}
+
+.mobileLogoLink {
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0;
+  line-height: 0;
+  background: linear-gradient(145deg, #061d4d 0%, var(--color-primary) 55%, #0a2d6e 100%);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.mobileLogo {
+  display: block;
+  width: min(100%, 300px);
+  height: auto;
+  max-height: 130px;
+  object-fit: contain;
+}
+
+@media (max-width: 960px) {
+  .formBrandMobile {
+    display: block;
+  }
+}
+
+.formHeader {
+  margin-bottom: var(--space-6);
+}
+
+.formTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+.formSubtitle {
+  margin-top: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .brandPanel {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .formPanel {
+    padding: var(--space-6) var(--space-4);
+  }
+}
+
+@keyframes authPanelInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes authPanelInRight {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

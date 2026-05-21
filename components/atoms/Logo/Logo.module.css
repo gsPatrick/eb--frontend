@@ -1,0 +1,72 @@
+.wrap {
+  display: inline-flex;
+  align-items: center;
+}
+
+.wrap_small,
+.wrap_smallIcon {
+  padding: 0;
+  background: transparent;
+  width: fit-content;
+}
+
+.wrap_auth {
+  padding: 0;
+  background: transparent;
+}
+
+.wrap_default {
+  padding: 0;
+  background: transparent;
+  width: fit-content;
+}
+
+.link {
+  display: inline-flex;
+  text-decoration: none;
+}
+
+.image {
+  display: block;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.sidebarClean,
+.compact {
+  width: auto;
+  height: 58px;
+  max-width: 120px;
+}
+
+.sidebarIcon {
+  width: auto;
+  height: 48px;
+  max-width: 52px;
+}
+
+.default,
+.sidebar {
+  width: 100%;
+  max-width: 220px;
+  height: 52px;
+}
+
+.auth {
+  width: 100%;
+  max-width: 280px;
+  height: 68px;
+}
+
+@media (max-width: 960px) {
+  .auth {
+    max-width: 240px;
+    height: 56px;
+  }
+
+  .compact {
+    height: 52px;
+    max-width: 110px;
+  }
+}

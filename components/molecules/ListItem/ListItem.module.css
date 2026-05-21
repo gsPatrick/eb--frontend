@@ -1,0 +1,64 @@
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  transition: background var(--transition-base);
+  width: 100%;
+  text-align: left;
+}
+
+.clickable {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+.clickable:hover {
+  background: var(--color-sidebar-hover);
+}
+
+.active {
+  background: var(--color-sidebar-active);
+}
+
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--color-sidebar-text);
+}
+
+.active .iconWrap {
+  color: var(--color-primary);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-sidebar-text-active);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subtitle {
+  font-size: var(--text-xs);
+  color: var(--color-sidebar-text);
+}
+
+.trailing {
+  flex-shrink: 0;
+  color: var(--color-sidebar-text);
+}

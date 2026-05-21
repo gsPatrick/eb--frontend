@@ -1,0 +1,16 @@
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-error);
+}
+
+.hint {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}

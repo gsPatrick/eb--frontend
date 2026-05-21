@@ -1,0 +1,151 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.label {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+}
+
+.hint {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-2);
+}
+
+.row .grid {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--space-2);
+}
+
+.compact .grid {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--space-2);
+}
+
+.option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-elevated);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s, transform 0.15s;
+  text-align: left;
+}
+
+.row .option,
+.compact .option {
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-2);
+  gap: var(--space-1);
+}
+
+.option:hover {
+  border-color: var(--color-primary-light);
+  background: var(--color-bg-muted);
+  transform: translateY(-1px);
+}
+
+.active {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+  background: rgba(8, 37, 103, 0.04);
+}
+
+.flag {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.row .flag,
+.compact .flag {
+  font-size: 1.65rem;
+}
+
+.optionText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.row .optionText,
+.compact .optionText {
+  align-items: center;
+  text-align: center;
+}
+
+.optionText strong {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+}
+
+.row .optionText strong {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.optionText span {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.check {
+  margin-left: auto;
+  color: var(--color-success);
+  font-weight: var(--font-bold);
+}
+
+.row .check,
+.compact .check {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  margin: 0;
+  font-size: 10px;
+}
+
+.compact .optionText {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .row .grid,
+  .compact .grid {
+    overflow-x: auto;
+    padding-bottom: var(--space-1);
+  }
+
+  .row .option,
+  .compact .option {
+    min-width: 56px;
+    flex: 0 0 56px;
+  }
+}
