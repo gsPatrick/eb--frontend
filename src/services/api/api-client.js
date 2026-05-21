@@ -34,6 +34,8 @@ const apiClient = axios.create({
   },
 });
 
+let isRedirectingToLogin = false;
+
 apiClient.interceptors.request.use((config) => {
   if (typeof window !== 'undefined') {
     const token = localStorage.getItem('eb_token');
@@ -49,7 +51,8 @@ apiClient.interceptors.response.use(
   (error) => {
     const status = error.response?.status;
 
-    if (status === 401 && typeof window !== 'undefined') {
+    if (status === 401 && typeof window !== 'undefined' && !isRedirectingToLogin) {
+      isRedirectingToLogin = true;
       clearAuthSession();
       window.location.href = '/login';
     }

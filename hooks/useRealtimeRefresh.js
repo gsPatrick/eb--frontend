@@ -9,7 +9,7 @@ export function useRealtimeRefresh(scope, refetch) {
   refetchRef.current = refetch;
 
   useEffect(() => {
-    if (!context?.subscribe || !refetch) return undefined;
+    if (!context?.subscribe || !refetchRef.current) return undefined;
     return context.subscribe(scope, () => refetchRef.current?.());
-  }, [context, scope, refetch]);
+  }, [context, scope]);
 }

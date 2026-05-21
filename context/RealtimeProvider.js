@@ -17,8 +17,11 @@ const CLIENT_EVENTS = new Set(['ORDER_COMPLETED', 'INVENTORY_CRITICAL']);
 export function RealtimeProvider({ children, audience = 'admin' }) {
   const toast = useToast();
   const router = useRouter();
+  const toastRef = useRef(toast);
   const [refreshToken, setRefreshToken] = useState(0);
   const listenersRef = useRef(new Map());
+
+  toastRef.current = toast;
 
   const bumpRefresh = useCallback((scope) => {
     setRefreshToken((prev) => prev + 1);
@@ -44,7 +47,7 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
 
       if (!allowed) return;
 
-      toast.info(payload.title || type, payload.message || '');
+      toastRef.current.info(payload.title || type, payload.message || '');
 
       if (type === 'ORDER_CHECKIN') {
         bumpRefresh('orders');
@@ -63,7 +66,7 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
     });
 
     socket.on('force_logout', (payload) => {
-      toast.warning(payload?.title || 'Sessão encerrada', payload?.message || '');
+      toastRef.current.warning(payload?.title || 'Sessão encerrada', payload?.message || '');
       clearAuthSession();
       router.push('/login');
     });
@@ -71,7 +74,7 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
     return () => {
       socket.disconnect();
     };
-  }, [audience, bumpRefresh, router, toast]);
+  }, [audience, bumpRefresh, router]);
 
   const value = useMemo(
     () => ({
