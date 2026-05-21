@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Icon from '@/components/atoms/Icon';
 import ProviderSidebar from '@/components/organisms/ProviderSidebar';
 import { PanelLoadingProvider } from '@/context/PanelLoadingContext';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { cn } from '@/utils/cn';
 import styles from '@/components/templates/DashboardLayout/DashboardLayout.module.css';
 
@@ -12,6 +13,7 @@ const STORAGE_KEY = 'eb_provider_sidebar_collapsed';
 
 function ProviderLayoutShell({ children }) {
   const { t } = useTranslation();
+  const isDesktop = useMediaQuery('(min-width: 769px)');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
@@ -19,6 +21,12 @@ function ProviderLayoutShell({ children }) {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved !== null) setSidebarCollapsed(saved === 'true');
   }, []);
+
+  useEffect(() => {
+    if (isDesktop) {
+      setSidebarOpen(false);
+    }
+  }, [isDesktop]);
 
   const toggleSidebarCollapse = () => {
     setSidebarCollapsed((prev) => {

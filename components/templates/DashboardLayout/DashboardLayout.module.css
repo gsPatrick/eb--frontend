@@ -1,20 +1,7 @@
 .layout {
-  --layout-sidebar-width: var(--sidebar-width);
   min-height: 100vh;
   background: var(--color-bg);
   overflow-x: clip;
-}
-
-.layout[data-sidebar-collapsed='true'] {
-  --layout-sidebar-width: var(--sidebar-width-collapsed);
-}
-
-@media (min-width: 769px) {
-  .layout {
-    display: grid;
-    grid-template-columns: var(--layout-sidebar-width) minmax(0, 1fr);
-    transition: grid-template-columns var(--transition-base);
-  }
 }
 
 .main {
@@ -27,7 +14,17 @@
 
 @media (min-width: 769px) {
   .main {
+    margin-left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
     padding-right: var(--sidebar-offset);
+    transition:
+      margin-left var(--transition-base),
+      width var(--transition-base);
+  }
+
+  .layout[data-sidebar-collapsed='true'] .main {
+    margin-left: var(--sidebar-width-collapsed);
+    width: calc(100% - var(--sidebar-width-collapsed));
   }
 }
 

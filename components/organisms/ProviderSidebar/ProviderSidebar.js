@@ -45,7 +45,7 @@ export default function ProviderSidebar({ isOpen, onClose, collapsed = false, on
 
   return (
     <>
-      {isOpen && (
+      {isOpen && !isDesktop && (
         <button
           type="button"
           className={styles.backdrop}

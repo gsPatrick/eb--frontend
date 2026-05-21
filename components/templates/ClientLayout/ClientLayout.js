@@ -6,6 +6,7 @@ import { RealtimeProvider } from '@/context/RealtimeProvider';
 import Icon from '@/components/atoms/Icon';
 import ClientSidebar from '@/components/organisms/ClientSidebar';
 import { PanelLoadingProvider } from '@/context/PanelLoadingContext';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { cn } from '@/utils/cn';
 import styles from '@/components/templates/DashboardLayout/DashboardLayout.module.css';
 
@@ -13,6 +14,7 @@ const STORAGE_KEY = 'eb_client_sidebar_collapsed';
 
 function ClientLayoutShell({ children }) {
   const { t } = useTranslation();
+  const isDesktop = useMediaQuery('(min-width: 769px)');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
@@ -22,6 +24,12 @@ function ClientLayoutShell({ children }) {
       setSidebarCollapsed(saved === 'true');
     }
   }, []);
+
+  useEffect(() => {
+    if (isDesktop) {
+      setSidebarOpen(false);
+    }
+  }, [isDesktop]);
 
   const toggleSidebarCollapse = () => {
     setSidebarCollapsed((prev) => {

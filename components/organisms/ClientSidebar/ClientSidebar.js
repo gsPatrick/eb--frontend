@@ -44,7 +44,9 @@ export default function ClientSidebar({ isOpen, onClose, collapsed = false, onTo
 
   return (
     <>
-      {isOpen && <button type="button" className={styles.backdrop} onClick={onClose} aria-label="Fechar menu" />}
+      {isOpen && !isDesktop && (
+        <button type="button" className={styles.backdrop} onClick={onClose} aria-label={t('common.closeMenu')} />
+      )}
       <div className={cn(styles.shell, isOpen && styles.open, isCompact && styles.collapsed)}>
         <aside className={cn(styles.sidebar, isCompact && styles.sidebarCollapsed)}>
           <div className={cn(styles.miniHeader, isCompact && styles.miniHeaderCollapsed)}>

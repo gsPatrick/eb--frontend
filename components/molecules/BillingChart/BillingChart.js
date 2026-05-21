@@ -6,6 +6,7 @@ import Select from '@/components/atoms/Select';
 import Card from '@/components/molecules/Card';
 import Skeleton from '@/components/atoms/Skeleton';
 import Icon from '@/components/atoms/Icon';
+import { useLocale } from '@/context/I18nProvider';
 import { formatCurrency } from '@/utils/formatters';
 import styles from './BillingChart.module.css';
 import { cn } from '@/utils/cn';
@@ -14,7 +15,8 @@ function normalizeDataByYear(dataByYear) {
   const normalized = {};
 
   Object.entries(dataByYear || {}).forEach(([year, months]) => {
-    normalized[Number(year)] = (months || [])
+    const entries = Array.isArray(months) ? months : [];
+    normalized[Number(year)] = entries
       .map((item) => ({
         month: Number(item.month),
         value: Number(item.value) || 0,
@@ -59,8 +61,8 @@ function formatChange(current, previous, label) {
 }
 
 export default function BillingChart({ dataByYear = {}, loading = false, className }) {
-  const { t, i18n } = useTranslation();
-  const locale = i18n.language || 'pt-BR';
+  const { t } = useTranslation();
+  const { intlLocale } = useLocale();
   const normalizedData = useMemo(() => normalizeDataByYear(dataByYear), [dataByYear]);
   const yearOptions = useMemo(() => getYearOptions(normalizedData), [normalizedData]);
 
@@ -73,7 +75,7 @@ export default function BillingChart({ dataByYear = {}, loading = false, classNa
   }, [yearOptions]);
 
   const yearData = normalizedData[year] || [];
-  const chartData = useMemo(() => buildYearChart(yearData, locale), [yearData, locale]);
+  const chartData = useMemo(() => buildYearChart(yearData, intlLocale), [yearData, intlLocale]);
   const selectedPoint = chartData.find((item) => item.month === month) || chartData[month] || chartData[0];
   const previousPoint = chartData.find((item) => item.month === month - 1);
   const changeLabel = selectedPoint
@@ -116,7 +118,7 @@ export default function BillingChart({ dataByYear = {}, loading = false, classNa
                 >
                   {chartData.map((item) => (
                     <option key={item.month} value={String(item.month)}>
-                      {getMonthLabel(item.month, locale, 'long')}
+                      {getMonthLabel(item.month, intlLocale, 'long')}
                     </option>
                   ))}
                 </Select>
@@ -138,9 +140,9 @@ export default function BillingChart({ dataByYear = {}, loading = false, classNa
               </div>
             </div>
           </div>
-          <p className={styles.value}>{formatCurrency(selectedPoint?.value || 0, locale)}</p>
+          <p className={styles.value}>{formatCurrency(selectedPoint?.value || 0, intlLocale)}</p>
           <p className={styles.period}>
-            {getMonthLabel(selectedPoint?.month ?? month, locale, 'long')} · {year}
+            {getMonthLabel(selectedPoint?.month ?? month, intlLocale, 'long')} · {year}
           </p>
         </div>
         {changeLabel && (
@@ -176,7 +178,7 @@ export default function BillingChart({ dataByYear = {}, loading = false, classNa
               type="button"
               className={cn(styles.barGroup, item.month === month && styles.barGroupActive)}
               onClick={() => setMonth(item.month)}
-              aria-label={`${item.label} ${year}: ${formatCurrency(item.value, locale)}`}
+              aria-label={`${item.label} ${year}: ${formatCurrency(item.value, intlLocale)}`}
             >
               <div className={styles.barTrack}>
                 <div

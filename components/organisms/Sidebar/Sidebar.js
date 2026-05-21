@@ -51,7 +51,7 @@ export default function Sidebar({ isOpen, onClose, collapsed = false, onToggleCo
 
   return (
     <>
-      {isOpen && (
+      {isOpen && !isDesktop && (
         <button
           type="button"
           className={styles.backdrop}
