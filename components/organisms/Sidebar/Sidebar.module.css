@@ -222,8 +222,6 @@
 }
 
 .promoCompact {
-  margin-top: auto;
-  margin-bottom: 20px;
   width: 40px;
   height: 40px;
   align-self: center;
@@ -239,6 +237,10 @@
   transition:
     background var(--transition-base),
     transform var(--transition-fast);
+}
+
+.sidebarFooter .promoCompact {
+  margin: 0;
 }
 
 .promoCompact:hover {
@@ -260,8 +262,9 @@
   width: 100%;
 }
 
-.sidebarCollapsed .sidebarFooter {
+.sidebarFooterCollapsed {
   align-items: center;
+  gap: 12px;
 }
 
 .langDropdown {
@@ -269,6 +272,12 @@
 }
 
 .sidebarCollapsed .langDropdown {
+  width: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.sidebarFooterCollapsed .langDropdown {
   width: auto;
   display: flex;
   justify-content: center;

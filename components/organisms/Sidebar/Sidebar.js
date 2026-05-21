@@ -114,18 +114,18 @@ export default function Sidebar({ isOpen, onClose, collapsed = false, onToggleCo
             </Link>
           )}
 
-          {isCompact && (
-            <Link
-              href="/dashboard/profile"
-              className={cn(styles.promoCompact, pathname === '/dashboard/profile' && styles.promoCompactActive)}
-              onClick={onClose}
-              title={`${user.firstName} · ${t('roles.admin')}`}
-            >
-              {user.firstName.charAt(0)}
-            </Link>
-          )}
+          <div className={cn(styles.sidebarFooter, isCompact && styles.sidebarFooterCollapsed)}>
+            {isCompact && (
+              <Link
+                href="/dashboard/profile"
+                className={cn(styles.promoCompact, pathname === '/dashboard/profile' && styles.promoCompactActive)}
+                onClick={onClose}
+                title={`${user.firstName} · ${t('roles.admin')}`}
+              >
+                {user.firstName.charAt(0)}
+              </Link>
+            )}
 
-          <div className={styles.sidebarFooter}>
             <LanguageDropdown
               theme="sidebar"
               iconOnly={isCompact}

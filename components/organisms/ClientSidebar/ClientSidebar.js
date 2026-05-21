@@ -100,18 +100,18 @@ export default function ClientSidebar({ isOpen, onClose, collapsed = false, onTo
             </Link>
           )}
 
-          {isCompact && (
-            <Link
-              href="/client/profile"
-              className={cn(styles.promoCompact, pathname === '/client/profile' && styles.promoCompactActive)}
-              onClick={onClose}
-              title={`${user.firstName} · ${t('roles.client')}`}
-            >
-              {user.firstName.charAt(0)}
-            </Link>
-          )}
+          <div className={cn(styles.sidebarFooter, isCompact && styles.sidebarFooterCollapsed)}>
+            {isCompact && (
+              <Link
+                href="/client/profile"
+                className={cn(styles.promoCompact, pathname === '/client/profile' && styles.promoCompactActive)}
+                onClick={onClose}
+                title={`${user.firstName} · ${t('roles.client')}`}
+              >
+                {user.firstName.charAt(0)}
+              </Link>
+            )}
 
-          <div className={styles.sidebarFooter}>
             <LanguageDropdown
               theme="sidebar"
               iconOnly={isCompact}
