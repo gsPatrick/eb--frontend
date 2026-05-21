@@ -2,10 +2,17 @@
 
 import { useEffect, useState } from 'react';
 import Badge from '@/components/atoms/Badge';
+import { getStockBadgeVariant, getStockLabel } from '@/utils/inventoryHelpers';
 import styles from './AlertCarousel.module.css';
 import { cn } from '@/utils/cn';
 
-export default function AlertCarousel({ items = [], className, interval = 3500 }) {
+const BADGE_CLASS = {
+  error: styles.badgeCritical,
+  warning: styles.badgeReview,
+  success: styles.badgeOk,
+};
+
+export default function AlertCarousel({ items = [], className, interval = 3500, t }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -32,16 +39,31 @@ export default function AlertCarousel({ items = [], className, interval = 3500 }
           className={styles.track}
           style={{ transform: `translateX(-${activeIndex * 100}%)` }}
         >
-          {items.map((alert) => (
-            <article key={alert.id} className={styles.slide}>
+          {items.map((alert) => {
+            const badgeVariant = getStockBadgeVariant(alert.status);
+            return (
+            <article
+              key={alert.id}
+              className={cn(
+                styles.slide,
+                alert.status === 'critical' && styles.slideCritical,
+                alert.status === 'review' && styles.slideReview
+              )}
+            >
               <span className={styles.text}>
                 <strong>{alert.property}</strong> — {alert.item}
               </span>
-              <Badge variant="error">
-                {alert.quantity}/{alert.minQuantity}
-              </Badge>
+              <div className={styles.badges}>
+                <Badge variant={badgeVariant} className={BADGE_CLASS[badgeVariant]}>
+                  {t ? getStockLabel(alert.status, t) : alert.status}
+                </Badge>
+                <Badge variant={badgeVariant} className={BADGE_CLASS[badgeVariant]}>
+                  {alert.quantity}/{alert.minQuantity}
+                </Badge>
+              </div>
             </article>
-          ))}
+            );
+          })}
         </div>
       </div>
 

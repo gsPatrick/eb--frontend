@@ -52,7 +52,8 @@
     "yes": "Sí",
     "no": "No",
     "notAvailable": "N/A",
-    "minutes": "min"
+    "minutes": "min",
+    "reviewStock": "Stock para revisar"
   },
   "nav": {
     "dashboard": "Panel",
@@ -243,7 +244,11 @@
         "status": "Status",
         "date": "Date",
         "total": "Total"
-      }
+      },
+      "reviewStockTitle": "Stock para revisar",
+      "reviewStockDescription": "Artículos cerca del mínimo. Conviene revisar reposición pronto.",
+      "stockOkTitle": "Stock en buen estado",
+      "stockOkDescription": "Ningún artículo crítico o pendiente de revisión por ahora."
     },
     "users": {
       "title": "Gestión de Usuarios",

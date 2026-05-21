@@ -6,6 +6,16 @@
   background: linear-gradient(135deg, rgba(224, 49, 49, 0.06), rgba(255, 255, 255, 0.5));
 }
 
+.variant_warning {
+  border-color: rgba(245, 158, 11, 0.25);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(255, 255, 255, 0.72));
+}
+
+.variant_success {
+  border-color: rgba(16, 185, 129, 0.25);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(255, 255, 255, 0.72));
+}
+
 .fullWidth {
   width: 100%;
   align-items: center;
@@ -64,12 +74,26 @@
   flex-shrink: 0;
 }
 
+.icon_warning {
+  background: rgba(245, 158, 11, 0.14);
+  color: var(--color-warning);
+}
+
+.icon_success {
+  background: rgba(16, 185, 129, 0.14);
+  color: var(--color-success);
+}
+
 .pulseRing {
   position: absolute;
   inset: -4px;
   border-radius: inherit;
   border: 2px solid rgba(224, 49, 49, 0.35);
   animation: alertRing 2s ease-out infinite;
+}
+
+.ring_warning {
+  border-color: rgba(245, 158, 11, 0.35);
 }
 
 .content {
@@ -103,6 +127,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.count_warning {
+  background: var(--color-warning);
+}
+
+.count_success {
+  background: var(--color-success);
 }
 
 .content p {

@@ -52,7 +52,8 @@
     "yes": "Yes",
     "no": "No",
     "notAvailable": "N/A",
-    "minutes": "min"
+    "minutes": "min",
+    "reviewStock": "Stock to review"
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -243,7 +244,11 @@
         "status": "Status",
         "date": "Date",
         "total": "Total"
-      }
+      },
+      "reviewStockTitle": "Stock to review",
+      "reviewStockDescription": "Items close to the minimum level. Consider restocking soon.",
+      "stockOkTitle": "Stock is healthy",
+      "stockOkDescription": "No critical or review items at the moment."
     },
     "users": {
       "title": "User Management",

@@ -52,7 +52,8 @@
     "yes": "Oui",
     "no": "Non",
     "notAvailable": "N/A",
-    "minutes": "min"
+    "minutes": "min",
+    "reviewStock": "Stock à analyser"
   },
   "nav": {
     "dashboard": "Tableau de bord",
@@ -243,7 +244,11 @@
         "status": "Status",
         "date": "Date",
         "total": "Total"
-      }
+      },
+      "reviewStockTitle": "Stock à analyser",
+      "reviewStockDescription": "Articles proches du minimum. Pensez à réapprovisionner bientôt.",
+      "stockOkTitle": "Stock sous contrôle",
+      "stockOkDescription": "Aucun article critique ou à analyser pour le moment."
     },
     "users": {
       "title": "Gestion des Utilisateurs",

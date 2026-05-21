@@ -16,6 +16,7 @@
     "scheduled": "Limpeza agendada",
     "criticalStock": "Estoque crítico",
     "lowStock": "Estoque baixo",
+    "reviewStock": "Estoque para analisar",
     "okStock": "Em dia",
     "photos": "Fotos",
     "before": "Antes",
@@ -235,6 +236,10 @@
       "criticalStockAlerts": "Alertas de estoque crítico",
       "criticalStockTitle": "Alertas de estoque crítico",
       "criticalStockDescription": "Itens abaixo do mínimo configurado. Reposição necessária.",
+      "reviewStockTitle": "Estoque para analisar",
+      "reviewStockDescription": "Itens próximos do mínimo. Vale revisar reposição em breve.",
+      "stockOkTitle": "Estoque em dia",
+      "stockOkDescription": "Nenhum item crítico ou pendente de análise no momento.",
       "recentOrders": "Ordens recentes",
       "viewFullTable": "Ver tabela completa →",
       "columns": {

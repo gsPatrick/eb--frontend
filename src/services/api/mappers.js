@@ -1,5 +1,7 @@
 import { API_ORIGIN } from './api-client';
 
+import { resolveInventoryStockStatus } from '@/utils/inventoryHelpers';
+
 export function resolveMediaUrl(url) {
   if (!url) return null;
   if (url.startsWith('http') || url.startsWith('data:')) return url;
@@ -94,12 +96,9 @@ export function mapServiceOrder(order) {
 export function mapInventoryItem(item) {
   if (!item) return null;
 
-  const quantity = Number(item.quantity || 0);
+  const quantity = Number(item.currentQuantity ?? item.quantity ?? 0);
   const minQuantity = Number(item.criticalLevel ?? item.minQuantity ?? 0);
-  let status = 'ok';
-
-  if (quantity <= minQuantity) status = 'critical';
-  else if (quantity <= minQuantity * 1.5) status = 'low';
+  const status = resolveInventoryStockStatus(quantity, minQuantity);
 
   return {
     id: item.id,
@@ -110,6 +109,7 @@ export function mapInventoryItem(item) {
     minQuantity,
     unit: item.unit || 'un.',
     status,
+    isCritical: item.is_critical ?? status === 'critical',
   };
 }
 

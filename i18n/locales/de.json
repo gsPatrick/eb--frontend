@@ -52,7 +52,8 @@
     "yes": "Ja",
     "no": "Nein",
     "notAvailable": "N/A",
-    "minutes": "min"
+    "minutes": "min",
+    "reviewStock": "Bestand prüfen"
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -243,7 +244,11 @@
         "status": "Status",
         "date": "Date",
         "total": "Total"
-      }
+      },
+      "reviewStockTitle": "Bestand prüfen",
+      "reviewStockDescription": "Artikel nahe am Mindestbestand. Baldige Nachbestellung prüfen.",
+      "stockOkTitle": "Bestand in Ordnung",
+      "stockOkDescription": "Derzeit keine kritischen oder zu prüfenden Artikel."
     },
     "users": {
       "title": "Benutzerverwaltung",

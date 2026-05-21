@@ -11,19 +11,12 @@ import ClientLayout from '@/components/templates/ClientLayout';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { useRealtimeRefresh } from '@/hooks/useRealtimeRefresh';
 import { inventoryApi, propertiesApi } from '@/src/services/api';
+import {
+  getStockBadgeVariant,
+  getStockLabel,
+  INVENTORY_STOCK_STATUS,
+} from '@/utils/inventoryHelpers';
 import styles from '@/styles/client.module.css';
-
-function getStockLabel(status, t) {
-  if (status === 'critical') return t('common.criticalStock');
-  if (status === 'low') return t('common.lowStock');
-  return t('common.okStock');
-}
-
-function getStockVariant(status) {
-  if (status === 'critical') return 'error';
-  if (status === 'low') return 'warning';
-  return 'success';
-}
 
 export default function ClientInventoryPage() {
   const { t } = useTranslation();
@@ -92,15 +85,15 @@ export default function ClientInventoryPage() {
                 {filteredItems.map((item) => {
                   const ratio = Math.min(item.quantity / item.minQuantity, 1);
                   const cardClass =
-                    item.status === 'critical'
+                    item.status === INVENTORY_STOCK_STATUS.CRITICAL
                       ? `${styles.inventoryCard} ${styles.inventoryCardCritical}`
-                      : item.status === 'low'
+                      : item.status === INVENTORY_STOCK_STATUS.REVIEW
                         ? `${styles.inventoryCard} ${styles.inventoryCardLow}`
                         : styles.inventoryCard;
                   const fillClass =
-                    item.status === 'critical'
+                    item.status === INVENTORY_STOCK_STATUS.CRITICAL
                       ? `${styles.stockFill} ${styles.stockFillCritical}`
-                      : item.status === 'low'
+                      : item.status === INVENTORY_STOCK_STATUS.REVIEW
                         ? `${styles.stockFill} ${styles.stockFillLow}`
                         : styles.stockFill;
 
@@ -111,7 +104,7 @@ export default function ClientInventoryPage() {
                           <h2 className={styles.inventoryTitle}>{item.item}</h2>
                           <p className={styles.inventoryProperty}>{item.property}</p>
                         </div>
-                        <Badge variant={getStockVariant(item.status)}>
+                        <Badge variant={getStockBadgeVariant(item.status)}>
                           {getStockLabel(item.status, t)}
                         </Badge>
                       </div>

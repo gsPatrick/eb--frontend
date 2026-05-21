@@ -15,7 +15,13 @@ import { useRealtimeRefresh } from '@/hooks/useRealtimeRefresh';
 import { usePagination } from '@/hooks/usePagination';
 import { inventoryApi, ordersApi, propertiesApi } from '@/src/services/api';
 import { getOrderStatusBadge } from '@/utils/adminHelpers';
+import {
+  getStockSeverity,
+  INVENTORY_STOCK_STATUS,
+  summarizeInventoryStock,
+} from '@/utils/inventoryHelpers';
 import { formatCurrency, formatDate } from '@/utils/formatters';
+import { cn } from '@/utils/cn';
 import styles from '@/styles/admin.module.css';
 
 function buildBillingByYear(orders) {
@@ -69,19 +75,58 @@ export default function AdminDashboardPage() {
 
   const orders = data?.orders ?? [];
   const properties = data?.properties ?? [];
+  const inventory = data?.inventory ?? [];
+  const stockSummary = useMemo(() => summarizeInventoryStock(inventory), [inventory]);
+
   const inventoryAlerts = useMemo(
     () =>
-      (data?.inventory ?? [])
-        .filter((item) => item.status === 'critical')
+      inventory
+        .filter((item) => item.status !== INVENTORY_STOCK_STATUS.OK)
+        .sort(
+          (a, b) =>
+            getStockSeverity(a.status) - getStockSeverity(b.status) ||
+            a.property.localeCompare(b.property)
+        )
         .map((item) => ({
           id: item.id,
           property: item.property,
           item: item.item,
           quantity: item.quantity,
           minQuantity: item.minQuantity,
+          status: item.status,
         })),
-    [data?.inventory]
+    [inventory]
   );
+
+  const stockAlertMeta = useMemo(() => {
+    if (stockSummary.critical > 0) {
+      return {
+        variant: 'error',
+        title: t('admin.dashboard.criticalStockTitle'),
+        description: t('admin.dashboard.criticalStockDescription'),
+        count: stockSummary.critical,
+        pulse: true,
+      };
+    }
+
+    if (stockSummary.review > 0) {
+      return {
+        variant: 'warning',
+        title: t('admin.dashboard.reviewStockTitle'),
+        description: t('admin.dashboard.reviewStockDescription'),
+        count: stockSummary.review,
+        pulse: false,
+      };
+    }
+
+    return {
+      variant: 'success',
+      title: t('admin.dashboard.stockOkTitle'),
+      description: t('admin.dashboard.stockOkDescription'),
+      count: stockSummary.ok,
+      pulse: false,
+    };
+  }, [stockSummary, t]);
 
   const { paginatedItems, paginationProps } = usePagination(orders);
   const billingByYear = useMemo(() => buildBillingByYear(orders), [orders]);
@@ -170,15 +215,34 @@ export default function AdminDashboardPage() {
           />
         </div>
 
+        {!loading && (
         <section className={styles.alertSection}>
+          <div className={styles.stockSummary}>
+            <div className={cn(styles.stockStat, styles.stockStatOk)}>
+              <span className={styles.stockStatLabel}>{t('common.okStock')}</span>
+              <strong className={styles.stockStatValue}>{stockSummary.ok}</strong>
+            </div>
+            <div className={cn(styles.stockStat, styles.stockStatReview)}>
+              <span className={styles.stockStatLabel}>{t('common.reviewStock')}</span>
+              <strong className={styles.stockStatValue}>{stockSummary.review}</strong>
+            </div>
+            <div className={cn(styles.stockStat, styles.stockStatCritical)}>
+              <span className={styles.stockStatLabel}>{t('common.criticalStock')}</span>
+              <strong className={styles.stockStatValue}>{stockSummary.critical}</strong>
+            </div>
+          </div>
+
           <AlertCard
             fullWidth
-            title={t('admin.dashboard.criticalStockTitle')}
-            description={t('admin.dashboard.criticalStockDescription')}
-            count={inventoryAlerts.length}
+            variant={stockAlertMeta.variant}
+            title={stockAlertMeta.title}
+            description={stockAlertMeta.description}
+            count={stockAlertMeta.count}
+            pulse={stockAlertMeta.pulse}
           />
-          <AlertCarousel items={inventoryAlerts} />
+          <AlertCarousel items={inventoryAlerts} t={t} />
         </section>
+        )}
 
         <BillingChart dataByYear={billingByYear} loading={loading} />
 
