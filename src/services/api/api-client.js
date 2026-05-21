@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { clearAuthSession } from '@/utils/authSession';
 
-const DEFAULT_API_ORIGIN = 'https://api.ebservices.com';
+const DEFAULT_API_ORIGIN = 'https://sistema-api.a8v108.easypanel.host';
 
 function resolveApiOrigin() {
   if (process.env.NEXT_PUBLIC_API_ORIGIN) {
