@@ -58,11 +58,15 @@ apiClient.interceptors.response.use(
     }
 
     const data = error.response?.data;
-    const message =
+    let message =
       data?.message ||
       data?.error?.message ||
       error.message ||
       'Erro inesperado. Tente novamente.';
+
+    if (status === 429) {
+      message = 'Muitas requisições. Aguarde alguns minutos e tente novamente.';
+    }
 
     const apiError = new Error(message);
     apiError.code = data?.error?.code || data?.code;

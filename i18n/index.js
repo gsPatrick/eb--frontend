@@ -20,18 +20,27 @@ const resources = {
   de: { translation: { ...de, landing: landingDe } },
 };
 
-export function createI18nInstance(locale = DEFAULT_LOCALE) {
-  const instance = i18n.createInstance();
+let sharedInstance = null;
 
-  instance.use(initReactI18next).init({
+export function getI18nInstance(initialLocale = DEFAULT_LOCALE) {
+  if (sharedInstance) {
+    if (sharedInstance.language !== initialLocale) {
+      sharedInstance.changeLanguage(initialLocale);
+    }
+    return sharedInstance;
+  }
+
+  sharedInstance = i18n.createInstance();
+  sharedInstance.use(initReactI18next).init({
     resources,
-    lng: locale,
+    lng: initialLocale,
     fallbackLng: DEFAULT_LOCALE,
     interpolation: { escapeValue: false },
     react: { useSuspense: false },
+    initImmediate: false,
   });
 
-  return instance;
+  return sharedInstance;
 }
 
-export default i18n;
+export default sharedInstance;

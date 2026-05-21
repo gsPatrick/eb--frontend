@@ -5,8 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { RealtimeProvider } from '@/context/RealtimeProvider';
 import Icon from '@/components/atoms/Icon';
 import ClientSidebar from '@/components/organisms/ClientSidebar';
-import SidebarSkeleton from '@/components/organisms/SidebarSkeleton';
-import { PanelLoadingProvider, usePanelLoadingContext } from '@/context/PanelLoadingContext';
+import { PanelLoadingProvider } from '@/context/PanelLoadingContext';
 import { cn } from '@/utils/cn';
 import styles from '@/components/templates/DashboardLayout/DashboardLayout.module.css';
 
@@ -14,7 +13,6 @@ const STORAGE_KEY = 'eb_client_sidebar_collapsed';
 
 function ClientLayoutShell({ children }) {
   const { t } = useTranslation();
-  const { loading: panelLoading } = usePanelLoadingContext();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
@@ -35,16 +33,12 @@ function ClientLayoutShell({ children }) {
 
   return (
     <div className={styles.layout} data-sidebar-collapsed={sidebarCollapsed ? 'true' : 'false'}>
-      {panelLoading ? (
-        <SidebarSkeleton collapsed={sidebarCollapsed} />
-      ) : (
-        <ClientSidebar
-          isOpen={sidebarOpen}
-          onClose={() => setSidebarOpen(false)}
-          collapsed={sidebarCollapsed}
-          onToggleCollapse={toggleSidebarCollapse}
-        />
-      )}
+      <ClientSidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        collapsed={sidebarCollapsed}
+        onToggleCollapse={toggleSidebarCollapse}
+      />
       <div className={styles.main}>
         <button
           type="button"

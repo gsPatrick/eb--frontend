@@ -1,20 +1,38 @@
 'use client';
 
-import { createContext, useContext, useMemo, useRef, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
 
 const PanelLoadingContext = createContext(null);
 
 export function PanelLoadingProvider({ children }) {
-  const [loading, setLoading] = useState(true);
-  const setLoadingRef = useRef(setLoading);
-  setLoadingRef.current = setLoading;
+  const inFlightRef = useRef(0);
+  const [loading, setLoading] = useState(false);
+
+  const beginLoading = useCallback(() => {
+    inFlightRef.current += 1;
+    if (inFlightRef.current === 1) {
+      setLoading(true);
+    }
+  }, []);
+
+  const endLoading = useCallback(() => {
+    inFlightRef.current = Math.max(0, inFlightRef.current - 1);
+    if (inFlightRef.current === 0) {
+      setLoading(false);
+    }
+  }, []);
 
   const value = useMemo(
     () => ({
       loading,
-      setLoading: (next) => setLoadingRef.current(next),
+      beginLoading,
+      endLoading,
+      setLoading: (next) => {
+        if (next) beginLoading();
+        else endLoading();
+      },
     }),
-    [loading]
+    [beginLoading, endLoading, loading]
   );
 
   return <PanelLoadingContext.Provider value={value}>{children}</PanelLoadingContext.Provider>;
@@ -24,7 +42,12 @@ export function usePanelLoadingContext() {
   const context = useContext(PanelLoadingContext);
 
   if (!context) {
-    return { loading: false, setLoading: () => {} };
+    return {
+      loading: false,
+      beginLoading: () => {},
+      endLoading: () => {},
+      setLoading: () => {},
+    };
   }
 
   return context;

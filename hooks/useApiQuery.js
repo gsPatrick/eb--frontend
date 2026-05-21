@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePanelLoadingContext } from '@/context/PanelLoadingContext';
 
 export function useApiQuery(fetcher, deps = [], options = {}) {
-  const { setLoading: setPanelLoading } = usePanelLoadingContext();
+  const { beginLoading, endLoading } = usePanelLoadingContext();
   const { initialData = null, enabled = true, onError } = options;
 
   const [data, setData] = useState(initialData);
@@ -13,17 +13,15 @@ export function useApiQuery(fetcher, deps = [], options = {}) {
 
   const fetcherRef = useRef(fetcher);
   const onErrorRef = useRef(onError);
-  const setPanelLoadingRef = useRef(setPanelLoading);
 
   fetcherRef.current = fetcher;
   onErrorRef.current = onError;
-  setPanelLoadingRef.current = setPanelLoading;
 
   const refetch = useCallback(async () => {
     if (!enabled) return null;
 
     setLoading(true);
-    setPanelLoadingRef.current(true);
+    beginLoading();
     setError(null);
 
     try {
@@ -36,9 +34,9 @@ export function useApiQuery(fetcher, deps = [], options = {}) {
       return null;
     } finally {
       setLoading(false);
-      setPanelLoadingRef.current(false);
+      endLoading();
     }
-  }, [enabled]);
+  }, [beginLoading, enabled, endLoading]);
 
   useEffect(() => {
     refetch();

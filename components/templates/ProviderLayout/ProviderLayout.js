@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Icon from '@/components/atoms/Icon';
 import ProviderSidebar from '@/components/organisms/ProviderSidebar';
-import SidebarSkeleton from '@/components/organisms/SidebarSkeleton';
-import { PanelLoadingProvider, usePanelLoadingContext } from '@/context/PanelLoadingContext';
+import { PanelLoadingProvider } from '@/context/PanelLoadingContext';
 import { cn } from '@/utils/cn';
 import styles from '@/components/templates/DashboardLayout/DashboardLayout.module.css';
 
@@ -13,7 +12,6 @@ const STORAGE_KEY = 'eb_provider_sidebar_collapsed';
 
 function ProviderLayoutShell({ children }) {
   const { t } = useTranslation();
-  const { loading: panelLoading } = usePanelLoadingContext();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
@@ -32,16 +30,12 @@ function ProviderLayoutShell({ children }) {
 
   return (
     <div className={styles.layout} data-sidebar-collapsed={sidebarCollapsed ? 'true' : 'false'}>
-      {panelLoading ? (
-        <SidebarSkeleton collapsed={sidebarCollapsed} />
-      ) : (
-        <ProviderSidebar
-          isOpen={sidebarOpen}
-          onClose={() => setSidebarOpen(false)}
-          collapsed={sidebarCollapsed}
-          onToggleCollapse={toggleSidebarCollapse}
-        />
-      )}
+      <ProviderSidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        collapsed={sidebarCollapsed}
+        onToggleCollapse={toggleSidebarCollapse}
+      />
       <div className={styles.main}>
         <button type="button" className={styles.mobileMenu} onClick={() => setSidebarOpen(true)} aria-label={t('common.openMenu')}>
           <Icon name="menu" size={20} />
