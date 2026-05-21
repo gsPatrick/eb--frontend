@@ -32,6 +32,10 @@
   background: var(--color-primary);
 }
 
+.videoFrame > :first-child {
+  z-index: 1;
+}
+
 .videoFallback {
   position: absolute;
   inset: 0;

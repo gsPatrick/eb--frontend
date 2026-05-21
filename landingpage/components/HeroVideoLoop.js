@@ -78,6 +78,7 @@ export default function HeroVideoLoop({ src }) {
   }, []);
 
   const videoProps = {
+    autoPlay: true,
     muted: true,
     playsInline: true,
     preload: 'auto',
