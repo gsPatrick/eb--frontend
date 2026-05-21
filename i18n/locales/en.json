@@ -307,7 +307,25 @@
         "status": "Status",
         "date": "Date",
         "total": "Total"
-      }
+      },
+      "assignProvider": "Assign provider",
+      "assignProviderHint": "Select an active provider to send this order to the mobile app.",
+      "selectProvider": "Select provider…",
+      "assignButton": "Assign",
+      "assignSuccess": "Provider assigned",
+      "assignSuccessMessage": "The order was linked and the provider will be notified in the app.",
+      "assignError": "Could not assign the provider.",
+      "unassigned": "Unassigned",
+      "beforePhotos": "Photos — Before",
+      "afterPhotos": "Photos — After",
+      "noBeforePhotos": "No check-in photos recorded.",
+      "noAfterPhotos": "Waiting for provider check-out.",
+      "gpsTracking": "GPS tracking",
+      "propertyLocation": "Property",
+      "checkinLocation": "Check-in",
+      "checkoutLocation": "Check-out",
+      "noGps": "No GPS coordinates",
+      "extrasSection": "Extra services"
     },
     "extras": {
       "title": "Extra Services Catalog",

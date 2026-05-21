@@ -307,7 +307,25 @@
         "status": "Status",
         "date": "Date",
         "total": "Total"
-      }
+      },
+      "assignProvider": "Asignar proveedor",
+      "assignProviderHint": "Seleccione un proveedor activo para enviar esta orden a la app móvil.",
+      "selectProvider": "Seleccionar proveedor…",
+      "assignButton": "Asignar",
+      "assignSuccess": "Proveedor asignado",
+      "assignSuccessMessage": "La orden fue vinculada y el proveedor será notificado en la app.",
+      "assignError": "No se pudo asignar el proveedor.",
+      "unassigned": "Sin asignar",
+      "beforePhotos": "Fotos — Antes",
+      "afterPhotos": "Fotos — Después",
+      "noBeforePhotos": "No hay fotos de check-in registradas.",
+      "noAfterPhotos": "Esperando check-out del proveedor.",
+      "gpsTracking": "Seguimiento GPS",
+      "propertyLocation": "Propiedad",
+      "checkinLocation": "Check-in",
+      "checkoutLocation": "Check-out",
+      "noGps": "Sin coordenadas GPS",
+      "extrasSection": "Servicios extra"
     },
     "extras": {
       "title": "Catálogo de Servicios Extra",

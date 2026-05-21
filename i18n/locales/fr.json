@@ -307,7 +307,25 @@
         "status": "Status",
         "date": "Date",
         "total": "Total"
-      }
+      },
+      "assignProvider": "Attribuer un prestataire",
+      "assignProviderHint": "Sélectionnez un prestataire actif pour envoyer cet ordre à l'app mobile.",
+      "selectProvider": "Sélectionner un prestataire…",
+      "assignButton": "Attribuer",
+      "assignSuccess": "Prestataire attribué",
+      "assignSuccessMessage": "L'ordre a été lié et le prestataire sera notifié dans l'app.",
+      "assignError": "Impossible d'attribuer le prestataire.",
+      "unassigned": "Non attribué",
+      "beforePhotos": "Photos — Avant",
+      "afterPhotos": "Photos — Après",
+      "noBeforePhotos": "Aucune photo de check-in enregistrée.",
+      "noAfterPhotos": "En attente du check-out du prestataire.",
+      "gpsTracking": "Suivi GPS",
+      "propertyLocation": "Propriété",
+      "checkinLocation": "Check-in",
+      "checkoutLocation": "Check-out",
+      "noGps": "Pas de coordonnées GPS",
+      "extrasSection": "Services extra"
     },
     "extras": {
       "title": "Catalogue de Services Extra",

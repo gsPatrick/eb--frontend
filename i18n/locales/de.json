@@ -307,7 +307,25 @@
         "status": "Status",
         "date": "Date",
         "total": "Total"
-      }
+      },
+      "assignProvider": "Anbieter zuweisen",
+      "assignProviderHint": "Wählen Sie einen aktiven Anbieter, um diesen Auftrag an die mobile App zu senden.",
+      "selectProvider": "Anbieter auswählen…",
+      "assignButton": "Zuweisen",
+      "assignSuccess": "Anbieter zugewiesen",
+      "assignSuccessMessage": "Der Auftrag wurde verknüpft und der Anbieter wird in der App benachrichtigt.",
+      "assignError": "Anbieter konnte nicht zugewiesen werden.",
+      "unassigned": "Nicht zugewiesen",
+      "beforePhotos": "Fotos — Vorher",
+      "afterPhotos": "Fotos — Nachher",
+      "noBeforePhotos": "Keine Check-in-Fotos vorhanden.",
+      "noAfterPhotos": "Warten auf Check-out des Anbieters.",
+      "gpsTracking": "GPS-Tracking",
+      "propertyLocation": "Immobilie",
+      "checkinLocation": "Check-in",
+      "checkoutLocation": "Check-out",
+      "noGps": "Keine GPS-Koordinaten",
+      "extrasSection": "Zusatzleistungen"
     },
     "extras": {
       "title": "Zusatzleistungskatalog",

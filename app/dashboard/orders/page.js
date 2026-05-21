@@ -13,7 +13,7 @@ import OrderDetailModal from '@/components/organisms/OrderDetailModal';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { useRealtimeRefresh } from '@/hooks/useRealtimeRefresh';
 import { usePagination } from '@/hooks/usePagination';
-import { ordersApi } from '@/src/services/api';
+import { ordersApi, usersApi } from '@/src/services/api';
 import { getOrderStatusBadge } from '@/utils/adminHelpers';
 import { formatCurrency, formatDate } from '@/utils/formatters';
 import styles from '@/styles/admin.module.css';
@@ -22,10 +22,15 @@ export default function OrdersPage() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('all');
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const { data: orders = [], loading, refetch } = useApiQuery(
+  const { data: orders = [], loading, refetch, setData } = useApiQuery(
     () => ordersApi.list().then((response) => response.items),
     [],
     { initialData: [] }
+  );
+  const { data: providers = [] } = useApiQuery(
+    () => usersApi.list().then((response) => response.items),
+    [],
+    { initialData: [], enabled: !loading }
   );
 
   useRealtimeRefresh('orders', refetch);
@@ -118,6 +123,12 @@ export default function OrdersPage() {
           order={selectedOrder}
           isOpen={Boolean(selectedOrder)}
           onClose={() => setSelectedOrder(null)}
+          providers={providers}
+          onAssigned={(updated) => {
+            setData((prev) => prev.map((item) => (item.id === updated.id ? updated : item)));
+            setSelectedOrder(updated);
+            refetch();
+          }}
         />
       </div>
   );
