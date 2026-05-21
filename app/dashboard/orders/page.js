@@ -10,7 +10,6 @@ import Pagination from '@/components/molecules/Pagination';
 import Tabs from '@/components/molecules/Tabs';
 import DataTable from '@/components/organisms/DataTable';
 import OrderDetailModal from '@/components/organisms/OrderDetailModal';
-import DashboardLayout from '@/components/templates/DashboardLayout';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { useRealtimeRefresh } from '@/hooks/useRealtimeRefresh';
 import { usePagination } from '@/hooks/usePagination';
@@ -94,7 +93,6 @@ export default function OrdersPage() {
   );
 
   return (
-    <DashboardLayout>
       <div className={styles.page}>
         {loading ? (
           <PageHeaderSkeleton />
@@ -122,6 +120,5 @@ export default function OrdersPage() {
           onClose={() => setSelectedOrder(null)}
         />
       </div>
-    </DashboardLayout>
   );
 }

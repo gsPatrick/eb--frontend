@@ -12,7 +12,6 @@ import PageHeaderSkeleton from '@/components/molecules/PageHeaderSkeleton';
 import Pagination from '@/components/molecules/Pagination';
 import StatCard from '@/components/molecules/StatCard';
 import DataTable from '@/components/organisms/DataTable';
-import DashboardLayout from '@/components/templates/DashboardLayout';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { usePagination } from '@/hooks/usePagination';
 import { useToast } from '@/hooks/useToast';
@@ -109,7 +108,6 @@ export default function BillingPage() {
   };
 
   return (
-    <DashboardLayout>
       <div className={styles.page}>
         {loading ? (
           <PageHeaderSkeleton />
@@ -193,6 +191,5 @@ export default function BillingPage() {
           </>
         )}
       </div>
-    </DashboardLayout>
   );
 }

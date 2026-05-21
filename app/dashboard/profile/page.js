@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ProfileForm from '@/components/organisms/ProfileForm';
-import DashboardLayout from '@/components/templates/DashboardLayout';
 import ProfileLayout from '@/components/templates/ProfileLayout';
 import { CURRENT_ADMIN } from '@/constants/adminMockData';
 import { useLocale } from '@/context/I18nProvider';
@@ -22,10 +21,8 @@ export default function ProfilePage() {
   ];
 
   return (
-    <DashboardLayout>
       <ProfileLayout user={user} homeHref="/dashboard" stats={stats}>
         <ProfileForm fallbackUser={loadProfileUser(CURRENT_ADMIN)} onUserChange={setUser} />
       </ProfileLayout>
-    </DashboardLayout>
   );
 }

@@ -30,7 +30,7 @@ export default function ClientContractsPage() {
   const handleAccept = async (contractId) => {
     try {
       await contractsApi.accept(contractId);
-      await refetch();
+      await refetch({ force: true });
       toast.success(t('client.contracts.acceptSuccess'), t('client.contracts.acceptSuccessMessage'));
     } catch {
       toast.error(t('common.error'));

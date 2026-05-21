@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useMemo, useRef } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { io } from 'socket.io-client';
 import { SOCKET_URL } from '@/src/services/api/api-client';
@@ -18,9 +18,12 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
   const toast = useToast();
   const router = useRouter();
   const toastRef = useRef(toast);
+  const routerRef = useRef(router);
   const listenersRef = useRef(new Map());
+  const socketRef = useRef(null);
 
   toastRef.current = toast;
+  routerRef.current = router;
 
   const bumpRefresh = useCallback((scope) => {
     listenersRef.current.get(scope)?.forEach((callback) => callback());
@@ -36,10 +39,14 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
   }, []);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return undefined;
+    if (typeof window === 'undefined' || socketRef.current) {
+      return undefined;
+    }
 
     const token = localStorage.getItem('eb_token');
-    if (!token) return undefined;
+    if (!token) {
+      return undefined;
+    }
 
     const socket = io(SOCKET_URL, {
       auth: { token },
@@ -48,6 +55,8 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
       reconnectionAttempts: 5,
       reconnectionDelay: 2000,
     });
+
+    socketRef.current = socket;
 
     socket.on('notification', (payload) => {
       const type = payload?.type;
@@ -77,7 +86,7 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
     socket.on('force_logout', (payload) => {
       toastRef.current.warning(payload?.title || 'Sessão encerrada', payload?.message || '');
       clearAuthSession();
-      router.replace('/login');
+      routerRef.current.replace('/login');
     });
 
     socket.on('connect_error', (error) => {
@@ -86,8 +95,9 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
 
     return () => {
       socket.disconnect();
+      socketRef.current = null;
     };
-  }, [audience, bumpRefresh, router]);
+  }, [audience, bumpRefresh]);
 
   const value = useMemo(
     () => ({

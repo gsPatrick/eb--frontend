@@ -7,7 +7,6 @@ import PageHeader from '@/components/molecules/PageHeader';
 import PageHeaderSkeleton from '@/components/molecules/PageHeaderSkeleton';
 import Pagination from '@/components/molecules/Pagination';
 import DataTable from '@/components/organisms/DataTable';
-import DashboardLayout from '@/components/templates/DashboardLayout';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { usePagination } from '@/hooks/usePagination';
 import { propertiesApi } from '@/src/services/api';
@@ -68,7 +67,6 @@ export default function AdminSyncLogPage() {
   );
 
   return (
-    <DashboardLayout>
       <div className={styles.page}>
         {loading ? (
           <PageHeaderSkeleton />
@@ -87,6 +85,5 @@ export default function AdminSyncLogPage() {
           footer={!loading ? <Pagination {...paginationProps} /> : null}
         />
       </div>
-    </DashboardLayout>
   );
 }

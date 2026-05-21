@@ -13,7 +13,6 @@ import Modal from '@/components/molecules/Modal';
 import PageHeader from '@/components/molecules/PageHeader';
 import PageHeaderSkeleton from '@/components/molecules/PageHeaderSkeleton';
 import Pagination from '@/components/molecules/Pagination';
-import DashboardLayout from '@/components/templates/DashboardLayout';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { usePagination } from '@/hooks/usePagination';
 import { useToast } from '@/hooks/useToast';
@@ -50,7 +49,7 @@ export default function PropertiesPage() {
         t('toast.calendarSynced'),
         t('toast.calendarSyncedMessage', { name: property.name })
       );
-      await refetch();
+      await refetch({ force: true });
     } catch (err) {
       toast.error(t('toast.actionBlocked'), err.message);
     } finally {
@@ -78,7 +77,6 @@ export default function PropertiesPage() {
   };
 
   return (
-    <DashboardLayout>
       <div className={styles.page}>
         {loading ? (
           <PageHeaderSkeleton />
@@ -190,6 +188,5 @@ export default function PropertiesPage() {
           </form>
         </Modal>
       </div>
-    </DashboardLayout>
   );
 }

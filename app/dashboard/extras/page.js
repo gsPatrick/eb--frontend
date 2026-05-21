@@ -11,7 +11,6 @@ import PageHeader from '@/components/molecules/PageHeader';
 import PageHeaderSkeleton from '@/components/molecules/PageHeaderSkeleton';
 import Pagination from '@/components/molecules/Pagination';
 import DataTable from '@/components/organisms/DataTable';
-import DashboardLayout from '@/components/templates/DashboardLayout';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { usePagination } from '@/hooks/usePagination';
 import { useToast } from '@/hooks/useToast';
@@ -125,7 +124,6 @@ export default function ExtrasPage() {
   );
 
   return (
-    <DashboardLayout>
       <div className={styles.page}>
         {loading ? (
           <PageHeaderSkeleton showActions />
@@ -198,6 +196,5 @@ export default function ExtrasPage() {
           </form>
         </Modal>
       </div>
-    </DashboardLayout>
   );
 }

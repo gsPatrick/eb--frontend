@@ -10,7 +10,6 @@ import BillingChart from '@/components/molecules/BillingChart';
 import Pagination from '@/components/molecules/Pagination';
 import StatCard from '@/components/molecules/StatCard';
 import DataTable from '@/components/organisms/DataTable';
-import DashboardLayout from '@/components/templates/DashboardLayout';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { useRealtimeRefresh } from '@/hooks/useRealtimeRefresh';
 import { usePagination } from '@/hooks/usePagination';
@@ -135,7 +134,6 @@ export default function AdminDashboardPage() {
   );
 
   return (
-    <DashboardLayout>
       <div className={styles.page}>
         <div className={styles.grid4}>
           <StatCard
@@ -200,6 +198,5 @@ export default function AdminDashboardPage() {
           />
         </div>
       </div>
-    </DashboardLayout>
   );
 }
