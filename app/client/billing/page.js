@@ -139,7 +139,7 @@ export default function ClientBillingPage() {
           <StatCard
             label={currentMonthLabel}
             value={formatCurrency(monthTotal)}
-            change={t('client.billing.cleaningsCount', { count: currentMonthOrders.length })}
+            change={t('client.billing.cleanings', { count: currentMonthOrders.length })}
             changeType="neutral"
             icon="billing"
             loading={loading}
@@ -147,7 +147,7 @@ export default function ClientBillingPage() {
           <StatCard
             label={t('client.billing.previousMonth')}
             value={formatCurrency(previousMonthTotal)}
-            change={t('client.billing.cleaningsCount', { count: previousMonthOrders.length })}
+            change={t('client.billing.cleanings', { count: previousMonthOrders.length })}
             changeType="neutral"
             icon="billing"
             loading={loading}

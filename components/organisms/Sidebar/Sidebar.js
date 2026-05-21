@@ -56,7 +56,7 @@ export default function Sidebar({ isOpen, onClose, collapsed = false, onToggleCo
           type="button"
           className={styles.backdrop}
           onClick={onClose}
-          aria-label={t('nav.closeMenu')}
+          aria-label={t('common.closeMenu')}
         />
       )}
       <div className={cn(styles.shell, isOpen && styles.open, isCompact && styles.collapsed)}>
@@ -71,7 +71,7 @@ export default function Sidebar({ isOpen, onClose, collapsed = false, onToggleCo
                 type="button"
                 className={styles.collapseBtn}
                 onClick={onToggleCollapse}
-                aria-label={collapsed ? t('nav.expandSidebar') : t('nav.collapseSidebar')}
+                aria-label={collapsed ? t('common.expandSidebar') : t('common.collapseSidebar')}
               >
                 <Icon name={collapsed ? 'sidebarExpand' : 'sidebarCollapse'} size={18} strokeWidth={1.5} />
               </button>
