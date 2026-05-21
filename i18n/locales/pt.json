@@ -495,7 +495,8 @@
       "client": "Cliente",
       "timeTbc": "Horário a confirmar",
       "continueService": "Continuar serviço",
-      "startExecution": "Iniciar execução"
+      "startExecution": "Iniciar execução",
+      "openMaps": "Como chegar"
     },
     "execution": {
       "notFound": "Ordem de serviço não encontrada.",
@@ -548,6 +549,9 @@
       "client": "Cliente",
       "photoCount": "{{count}} foto(s)",
       "noPhotos": "Nenhuma foto registrada neste serviço."
+    },
+    "profile": {
+      "rating": "Avaliação média"
     }
   },
   "client": {

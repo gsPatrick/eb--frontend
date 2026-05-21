@@ -495,7 +495,8 @@
       "client": "Client",
       "timeTbc": "Time to be confirmed",
       "continueService": "Continue service",
-      "startExecution": "Start execution"
+      "startExecution": "Start execution",
+      "openMaps": "Get directions"
     },
     "execution": {
       "notFound": "Work order not found.",
@@ -548,6 +549,9 @@
       "client": "Client",
       "photoCount": "{{count}} photo(s)",
       "noPhotos": "No photos recorded for this service."
+    },
+    "profile": {
+      "rating": "Average rating"
     }
   },
   "client": {

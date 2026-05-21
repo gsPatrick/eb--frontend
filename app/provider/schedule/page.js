@@ -4,7 +4,7 @@ import { useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import Badge from '@/components/atoms/Badge';
-import Button from '@/components/atoms/Button';
+import Icon from '@/components/atoms/Icon';
 import CardGridSkeleton from '@/components/molecules/CardGridSkeleton';
 import EmptyState from '@/components/molecules/EmptyState';
 import PageHeader from '@/components/molecules/PageHeader';
@@ -21,6 +21,14 @@ function isToday(dateStr) {
   if (!dateStr) return false;
   const today = new Date().toISOString().slice(0, 10);
   return String(dateStr).slice(0, 10) === today;
+}
+
+function openDirections(address, event) {
+  event.preventDefault();
+  event.stopPropagation();
+  if (!address) return;
+  const query = encodeURIComponent(address);
+  window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank', 'noopener,noreferrer');
 }
 
 export default function ProviderSchedulePage() {
@@ -63,44 +71,60 @@ export default function ProviderSchedulePage() {
               <div className={styles.scheduleGrid}>
                 {todayOrders.map((order) => {
                   const status = getOrderStatusBadge(order.status, t);
+                  const actionLabel =
+                    order.status === 'in_progress'
+                      ? t('provider.schedule.continueService')
+                      : t('provider.schedule.startExecution');
 
                   return (
-                    <article key={order.id} className={styles.scheduleCard}>
-                      {order.propertyPhoto && (
-                        <img
-                          src={order.propertyPhoto}
-                          alt={order.property}
-                          className={styles.scheduleImage}
-                        />
-                      )}
-                      <div className={styles.scheduleBody}>
-                        <div>
-                          <h2 className={styles.scheduleTitle}>{order.property}</h2>
-                          <p className={styles.scheduleMeta}>
-                            {order.propertyAddress}
-                            <br />
-                            {t('provider.schedule.client')}: {order.client} ·{' '}
-                            {formatCurrency(order.totalPrice)}
-                          </p>
-                        </div>
+                    <Link
+                      key={order.id}
+                      href={`/provider/execution/${order.id}`}
+                      className={styles.scheduleCardLink}
+                    >
+                      <article className={styles.scheduleCard}>
+                        {order.propertyPhoto && (
+                          <img
+                            src={order.propertyPhoto}
+                            alt={order.property}
+                            className={styles.scheduleImage}
+                          />
+                        )}
+                        <div className={styles.scheduleBody}>
+                          <div className={styles.scheduleHeader}>
+                            <div>
+                              <h2 className={styles.scheduleTitle}>{order.property}</h2>
+                              <p className={styles.scheduleMeta}>
+                                {order.propertyAddress}
+                                <br />
+                                {t('provider.schedule.client')}: {order.client} ·{' '}
+                                {formatCurrency(order.totalPrice, intlLocale)}
+                              </p>
+                            </div>
+                            <Badge variant={status.variant}>{status.label}</Badge>
+                          </div>
 
-                        <div className={styles.scheduleFooter}>
-                          <Badge variant={status.variant}>{status.label}</Badge>
-                          <span className={styles.scheduleMeta}>
-                            {order.scheduledTime || t('provider.schedule.timeTbc')} ·{' '}
-                            {formatDate(order.scheduledDate, intlLocale)}
-                          </span>
-                        </div>
+                          <div className={styles.scheduleFooter}>
+                            <span className={styles.scheduleMeta}>
+                              {order.scheduledTime || t('provider.schedule.timeTbc')} ·{' '}
+                              {formatDate(order.scheduledDate, intlLocale)}
+                            </span>
+                          </div>
 
-                        <Link href={`/provider/execution/${order.id}`}>
-                          <Button fullWidth>
-                            {order.status === 'in_progress'
-                              ? t('provider.schedule.continueService')
-                              : t('provider.schedule.startExecution')}
-                          </Button>
-                        </Link>
-                      </div>
-                    </article>
+                          <div className={styles.scheduleActions}>
+                            <button
+                              type="button"
+                              className={styles.scheduleMapBtn}
+                              onClick={(event) => openDirections(order.propertyAddress, event)}
+                            >
+                              <Icon name="map" size={16} />
+                              {t('provider.schedule.openMaps')}
+                            </button>
+                            <span className={styles.scheduleAction}>{actionLabel}</span>
+                          </div>
+                        </div>
+                      </article>
+                    </Link>
                   );
                 })}
               </div>

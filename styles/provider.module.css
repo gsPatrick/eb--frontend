@@ -16,6 +16,36 @@
   border-radius: var(--radius-xl);
   background: var(--color-bg-elevated);
   box-shadow: var(--shadow-card);
+  height: 100%;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.scheduleCardLink {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.scheduleCardLink:hover .scheduleCard {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+  border-color: rgba(8, 37, 103, 0.18);
+}
+
+.scheduleCardLink:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-xl);
+}
+
+.scheduleHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
 }
 
 .scheduleImage {
@@ -49,6 +79,52 @@
   justify-content: space-between;
   gap: var(--space-3);
   flex-wrap: wrap;
+}
+
+.scheduleActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.scheduleMapBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  align-self: flex-start;
+  border: none;
+  background: transparent;
+  color: var(--color-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  padding: 0;
+}
+
+.scheduleMapBtn:hover {
+  color: var(--color-primary-hover);
+}
+
+.scheduleAction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+}
+
+.profilePanel {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
 }
 
 .executionWrap {
