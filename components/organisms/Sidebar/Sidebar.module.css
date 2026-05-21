@@ -51,6 +51,7 @@
 
 .sidebarCollapsed {
   padding: 20px 12px 24px;
+  align-items: center;
 }
 
 .miniHeader {
@@ -225,6 +226,7 @@
   margin-bottom: 20px;
   width: 40px;
   height: 40px;
+  align-self: center;
   border-radius: 50%;
   background: var(--color-sidebar-promo);
   color: var(--color-primary);
@@ -255,10 +257,21 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
+}
+
+.sidebarCollapsed .sidebarFooter {
+  align-items: center;
 }
 
 .langDropdown {
   width: 100%;
+}
+
+.sidebarCollapsed .langDropdown {
+  width: auto;
+  display: flex;
+  justify-content: center;
 }
 
 .logout {
@@ -279,7 +292,10 @@
 
 .logoutCollapsed {
   justify-content: center;
-  padding-top: 4px;
+  align-self: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
 }
 
 .logout:hover {

@@ -8,6 +8,7 @@ import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
 import Card from '@/components/molecules/Card';
 import CardGridSkeleton from '@/components/molecules/CardGridSkeleton';
+import EmptyState from '@/components/molecules/EmptyState';
 import FormField from '@/components/molecules/FormField';
 import Modal from '@/components/molecules/Modal';
 import PageHeader from '@/components/molecules/PageHeader';
@@ -91,6 +92,8 @@ export default function PropertiesPage() {
           <div className={styles.listBody}>
             {loading ? (
               <CardGridSkeleton variant="property" count={3} />
+            ) : properties.length === 0 ? (
+              <EmptyState icon="properties" title={t('common.emptyNoRecords')} />
             ) : (
               <div className={styles.propertyGrid}>
                 {paginatedItems.map((property) => (
@@ -134,7 +137,7 @@ export default function PropertiesPage() {
               </div>
             )}
           </div>
-          {!loading && (
+          {!loading && properties.length > 0 && (
             <div className={styles.listFooter}>
               <Pagination {...paginationProps} />
             </div>
