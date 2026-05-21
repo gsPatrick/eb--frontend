@@ -34,12 +34,12 @@ export default function PortalsSection() {
     <section id="experiencias" className={`${layout.section} ${styles.section}`}>
       <div className={layout.container}>
         <div className={styles.header}>
-          <span className={layout.sectionLabel}>{t('landing.experiences.label')}</span>
-          <h2 className={layout.sectionTitle}>
+          <span className={styles.sectionLabel}>{t('landing.experiences.label')}</span>
+          <h2 className={styles.sectionTitle}>
             {t('landing.experiences.title')}{' '}
-            <span className={layout.gradientText}>{t('landing.experiences.titleHighlight')}</span>
+            <span className={styles.titleHighlight}>{t('landing.experiences.titleHighlight')}</span>
           </h2>
-          <p className={layout.sectionSubtitle}>{t('landing.experiences.subtitle')}</p>
+          <p className={styles.sectionSubtitle}>{t('landing.experiences.subtitle')}</p>
         </div>
 
         <div className={styles.grid}>

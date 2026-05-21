@@ -21,8 +21,8 @@ export default function LandingPage() {
         <LanguagesSection />
         <FeaturesSection />
         <HowItWorksSection />
-        <ImpactSection />
         <PortalsSection />
+        <ImpactSection />
         <StatsSection />
         <CtaSection />
       </main>
