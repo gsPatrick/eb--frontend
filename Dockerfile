@@ -13,9 +13,9 @@ FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-ARG NEXT_PUBLIC_API_URL
-ARG NEXT_PUBLIC_API_ORIGIN
-ARG NEXT_PUBLIC_SOCKET_URL
+ARG NEXT_PUBLIC_API_URL=https://sistema-api.a8v108.easypanel.host/api/v1
+ARG NEXT_PUBLIC_API_ORIGIN=https://sistema-api.a8v108.easypanel.host
+ARG NEXT_PUBLIC_SOCKET_URL=https://sistema-api.a8v108.easypanel.host
 
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_ORIGIN=$NEXT_PUBLIC_API_ORIGIN
