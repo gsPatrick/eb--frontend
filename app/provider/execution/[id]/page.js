@@ -175,7 +175,7 @@ export default function ProviderExecutionPage() {
     setPendingCheckinCoords(coords);
     toast.success(
       t('toast.checkInSuccess'),
-      t('toast.checkInGpsMessage', { lat: coords.lat, lng: coords.lng })
+      t('toast.checkInGpsMessage', { lat: coords.lat, longitude: coords.lng })
     );
   };
 
@@ -337,7 +337,7 @@ export default function ProviderExecutionPage() {
               {checkinCoords
                 ? t('provider.execution.gpsCaptured', {
                     lat: checkinCoords.lat,
-                    lng: checkinCoords.lng,
+                    longitude: checkinCoords.lng,
                   })
                 : t('provider.execution.gpsNotCaptured')}
             </span>
@@ -427,7 +427,7 @@ export default function ProviderExecutionPage() {
               {checkedOut
                 ? t('provider.execution.gpsCaptured', {
                     lat: order.checkoutLat,
-                    lng: order.checkoutLong,
+                    longitude: order.checkoutLong,
                   })
                 : t('provider.execution.gpsCheckoutPending')}
             </span>

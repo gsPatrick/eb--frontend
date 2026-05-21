@@ -4,6 +4,10 @@ import Providers from './providers';
 export const metadata = {
   title: 'EB Services — Limpeza profissional com tecnologia',
   description: 'Plataforma EB Services — Cleaning and Maintenance com geofence, prova visual e portais integrados.',
+  icons: {
+    icon: '/logo-pequena.png',
+    shortcut: '/logo-pequena.png',
+  },
 };
 
 export default function RootLayout({ children }) {

@@ -3,7 +3,16 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { getI18nInstance } from '@/i18n';
-import { DEFAULT_LOCALE, LOCALE_STORAGE_KEY, getIntlLocale } from '@/i18n/config';
+import { DEFAULT_LOCALE, LOCALE_STORAGE_KEY, getIntlLocale, getLocaleMeta } from '@/i18n/config';
+
+function normalizeLocale(value) {
+  if (typeof value === 'string') {
+    const code = value.trim().toLowerCase();
+    if (getLocaleMeta(code).code === code) return code;
+  }
+
+  return DEFAULT_LOCALE;
+}
 
 const LocaleContext = createContext({
   locale: DEFAULT_LOCALE,
@@ -15,11 +24,11 @@ function readStoredLocale() {
   if (typeof window === 'undefined') return DEFAULT_LOCALE;
 
   const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
-  if (stored) return stored;
+  if (stored) return normalizeLocale(stored);
 
   try {
     const user = JSON.parse(localStorage.getItem('eb_user') || '{}');
-    if (user.locale) return user.locale;
+    if (user.locale) return normalizeLocale(user.locale);
   } catch {
     // ignore
   }
@@ -53,9 +62,10 @@ export function I18nProvider({ children }) {
   }, [locale]);
 
   const setLocale = (nextLocale) => {
-    localStorage.setItem(LOCALE_STORAGE_KEY, nextLocale);
-    setLocaleState(nextLocale);
-    i18n.changeLanguage(nextLocale);
+    const safeLocale = normalizeLocale(nextLocale);
+    localStorage.setItem(LOCALE_STORAGE_KEY, safeLocale);
+    setLocaleState(safeLocale);
+    i18n.changeLanguage(safeLocale);
   };
 
   return (
