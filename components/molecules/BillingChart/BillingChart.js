@@ -1,66 +1,93 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Select from '@/components/atoms/Select';
 import Card from '@/components/molecules/Card';
 import Skeleton from '@/components/atoms/Skeleton';
-import { BILLING_MONTHS, MOCK_BILLING_BY_YEAR } from '@/constants/adminMockData';
+import Icon from '@/components/atoms/Icon';
 import { formatCurrency } from '@/utils/formatters';
 import styles from './BillingChart.module.css';
 import { cn } from '@/utils/cn';
 
-function getDefaultSelection(dataByYear) {
-  const years = Object.keys(dataByYear).map(Number).sort((a, b) => b - a);
-  const year = years[0] || new Date().getFullYear();
-  const yearData = dataByYear[year] || [];
-  const month = yearData[yearData.length - 1]?.month ?? 0;
+function normalizeDataByYear(dataByYear) {
+  const normalized = {};
 
-  return { year, month };
+  Object.entries(dataByYear || {}).forEach(([year, months]) => {
+    normalized[Number(year)] = (months || [])
+      .map((item) => ({
+        month: Number(item.month),
+        value: Number(item.value) || 0,
+      }))
+      .sort((a, b) => a.month - b.month);
+  });
+
+  return normalized;
 }
 
-function formatChange(current, previous) {
+function getYearOptions(dataByYear) {
+  const years = Object.keys(dataByYear).map(Number);
+  const currentYear = new Date().getFullYear();
+
+  if (!years.includes(currentYear)) {
+    years.push(currentYear);
+  }
+
+  return years.sort((a, b) => b - a);
+}
+
+function getMonthLabel(monthIndex, locale, style = 'short') {
+  return new Intl.DateTimeFormat(locale, { month: style }).format(new Date(2024, monthIndex, 1));
+}
+
+function buildYearChart(yearData, locale) {
+  const byMonth = Object.fromEntries((yearData || []).map((item) => [item.month, item.value]));
+
+  return Array.from({ length: 12 }, (_, month) => ({
+    month,
+    value: byMonth[month] ?? 0,
+    label: getMonthLabel(month, locale, 'short'),
+  }));
+}
+
+function formatChange(current, previous, label) {
   if (previous == null || previous === 0) return null;
 
   const diff = ((current - previous) / previous) * 100;
   const sign = diff >= 0 ? '+' : '';
-  return `${sign}${diff.toLocaleString('pt-BR', { maximumFractionDigits: 1 })}% vs mês anterior`;
+  return `${sign}${diff.toLocaleString(undefined, { maximumFractionDigits: 1 })}% ${label}`;
 }
 
-export default function BillingChart({
-  dataByYear = MOCK_BILLING_BY_YEAR,
-  loading = false,
-  className,
-}) {
-  const defaults = useMemo(() => getDefaultSelection(dataByYear), [dataByYear]);
-  const [year, setYear] = useState(defaults.year);
-  const [month, setMonth] = useState(defaults.month);
+export default function BillingChart({ dataByYear = {}, loading = false, className }) {
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language || 'pt-BR';
+  const normalizedData = useMemo(() => normalizeDataByYear(dataByYear), [dataByYear]);
+  const yearOptions = useMemo(() => getYearOptions(normalizedData), [normalizedData]);
 
-  const years = useMemo(
-    () => Object.keys(dataByYear).map(Number).sort((a, b) => b - a),
-    [dataByYear]
-  );
+  const now = new Date();
+  const [year, setYear] = useState(now.getFullYear());
+  const [month, setMonth] = useState(now.getMonth());
 
-  const yearData = dataByYear[year] || [];
-  const chartData = yearData.map((item) => ({
-    ...item,
-    label: BILLING_MONTHS[item.month]?.short || '',
-  }));
+  useEffect(() => {
+    setYear((current) => (yearOptions.includes(current) ? current : yearOptions[0]));
+  }, [yearOptions]);
 
-  const selectedPoint = yearData.find((item) => item.month === month) || yearData[yearData.length - 1];
-  const previousPoint = yearData.find((item) => item.month === (selectedPoint?.month ?? 0) - 1);
-  const changeLabel = selectedPoint ? formatChange(selectedPoint.value, previousPoint?.value) : null;
+  const yearData = normalizedData[year] || [];
+  const chartData = useMemo(() => buildYearChart(yearData, locale), [yearData, locale]);
+  const selectedPoint = chartData.find((item) => item.month === month) || chartData[month] || chartData[0];
+  const previousPoint = chartData.find((item) => item.month === month - 1);
+  const changeLabel = selectedPoint
+    ? formatChange(selectedPoint.value, previousPoint?.value, t('admin.dashboard.billingChart.vsPreviousMonth'))
+    : null;
   const max = Math.max(...chartData.map((item) => item.value), 1);
+  const hasAnyBilling = useMemo(
+    () => Object.values(normalizedData).some((entries) => entries.some((item) => item.value > 0)),
+    [normalizedData]
+  );
+  const isChartEmpty = !hasAnyBilling || chartData.every((item) => item.value === 0);
 
   const handleYearChange = (event) => {
-    const nextYear = Number(event.target.value);
-    setYear(nextYear);
-
-    const nextYearData = dataByYear[nextYear] || [];
-    const hasCurrentMonth = nextYearData.some((item) => item.month === month);
-
-    if (!hasCurrentMonth && nextYearData.length) {
-      setMonth(nextYearData[nextYearData.length - 1].month);
-    }
+    setYear(Number(event.target.value));
   };
 
   if (loading) {
@@ -77,36 +104,33 @@ export default function BillingChart({
       <div className={styles.header}>
         <div className={styles.headerMain}>
           <div className={styles.titleRow}>
-            <p className={styles.label}>Faturamento</p>
+            <p className={styles.label}>{t('admin.dashboard.billingChart.title')}</p>
             <div className={styles.filters}>
               <div className={styles.filterGroup}>
-                <label htmlFor="billing-month">Mês</label>
+                <label htmlFor="billing-month">{t('admin.dashboard.billingChart.month')}</label>
                 <Select
                   id="billing-month"
                   className={styles.filterSelect}
-                  value={month}
+                  value={String(month)}
                   onChange={(event) => setMonth(Number(event.target.value))}
                 >
-                  {BILLING_MONTHS.map((item) => {
-                    const available = yearData.some((entry) => entry.month === item.value);
-                    return (
-                      <option key={item.value} value={item.value} disabled={!available}>
-                        {item.label}
-                      </option>
-                    );
-                  })}
+                  {chartData.map((item) => (
+                    <option key={item.month} value={String(item.month)}>
+                      {getMonthLabel(item.month, locale, 'long')}
+                    </option>
+                  ))}
                 </Select>
               </div>
               <div className={styles.filterGroup}>
-                <label htmlFor="billing-year">Ano</label>
+                <label htmlFor="billing-year">{t('admin.dashboard.billingChart.year')}</label>
                 <Select
                   id="billing-year"
                   className={styles.filterSelect}
-                  value={year}
+                  value={String(year)}
                   onChange={handleYearChange}
                 >
-                  {years.map((item) => (
-                    <option key={item} value={item}>
+                  {yearOptions.map((item) => (
+                    <option key={item} value={String(item)}>
                       {item}
                     </option>
                   ))}
@@ -114,9 +138,9 @@ export default function BillingChart({
               </div>
             </div>
           </div>
-          <p className={styles.value}>{formatCurrency(selectedPoint?.value || 0)}</p>
+          <p className={styles.value}>{formatCurrency(selectedPoint?.value || 0, locale)}</p>
           <p className={styles.period}>
-            {BILLING_MONTHS[selectedPoint?.month ?? month]?.label} · {year}
+            {getMonthLabel(selectedPoint?.month ?? month, locale, 'long')} · {year}
           </p>
         </div>
         {changeLabel && (
@@ -131,24 +155,39 @@ export default function BillingChart({
         )}
       </div>
 
-      <div className={styles.chart} style={{ gridTemplateColumns: `repeat(${chartData.length}, 1fr)` }}>
-        {chartData.map((item) => (
-          <button
-            key={`${year}-${item.month}`}
-            type="button"
-            className={cn(styles.barGroup, item.month === month && styles.barGroupActive)}
-            onClick={() => setMonth(item.month)}
-            aria-label={`${item.label} ${year}: ${formatCurrency(item.value)}`}
-          >
-            <div className={styles.barTrack}>
-              <div
-                className={styles.bar}
-                style={{ height: `${(item.value / max) * 100}%` }}
-              />
-            </div>
-            <span className={styles.month}>{item.label}</span>
-          </button>
-        ))}
+      <div className={styles.chartWrap}>
+        {isChartEmpty && (
+          <div className={styles.emptyOverlay}>
+            <span className={styles.emptyIcon}>
+              <Icon name="billing" size={28} />
+            </span>
+            <p className={styles.emptyTitle}>{t('admin.dashboard.billingChart.emptyTitle')}</p>
+            <p className={styles.emptyDescription}>{t('admin.dashboard.billingChart.emptyDescription')}</p>
+          </div>
+        )}
+
+        <div
+          className={cn(styles.chart, isChartEmpty && styles.chartMuted)}
+          style={{ gridTemplateColumns: 'repeat(12, minmax(0, 1fr))' }}
+        >
+          {chartData.map((item) => (
+            <button
+              key={`${year}-${item.month}`}
+              type="button"
+              className={cn(styles.barGroup, item.month === month && styles.barGroupActive)}
+              onClick={() => setMonth(item.month)}
+              aria-label={`${item.label} ${year}: ${formatCurrency(item.value, locale)}`}
+            >
+              <div className={styles.barTrack}>
+                <div
+                  className={styles.bar}
+                  style={{ height: `${(item.value / max) * 100}%` }}
+                />
+              </div>
+              <span className={styles.month}>{item.label}</span>
+            </button>
+          ))}
+        </div>
       </div>
     </Card>
   );

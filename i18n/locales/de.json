@@ -248,7 +248,15 @@
       "reviewStockTitle": "Bestand prüfen",
       "reviewStockDescription": "Artikel nahe am Mindestbestand. Baldige Nachbestellung prüfen.",
       "stockOkTitle": "Bestand in Ordnung",
-      "stockOkDescription": "Derzeit keine kritischen oder zu prüfenden Artikel."
+      "stockOkDescription": "Derzeit keine kritischen oder zu prüfenden Artikel.",
+      "billingChart": {
+        "title": "Abrechnung",
+        "month": "Monat",
+        "year": "Jahr",
+        "vsPreviousMonth": "vs Vormonat",
+        "emptyTitle": "Noch keine Abrechnung erfasst",
+        "emptyDescription": "Sobald Aufträge abgeschlossen sind, erscheint das Monatsdiagramm hier automatisch."
+      }
     },
     "users": {
       "title": "Benutzerverwaltung",

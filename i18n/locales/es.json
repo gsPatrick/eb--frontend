@@ -248,7 +248,15 @@
       "reviewStockTitle": "Stock para revisar",
       "reviewStockDescription": "Artículos cerca del mínimo. Conviene revisar reposición pronto.",
       "stockOkTitle": "Stock en buen estado",
-      "stockOkDescription": "Ningún artículo crítico o pendiente de revisión por ahora."
+      "stockOkDescription": "Ningún artículo crítico o pendiente de revisión por ahora.",
+      "billingChart": {
+        "title": "Facturación",
+        "month": "Mes",
+        "year": "Año",
+        "vsPreviousMonth": "vs mes anterior",
+        "emptyTitle": "Sin facturación registrada",
+        "emptyDescription": "Cuando se completen órdenes, el gráfico mensual aparecerá aquí automáticamente."
+      }
     },
     "users": {
       "title": "Gestión de Usuarios",

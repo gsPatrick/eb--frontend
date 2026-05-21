@@ -248,7 +248,15 @@
       "reviewStockTitle": "Stock à analyser",
       "reviewStockDescription": "Articles proches du minimum. Pensez à réapprovisionner bientôt.",
       "stockOkTitle": "Stock sous contrôle",
-      "stockOkDescription": "Aucun article critique ou à analyser pour le moment."
+      "stockOkDescription": "Aucun article critique ou à analyser pour le moment.",
+      "billingChart": {
+        "title": "Facturation",
+        "month": "Mois",
+        "year": "Année",
+        "vsPreviousMonth": "vs mois précédent",
+        "emptyTitle": "Aucune facturation enregistrée",
+        "emptyDescription": "Lorsque des ordres seront terminés, le graphique mensuel apparaîtra ici automatiquement."
+      }
     },
     "users": {
       "title": "Gestion des Utilisateurs",

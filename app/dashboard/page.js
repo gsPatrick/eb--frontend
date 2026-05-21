@@ -40,11 +40,13 @@ function buildBillingByYear(orders) {
 
   return Object.fromEntries(
     Object.entries(byYear).map(([year, months]) => [
-      year,
-      Object.entries(months).map(([month, value]) => ({
-        month: Number(month),
-        value,
-      })),
+      Number(year),
+      Object.entries(months)
+        .map(([month, value]) => ({
+          month: Number(month),
+          value,
+        }))
+        .sort((a, b) => a.month - b.month),
     ])
   );
 }

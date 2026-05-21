@@ -248,6 +248,14 @@
         "status": "Status",
         "date": "Data",
         "total": "Total"
+      },
+      "billingChart": {
+        "title": "Faturamento",
+        "month": "Mês",
+        "year": "Ano",
+        "vsPreviousMonth": "vs mês anterior",
+        "emptyTitle": "Nenhum faturamento registrado",
+        "emptyDescription": "Quando ordens forem concluídas, o gráfico mensal aparecerá aqui automaticamente."
       }
     },
     "users": {

@@ -248,7 +248,15 @@
       "reviewStockTitle": "Stock to review",
       "reviewStockDescription": "Items close to the minimum level. Consider restocking soon.",
       "stockOkTitle": "Stock is healthy",
-      "stockOkDescription": "No critical or review items at the moment."
+      "stockOkDescription": "No critical or review items at the moment.",
+      "billingChart": {
+        "title": "Billing",
+        "month": "Month",
+        "year": "Year",
+        "vsPreviousMonth": "vs previous month",
+        "emptyTitle": "No billing recorded yet",
+        "emptyDescription": "When orders are completed, the monthly chart will appear here automatically."
+      }
     },
     "users": {
       "title": "User Management",
