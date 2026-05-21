@@ -1,8 +1,10 @@
 'use client';
 
+import Link from 'next/link';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Badge from '@/components/atoms/Badge';
+import Icon from '@/components/atoms/Icon';
 import CardGridSkeleton from '@/components/molecules/CardGridSkeleton';
 import EmptyState from '@/components/molecules/EmptyState';
 import PageHeader from '@/components/molecules/PageHeader';
@@ -89,25 +91,39 @@ export default function ProviderHistoryPage() {
                     (order.beforePhotos?.length || 0) + (order.afterPhotos?.length || 0);
 
                   return (
-                    <article key={order.id} className={styles.historyCard}>
-                      <div className={styles.historyCardHeader}>
-                        <div>
-                          <h2 className={styles.scheduleTitle}>{order.property}</h2>
-                          <p className={styles.scheduleMeta}>
-                            {t('provider.history.client')}: {order.client}
-                            <br />
-                            {formatDate(order.finishedAt || order.scheduledDate, intlLocale)} ·{' '}
-                            {formatCurrency(order.totalPrice, intlLocale)}
-                          </p>
+                    <Link
+                      key={order.id}
+                      href={`/provider/history/${order.id}`}
+                      className={styles.historyCardLink}
+                    >
+                      <article className={styles.historyCard}>
+                        <div className={styles.historyCardHeader}>
+                          <div>
+                            <h2 className={styles.scheduleTitle}>{order.property}</h2>
+                            <p className={styles.scheduleMeta}>
+                              {t('provider.history.client')}: {order.client}
+                              <br />
+                              {order.propertyAddress}
+                              <br />
+                              {formatDate(order.finishedAt || order.scheduledDate, intlLocale)} ·{' '}
+                              {formatCurrency(order.totalPrice, intlLocale)}
+                            </p>
+                          </div>
+                          <Badge variant={status.variant}>{status.label}</Badge>
                         </div>
-                        <Badge variant={status.variant}>{status.label}</Badge>
-                      </div>
-                      <p className={styles.scheduleMeta}>
-                        {photoCount > 0
-                          ? t('provider.history.photoCount', { count: photoCount })
-                          : t('provider.history.noPhotos')}
-                      </p>
-                    </article>
+                        <div className={styles.historyCardFooter}>
+                          <p className={styles.scheduleMeta}>
+                            {photoCount > 0
+                              ? t('provider.history.photoCount', { count: photoCount })
+                              : t('provider.history.noPhotos')}
+                          </p>
+                          <span className={styles.historyViewLink}>
+                            {t('provider.history.viewDetails')}
+                            <Icon name="chevronRight" size={16} />
+                          </span>
+                        </div>
+                      </article>
+                    </Link>
                   );
                 })}
               </div>

@@ -477,6 +477,8 @@
       "useMyLocation": "Usar minha localização",
       "locationCaptured": "Localização capturada com sucesso.",
       "locationError": "Não foi possível obter sua localização. Verifique as permissões do navegador.",
+      "addressLabel": "Endereço",
+      "addressPlaceholder": "Ex: Rua das Flores, 100 — Salvador, BA",
       "latitudeHint": "Ex: -22.9711",
       "longitudeHint": "Ex: -43.1822",
       "latitudePlaceholder": "-22.9711",
@@ -551,11 +553,26 @@
       "completedCount": "{{count}} serviço(s) concluído(s)",
       "client": "Cliente",
       "photoCount": "{{count}} foto(s)",
-      "noPhotos": "Nenhuma foto registrada neste serviço."
+      "noPhotos": "Nenhuma foto registrada neste serviço.",
+      "viewDetails": "Ver detalhes",
+      "backToList": "Voltar ao histórico",
+      "notFound": "Serviço não encontrado.",
+      "propertyLocation": "Local do imóvel",
+      "checkInLocation": "Check-in (GPS)",
+      "checkOutLocation": "Check-out (GPS)",
+      "extrasPerformed": "Serviços extras realizados"
     },
     "profile": {
       "rating": "Avaliação média"
     }
+  },
+  "location": {
+    "coordinates": "Coordenadas",
+    "unknownAddress": "Endereço não identificado",
+    "searchAddress": "Buscar endereço",
+    "searchPlaceholder": "Digite rua, bairro ou cidade...",
+    "searchHint": "Usamos OpenStreetMap (gratuito) para converter endereço em coordenadas.",
+    "resolvedAddress": "Endereço encontrado"
   },
   "client": {
     "portalTitle": "Portal do Cliente",

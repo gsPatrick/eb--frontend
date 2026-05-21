@@ -9,6 +9,7 @@ import Button from '@/components/atoms/Button';
 import Checkbox from '@/components/atoms/Checkbox';
 import Icon from '@/components/atoms/Icon';
 import GeofenceAlert from '@/components/molecules/GeofenceAlert';
+import LocationLabel from '@/components/molecules/LocationLabel';
 import ProviderLayout from '@/components/templates/ProviderLayout';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { useToast } from '@/hooks/useToast';
@@ -341,6 +342,9 @@ export default function ProviderExecutionPage() {
                   })
                 : t('provider.execution.gpsNotCaptured')}
             </span>
+            {checkinCoords ? (
+              <LocationLabel latitude={checkinCoords.lat} longitude={checkinCoords.lng} />
+            ) : null}
             <Button
               onClick={handleCaptureCheckinGps}
               loading={loadingGps === 'checkin'}

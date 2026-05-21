@@ -477,6 +477,8 @@
       "useMyLocation": "Use my location",
       "locationCaptured": "Location captured successfully.",
       "locationError": "Could not get your location. Check browser permissions.",
+      "addressLabel": "Address",
+      "addressPlaceholder": "E.g.: 100 Flower Street — Salvador, BA",
       "latitudeHint": "E.g.: -22.9711",
       "longitudeHint": "E.g.: -43.1822",
       "latitudePlaceholder": "-22.9711",
@@ -551,11 +553,26 @@
       "completedCount": "{{count}} completed service(s)",
       "client": "Client",
       "photoCount": "{{count}} photo(s)",
-      "noPhotos": "No photos recorded for this service."
+      "noPhotos": "No photos recorded for this service.",
+      "viewDetails": "View details",
+      "backToList": "Back to history",
+      "notFound": "Service not found.",
+      "propertyLocation": "Property location",
+      "checkInLocation": "Check-in (GPS)",
+      "checkOutLocation": "Check-out (GPS)",
+      "extrasPerformed": "Extra services performed"
     },
     "profile": {
       "rating": "Average rating"
     }
+  },
+  "location": {
+    "coordinates": "Coordinates",
+    "unknownAddress": "Address not identified",
+    "searchAddress": "Search address",
+    "searchPlaceholder": "Enter street, neighborhood, or city...",
+    "searchHint": "We use OpenStreetMap (free) to convert address to coordinates.",
+    "resolvedAddress": "Address found"
   },
   "client": {
     "portalTitle": "Client Portal",

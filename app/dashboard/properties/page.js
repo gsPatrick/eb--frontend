@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Badge from '@/components/atoms/Badge';
 import Button from '@/components/atoms/Button';
@@ -16,8 +16,9 @@ import PageHeaderSkeleton from '@/components/molecules/PageHeaderSkeleton';
 import Pagination from '@/components/molecules/Pagination';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { usePagination } from '@/hooks/usePagination';
+import { useReverseGeocode } from '@/hooks/useReverseGeocode';
 import { useToast } from '@/hooks/useToast';
-import { propertiesApi } from '@/src/services/api';
+import { geocodingApi, propertiesApi } from '@/src/services/api';
 import styles from '@/styles/admin.module.css';
 
 export default function PropertiesPage() {
@@ -31,13 +32,22 @@ export default function PropertiesPage() {
   const [editing, setEditing] = useState(null);
   const [syncingId, setSyncingId] = useState(null);
   const [saving, setSaving] = useState(false);
-  const [form, setForm] = useState({ latitude: '', longitude: '' });
+  const [form, setForm] = useState({ address: '', latitude: '', longitude: '' });
   const [locating, setLocating] = useState(false);
+  const [searching, setSearching] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
   const { paginatedItems, paginationProps } = usePagination(properties);
+  const { label: resolvedAddress } = useReverseGeocode(
+    form.latitude ? Number(form.latitude) : null,
+    form.longitude ? Number(form.longitude) : null,
+    Boolean(editing)
+  );
 
   const openEdit = (property) => {
     setEditing(property);
+    setSearchResults([]);
     setForm({
+      address: property.address || '',
       latitude: property.latitude ?? '',
       longitude: property.longitude ?? '',
     });
@@ -68,10 +78,11 @@ export default function PropertiesPage() {
     setLocating(true);
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setForm({
+        setForm((prev) => ({
+          ...prev,
           latitude: position.coords.latitude.toFixed(6),
           longitude: position.coords.longitude.toFixed(6),
-        });
+        }));
         toast.success(t('toast.geofenceUpdated'), t('admin.properties.locationCaptured'));
         setLocating(false);
       },
@@ -83,12 +94,48 @@ export default function PropertiesPage() {
     );
   };
 
+  const handleSearchAddress = async () => {
+    if (!form.address.trim() || form.address.trim().length < 3) {
+      toast.warning(t('toast.actionBlocked'), t('location.searchPlaceholder'));
+      return;
+    }
+
+    setSearching(true);
+    try {
+      const results = await geocodingApi.search(form.address.trim());
+      setSearchResults(results);
+      if (!results.length) {
+        toast.warning(t('toast.actionBlocked'), t('location.unknownAddress'));
+      }
+    } catch (err) {
+      toast.error(t('toast.actionBlocked'), err.message);
+    } finally {
+      setSearching(false);
+    }
+  };
+
+  const handlePickSearchResult = (result) => {
+    setForm({
+      address: result.address || result.label,
+      latitude: Number(result.latitude).toFixed(6),
+      longitude: Number(result.longitude).toFixed(6),
+    });
+    setSearchResults([]);
+  };
+
+  useEffect(() => {
+    if (!editing) {
+      setSearchResults([]);
+    }
+  }, [editing]);
+
   const handleSaveGeo = async (event) => {
     event.preventDefault();
     setSaving(true);
 
     try {
       const updated = await propertiesApi.update(editing.id, {
+        address: form.address.trim() || editing.address,
         latitude: form.latitude ? Number(form.latitude) : null,
         longitude: form.longitude ? Number(form.longitude) : null,
       });
@@ -185,6 +232,40 @@ export default function PropertiesPage() {
           }
         >
           <form className={styles.geoForm} onSubmit={handleSaveGeo}>
+            <FormField
+              label={t('admin.properties.addressLabel')}
+              htmlFor="geo-address"
+              hint={t('location.searchHint')}
+              className={styles.geoAddressField}
+            >
+              <div className={styles.geoAddressRow}>
+                <Input
+                  id="geo-address"
+                  value={form.address}
+                  onChange={(e) => setForm((prev) => ({ ...prev, address: e.target.value }))}
+                  placeholder={t('admin.properties.addressPlaceholder')}
+                />
+                <Button type="button" variant="secondary" loading={searching} onClick={handleSearchAddress}>
+                  {t('location.searchAddress')}
+                </Button>
+              </div>
+            </FormField>
+
+            {searchResults.length > 0 ? (
+              <ul className={styles.geoSearchResults}>
+                {searchResults.map((result) => (
+                  <li key={`${result.latitude}-${result.longitude}-${result.label}`}>
+                    <button type="button" onClick={() => handlePickSearchResult(result)}>
+                      <strong>{result.label}</strong>
+                      <span>
+                        {Number(result.latitude).toFixed(6)}, {Number(result.longitude).toFixed(6)}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+
             <Button
               type="button"
               variant="secondary"
@@ -194,6 +275,14 @@ export default function PropertiesPage() {
               <Icon name="map" size={16} />
               {t('admin.properties.useMyLocation')}
             </Button>
+
+            {form.latitude && form.longitude ? (
+              <p className={styles.geoResolved}>
+                {t('location.resolvedAddress')}: {resolvedAddress || t('location.unknownAddress')}
+                <br />
+                {t('location.coordinates')}: {form.latitude}, {form.longitude}
+              </p>
+            ) : null}
             <FormField
               label={t('admin.properties.form.latitude')}
               htmlFor="latitude"

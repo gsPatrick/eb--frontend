@@ -8,10 +8,9 @@ export async function list(params = {}) {
 }
 
 export async function getById(id) {
-  const { items } = await list({ limit: 100 });
-  const order = items.find((item) => item.id === id);
-  if (!order) throw new Error('Ordem de serviço não encontrada.');
-  return order;
+  const response = await apiClient.get(`/service-orders/${id}`);
+  const result = unwrapResponse(response);
+  return mapServiceOrder(result.order);
 }
 
 export async function assign(id, providerId) {

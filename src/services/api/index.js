@@ -7,4 +7,5 @@ export * as contractsApi from './contracts';
 export * as usersApi from './users';
 export * as reportsApi from './reports';
 export * as reviewsApi from './reviews';
+export * as geocodingApi from './geocoding';
 export * from './mappers';
