@@ -32,6 +32,7 @@ export default function PropertiesPage() {
   const [syncingId, setSyncingId] = useState(null);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({ latitude: '', longitude: '' });
+  const [locating, setLocating] = useState(false);
   const { paginatedItems, paginationProps } = usePagination(properties);
 
   const openEdit = (property) => {
@@ -56,6 +57,30 @@ export default function PropertiesPage() {
     } finally {
       setSyncingId(null);
     }
+  };
+
+  const handleUseMyLocation = () => {
+    if (!navigator.geolocation) {
+      toast.error(t('toast.actionBlocked'), t('admin.properties.locationError'));
+      return;
+    }
+
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setForm({
+          latitude: position.coords.latitude.toFixed(6),
+          longitude: position.coords.longitude.toFixed(6),
+        });
+        toast.success(t('toast.geofenceUpdated'), t('admin.properties.locationCaptured'));
+        setLocating(false);
+      },
+      () => {
+        toast.error(t('toast.actionBlocked'), t('admin.properties.locationError'));
+        setLocating(false);
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+    );
   };
 
   const handleSaveGeo = async (event) => {
@@ -160,6 +185,15 @@ export default function PropertiesPage() {
           }
         >
           <form className={styles.geoForm} onSubmit={handleSaveGeo}>
+            <Button
+              type="button"
+              variant="secondary"
+              loading={locating}
+              onClick={handleUseMyLocation}
+            >
+              <Icon name="map" size={16} />
+              {t('admin.properties.useMyLocation')}
+            </Button>
             <FormField
               label={t('admin.properties.form.latitude')}
               htmlFor="latitude"

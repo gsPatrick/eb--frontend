@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Icon from '@/components/atoms/Icon';
 import ProfileForm from '@/components/organisms/ProfileForm';
@@ -21,11 +21,8 @@ const PROFILE_LINKS = [
 export default function ProviderProfilePage() {
   const { t } = useTranslation();
   const { intlLocale } = useLocale();
-  const [user, setUser] = useState(CURRENT_PROVIDER);
-
-  useEffect(() => {
-    setUser(loadProfileUser(CURRENT_PROVIDER));
-  }, []);
+  const fallbackUser = useMemo(() => loadProfileUser(CURRENT_PROVIDER), []);
+  const [user, setUser] = useState(fallbackUser);
 
   const stats = [
     { label: t('roles.provider'), value: t('common.active') },
@@ -50,7 +47,7 @@ export default function ProviderProfilePage() {
                 </Link>
               ))}
             </div>
-            <ProfileForm fallbackUser={loadProfileUser(CURRENT_PROVIDER)} onUserChange={setUser} />
+            <ProfileForm fallbackUser={fallbackUser} onUserChange={setUser} />
           </div>
         </ProfileLayout>
       </div>

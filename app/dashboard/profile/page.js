@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ProfileForm from '@/components/organisms/ProfileForm';
 import ProfileLayout from '@/components/templates/ProfileLayout';
@@ -12,7 +12,8 @@ import { formatDate } from '@/utils/formatters';
 export default function ProfilePage() {
   const { t } = useTranslation();
   const { intlLocale } = useLocale();
-  const [user, setUser] = useState(CURRENT_ADMIN);
+  const fallbackUser = useMemo(() => loadProfileUser(CURRENT_ADMIN), []);
+  const [user, setUser] = useState(fallbackUser);
 
   const stats = [
     { label: t('roles.admin'), value: t('profile.fullAccess') },
@@ -22,7 +23,7 @@ export default function ProfilePage() {
 
   return (
       <ProfileLayout user={user} homeHref="/dashboard" stats={stats}>
-        <ProfileForm fallbackUser={loadProfileUser(CURRENT_ADMIN)} onUserChange={setUser} />
+        <ProfileForm fallbackUser={fallbackUser} onUserChange={setUser} />
       </ProfileLayout>
   );
 }

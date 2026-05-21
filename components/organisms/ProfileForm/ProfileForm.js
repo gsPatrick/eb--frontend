@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
@@ -16,6 +16,9 @@ export default function ProfileForm({ fallbackUser, onUserChange }) {
   const toast = useToast();
   const [user, setUser] = useState(fallbackUser);
   const [loading, setLoading] = useState(false);
+  const onUserChangeRef = useRef(onUserChange);
+  onUserChangeRef.current = onUserChange;
+
   const [form, setForm] = useState({
     name: fallbackUser.name,
     email: fallbackUser.email,
@@ -36,8 +39,8 @@ export default function ProfileForm({ fallbackUser, onUserChange }) {
       phone: profile.phone || '',
       avatar: profile.avatar || null,
     }));
-    onUserChange?.(profile);
-  }, [fallbackUser, onUserChange]);
+    onUserChangeRef.current?.(profile);
+  }, [fallbackUser.id, fallbackUser.email, fallbackUser.role]);
 
   const handleChange = (field) => (event) => {
     setForm((prev) => ({ ...prev, [field]: event.target.value }));

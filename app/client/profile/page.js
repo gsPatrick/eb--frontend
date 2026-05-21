@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ProfileForm from '@/components/organisms/ProfileForm';
 import ClientLayout from '@/components/templates/ClientLayout';
@@ -13,7 +13,8 @@ import { useLocale } from '@/context/I18nProvider';
 export default function ClientProfilePage() {
   const { t } = useTranslation();
   const { intlLocale } = useLocale();
-  const [user, setUser] = useState(CURRENT_CLIENT);
+  const fallbackUser = useMemo(() => loadProfileUser(CURRENT_CLIENT), []);
+  const [user, setUser] = useState(fallbackUser);
 
   const stats = [
     { label: t('roles.client'), value: t('common.active') },
@@ -24,7 +25,7 @@ export default function ClientProfilePage() {
   return (
     <ClientLayout>
       <ProfileLayout user={user} homeHref="/client/properties" stats={stats}>
-        <ProfileForm fallbackUser={loadProfileUser(CURRENT_CLIENT)} onUserChange={setUser} />
+        <ProfileForm fallbackUser={fallbackUser} onUserChange={setUser} />
       </ProfileLayout>
     </ClientLayout>
   );
