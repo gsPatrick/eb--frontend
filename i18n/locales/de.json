@@ -50,7 +50,9 @@
     "success": "Erfolg",
     "error": "Fehler",
     "yes": "Ja",
-    "no": "Nein"
+    "no": "Nein",
+    "notAvailable": "N/A",
+    "minutes": "min"
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -84,6 +86,14 @@
       "completed": "Abgeschlossen",
       "canceled": "Storniert",
       "billed": "Abgerechnet"
+    },
+    "user": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "sync": {
+      "success": "Success",
+      "error": "Error"
     }
   },
   "auth": {
@@ -195,7 +205,17 @@
     "loginFailed": "Anmeldung fehlgeschlagen",
     "registerFailed": "Registrierung fehlgeschlagen",
     "registerSuccess": "Registrierung gesendet",
-    "registerSuccessMessage": "Ihr Konto wurde erstellt und wartet auf die Aktivierung durch einen Administrator."
+    "registerSuccessMessage": "Ihr Konto wurde erstellt und wartet auf die Aktivierung durch einen Administrator.",
+    "actionBlocked": "Action blocked",
+    "cannotDeactivateAdmin": "Administrators cannot be deactivated.",
+    "cannotChangeAdminRole": "Administrator roles cannot be changed.",
+    "userStatusChanged": "{{name}} was {{status}}.",
+    "permissionUpdated": "Permission updated",
+    "roleChanged": "{{name}} is now a {{role}}.",
+    "templateUpdated": "Template updated",
+    "templateCreated": "Template created",
+    "reportGenerated": "Statement generated",
+    "reportGeneratedMessage": "Report ready to send to clients."
   },
   "admin": {
     "dashboard": {
@@ -211,7 +231,19 @@
       "criticalStockAlerts": "Kritische Bestandswarnungen",
       "criticalStockDescription": "Artikel unter dem konfigurierten Minimum. Nachbestellung erforderlich.",
       "recentOrders": "Aktuelle Aufträge",
-      "viewFullTable": "Vollständige Tabelle anzeigen →"
+      "viewFullTable": "Vollständige Tabelle anzeigen →",
+      "cleaningsTodayChange": "Today's schedule",
+      "ordersInProgressChange": "Live",
+      "activePropertiesChange": "In operation",
+      "monthlyBillingChange": "Current month",
+      "criticalStockTitle": "Critical stock alerts",
+      "columns": {
+        "property": "Property",
+        "provider": "Provider",
+        "status": "Status",
+        "date": "Date",
+        "total": "Total"
+      }
     },
     "users": {
       "title": "Benutzerverwaltung",
@@ -224,7 +256,16 @@
       "lastLogin": "Letzte Anmeldung",
       "actions": "Aktionen",
       "activeStatus": "Aktiv",
-      "inactiveStatus": "Inaktiv"
+      "inactiveStatus": "Inaktiv",
+      "activateUser": "Toggle {{name}}",
+      "columns": {
+        "name": "Name",
+        "email": "Email",
+        "permission": "Permission",
+        "status": "Status",
+        "lastLogin": "Last login",
+        "actions": "Actions"
+      }
     },
     "orders": {
       "title": "Auftragssteuerung",
@@ -239,7 +280,21 @@
       "status": "Status",
       "date": "Datum",
       "total": "Gesamt",
-      "emptyMessage": "Keine Aufträge für diesen Filter gefunden."
+      "emptyMessage": "Keine Aufträge für diesen Filter gefunden.",
+      "tabs": {
+        "all": "All",
+        "pending": "Pending",
+        "inProgress": "In progress",
+        "completed": "Completed"
+      },
+      "columns": {
+        "provider": "Provider",
+        "property": "Property",
+        "client": "Client",
+        "status": "Status",
+        "date": "Date",
+        "total": "Total"
+      }
     },
     "extras": {
       "title": "Zusatzleistungskatalog",
@@ -254,7 +309,22 @@
       "serviceName": "Servicename",
       "defaultPrice": "Standardpreis",
       "estimatedTimeMin": "Geschätzte Zeit (Min.)",
-      "serviceNamePlaceholder": "Z. B.: Kühlschrankreinigung"
+      "serviceNamePlaceholder": "Z. B.: Kühlschrankreinigung",
+      "editService": "Edit extra service",
+      "createService": "New extra service",
+      "columns": {
+        "service": "Service",
+        "price": "Price",
+        "estimatedTime": "Estimated time"
+      },
+      "form": {
+        "name": "Service name",
+        "namePlaceholder": "e.g. Fridge cleaning",
+        "price": "Default price",
+        "pricePlaceholder": "0.00",
+        "time": "Estimated time (min)",
+        "timePlaceholder": "30"
+      }
     },
     "billing": {
       "title": "Finanzberichte",
@@ -271,7 +341,15 @@
       "property": "Immobilie",
       "provider": "Dienstleister",
       "status": "Status",
-      "total": "Gesamt"
+      "total": "Gesamt",
+      "exportReport": "Export statement",
+      "columns": {
+        "property": "Property",
+        "provider": "Provider",
+        "status": "Status",
+        "finishedAt": "Completed at",
+        "total": "Total"
+      }
     },
     "contracts": {
       "title": "Vertragsvorlagen",
@@ -291,7 +369,27 @@
       "clientEb": "Kunde EB",
       "providerEb": "Dienstleister EB",
       "activeStatus": "Aktiv",
-      "inactiveStatus": "Inaktiv"
+      "inactiveStatus": "Inaktiv",
+      "editTemplate": "Edit template",
+      "createTemplate": "New contract template",
+      "columns": {
+        "template": "Template",
+        "type": "Type",
+        "version": "Version",
+        "status": "Status",
+        "updatedAt": "Updated at"
+      },
+      "form": {
+        "title": "Title",
+        "type": "Type",
+        "version": "Version",
+        "versionPlaceholder": "1.0",
+        "content": "Contract text"
+      },
+      "types": {
+        "clientEb": "Client EB",
+        "providerEb": "Provider EB"
+      }
     },
     "reviews": {
       "title": "Qualitäts-Dashboard",
@@ -303,7 +401,15 @@
       "rating": "Bewertung",
       "comment": "Kommentar",
       "date": "Datum",
-      "reviewsCount": "{{count}} Bewertungen"
+      "reviewsCount": "{{count}} Bewertungen",
+      "columns": {
+        "provider": "Provider",
+        "client": "Client",
+        "property": "Property",
+        "rating": "Rating",
+        "comment": "Comment",
+        "date": "Date"
+      }
     },
     "syncLog": {
       "title": "iCal-Synchronisationsprotokoll",
@@ -315,7 +421,15 @@
       "message": "Nachricht",
       "executedAt": "Ausgeführt am",
       "success": "Erfolg",
-      "error": "Fehler"
+      "error": "Fehler",
+      "columns": {
+        "property": "Property",
+        "client": "Client",
+        "icalUrl": "iCal link",
+        "status": "Status",
+        "message": "Message",
+        "ranAt": "Executed at"
+      }
     },
     "properties": {
       "title": "Immobilienverwaltung",
@@ -331,7 +445,15 @@
       "latitudeHint": "Z. B.: -22.9711",
       "longitudeHint": "Z. B.: -43.1822",
       "latitudePlaceholder": "-22.9711",
-      "longitudePlaceholder": "-43.1822"
+      "longitudePlaceholder": "-43.1822",
+      "form": {
+        "latitude": "Latitude",
+        "latitudeHint": "e.g. -22.9711",
+        "latitudePlaceholder": "-22.9711",
+        "longitude": "Longitude",
+        "longitudeHint": "e.g. -43.1822",
+        "longitudePlaceholder": "-43.1822"
+      }
     }
   },
   "provider": {

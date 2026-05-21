@@ -50,7 +50,9 @@
     "success": "Éxito",
     "error": "Error",
     "yes": "Sí",
-    "no": "No"
+    "no": "No",
+    "notAvailable": "N/A",
+    "minutes": "min"
   },
   "nav": {
     "dashboard": "Panel",
@@ -84,6 +86,14 @@
       "completed": "Completada",
       "canceled": "Cancelada",
       "billed": "Facturada"
+    },
+    "user": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "sync": {
+      "success": "Success",
+      "error": "Error"
     }
   },
   "auth": {
@@ -195,7 +205,17 @@
     "loginFailed": "Error al iniciar sesión",
     "registerFailed": "Error en el registro",
     "registerSuccess": "Registro enviado",
-    "registerSuccessMessage": "Su cuenta fue creada y espera activación por un administrador."
+    "registerSuccessMessage": "Su cuenta fue creada y espera activación por un administrador.",
+    "actionBlocked": "Action blocked",
+    "cannotDeactivateAdmin": "Administrators cannot be deactivated.",
+    "cannotChangeAdminRole": "Administrator roles cannot be changed.",
+    "userStatusChanged": "{{name}} was {{status}}.",
+    "permissionUpdated": "Permission updated",
+    "roleChanged": "{{name}} is now a {{role}}.",
+    "templateUpdated": "Template updated",
+    "templateCreated": "Template created",
+    "reportGenerated": "Statement generated",
+    "reportGeneratedMessage": "Report ready to send to clients."
   },
   "admin": {
     "dashboard": {
@@ -211,7 +231,19 @@
       "criticalStockAlerts": "Alertas de stock crítico",
       "criticalStockDescription": "Artículos por debajo del mínimo configurado. Reposición necesaria.",
       "recentOrders": "Órdenes recientes",
-      "viewFullTable": "Ver tabla completa →"
+      "viewFullTable": "Ver tabla completa →",
+      "cleaningsTodayChange": "Today's schedule",
+      "ordersInProgressChange": "Live",
+      "activePropertiesChange": "In operation",
+      "monthlyBillingChange": "Current month",
+      "criticalStockTitle": "Critical stock alerts",
+      "columns": {
+        "property": "Property",
+        "provider": "Provider",
+        "status": "Status",
+        "date": "Date",
+        "total": "Total"
+      }
     },
     "users": {
       "title": "Gestión de Usuarios",
@@ -224,7 +256,16 @@
       "lastLogin": "Último acceso",
       "actions": "Acciones",
       "activeStatus": "Activo",
-      "inactiveStatus": "Inactivo"
+      "inactiveStatus": "Inactivo",
+      "activateUser": "Toggle {{name}}",
+      "columns": {
+        "name": "Name",
+        "email": "Email",
+        "permission": "Permission",
+        "status": "Status",
+        "lastLogin": "Last login",
+        "actions": "Actions"
+      }
     },
     "orders": {
       "title": "Control de Órdenes de Servicio",
@@ -239,7 +280,21 @@
       "status": "Estado",
       "date": "Fecha",
       "total": "Total",
-      "emptyMessage": "No se encontraron órdenes para este filtro."
+      "emptyMessage": "No se encontraron órdenes para este filtro.",
+      "tabs": {
+        "all": "All",
+        "pending": "Pending",
+        "inProgress": "In progress",
+        "completed": "Completed"
+      },
+      "columns": {
+        "provider": "Provider",
+        "property": "Property",
+        "client": "Client",
+        "status": "Status",
+        "date": "Date",
+        "total": "Total"
+      }
     },
     "extras": {
       "title": "Catálogo de Servicios Extra",
@@ -254,7 +309,22 @@
       "serviceName": "Nombre del servicio",
       "defaultPrice": "Precio predeterminado",
       "estimatedTimeMin": "Tiempo estimado (min)",
-      "serviceNamePlaceholder": "Ej.: Limpieza de nevera"
+      "serviceNamePlaceholder": "Ej.: Limpieza de nevera",
+      "editService": "Edit extra service",
+      "createService": "New extra service",
+      "columns": {
+        "service": "Service",
+        "price": "Price",
+        "estimatedTime": "Estimated time"
+      },
+      "form": {
+        "name": "Service name",
+        "namePlaceholder": "e.g. Fridge cleaning",
+        "price": "Default price",
+        "pricePlaceholder": "0.00",
+        "time": "Estimated time (min)",
+        "timePlaceholder": "30"
+      }
     },
     "billing": {
       "title": "Informes Financieros",
@@ -271,7 +341,15 @@
       "property": "Propiedad",
       "provider": "Proveedor",
       "status": "Estado",
-      "total": "Total"
+      "total": "Total",
+      "exportReport": "Export statement",
+      "columns": {
+        "property": "Property",
+        "provider": "Provider",
+        "status": "Status",
+        "finishedAt": "Completed at",
+        "total": "Total"
+      }
     },
     "contracts": {
       "title": "Plantillas de Contrato",
@@ -291,7 +369,27 @@
       "clientEb": "Cliente EB",
       "providerEb": "Proveedor EB",
       "activeStatus": "Activo",
-      "inactiveStatus": "Inactivo"
+      "inactiveStatus": "Inactivo",
+      "editTemplate": "Edit template",
+      "createTemplate": "New contract template",
+      "columns": {
+        "template": "Template",
+        "type": "Type",
+        "version": "Version",
+        "status": "Status",
+        "updatedAt": "Updated at"
+      },
+      "form": {
+        "title": "Title",
+        "type": "Type",
+        "version": "Version",
+        "versionPlaceholder": "1.0",
+        "content": "Contract text"
+      },
+      "types": {
+        "clientEb": "Client EB",
+        "providerEb": "Provider EB"
+      }
     },
     "reviews": {
       "title": "Panel de Calidad",
@@ -303,7 +401,15 @@
       "rating": "Nota",
       "comment": "Comentario",
       "date": "Fecha",
-      "reviewsCount": "{{count}} evaluaciones"
+      "reviewsCount": "{{count}} evaluaciones",
+      "columns": {
+        "provider": "Provider",
+        "client": "Client",
+        "property": "Property",
+        "rating": "Rating",
+        "comment": "Comment",
+        "date": "Date"
+      }
     },
     "syncLog": {
       "title": "Registro de Sincronización iCal",
@@ -315,7 +421,15 @@
       "message": "Mensaje",
       "executedAt": "Ejecutado el",
       "success": "Éxito",
-      "error": "Error"
+      "error": "Error",
+      "columns": {
+        "property": "Property",
+        "client": "Client",
+        "icalUrl": "iCal link",
+        "status": "Status",
+        "message": "Message",
+        "ranAt": "Executed at"
+      }
     },
     "properties": {
       "title": "Gestión de Propiedades",
@@ -331,7 +445,15 @@
       "latitudeHint": "Ej.: -22.9711",
       "longitudeHint": "Ej.: -43.1822",
       "latitudePlaceholder": "-22.9711",
-      "longitudePlaceholder": "-43.1822"
+      "longitudePlaceholder": "-43.1822",
+      "form": {
+        "latitude": "Latitude",
+        "latitudeHint": "e.g. -22.9711",
+        "latitudePlaceholder": "-22.9711",
+        "longitude": "Longitude",
+        "longitudeHint": "e.g. -43.1822",
+        "longitudePlaceholder": "-43.1822"
+      }
     }
   },
   "provider": {

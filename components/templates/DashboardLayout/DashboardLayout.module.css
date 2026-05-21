@@ -26,6 +26,9 @@
   padding: var(--space-6);
   max-width: var(--content-max-width);
   width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+  box-sizing: border-box;
   animation: pageEnter var(--transition-slow) var(--ease-out);
 }
 

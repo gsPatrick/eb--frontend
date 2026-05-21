@@ -99,6 +99,9 @@
   gap: var(--space-3);
   align-items: end;
   min-height: 180px;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
 }
 
 .barGroup {

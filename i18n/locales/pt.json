@@ -50,7 +50,9 @@
     "success": "Sucesso",
     "error": "Erro",
     "yes": "Sim",
-    "no": "Não"
+    "no": "Não",
+    "notAvailable": "N/D",
+    "minutes": "min"
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -84,6 +86,14 @@
       "completed": "Concluída",
       "canceled": "Cancelada",
       "billed": "Faturada"
+    },
+    "user": {
+      "active": "Ativo",
+      "inactive": "Inativo"
+    },
+    "sync": {
+      "success": "Sucesso",
+      "error": "Erro"
     }
   },
   "auth": {
@@ -152,6 +162,16 @@
     }
   },
   "toast": {
+    "actionBlocked": "Ação bloqueada",
+    "cannotDeactivateAdmin": "Não é possível desativar administradores.",
+    "cannotChangeAdminRole": "Não é possível alterar role de administradores.",
+    "userStatusChanged": "{{name}} foi {{status}}.",
+    "permissionUpdated": "Permissão atualizada",
+    "roleChanged": "{{name}} agora é {{role}}.",
+    "templateUpdated": "Modelo atualizado",
+    "templateCreated": "Modelo criado",
+    "reportGenerated": "Extrato gerado",
+    "reportGeneratedMessage": "Relatório pronto para envio aos clientes.",
     "blockedAction": "Ação bloqueada",
     "blockedDeactivateAdmin": "Não é possível desativar administradores.",
     "blockedChangeAdminRole": "Não é possível alterar role de administradores.",
@@ -202,16 +222,28 @@
       "title": "Centro de Comando",
       "subtitle": "Visão geral das operações, alertas e faturamento.",
       "cleaningsToday": "Limpezas hoje",
+      "cleaningsTodayChange": "Agenda do dia",
       "vsYesterday": "+{{count}} vs ontem",
       "ordersInProgress": "OS em andamento",
+      "ordersInProgressChange": "Ao vivo",
       "live": "Ao vivo",
       "activeProperties": "Propriedades ativas",
+      "activePropertiesChange": "Em operação",
       "inactiveCount": "{{count}} inativa(s)",
       "monthlyBilling": "Faturamento do mês",
+      "monthlyBillingChange": "Mês atual",
       "criticalStockAlerts": "Alertas de estoque crítico",
+      "criticalStockTitle": "Alertas de estoque crítico",
       "criticalStockDescription": "Itens abaixo do mínimo configurado. Reposição necessária.",
       "recentOrders": "Ordens recentes",
-      "viewFullTable": "Ver tabela completa →"
+      "viewFullTable": "Ver tabela completa →",
+      "columns": {
+        "property": "Propriedade",
+        "provider": "Prestador",
+        "status": "Status",
+        "date": "Data",
+        "total": "Total"
+      }
     },
     "users": {
       "title": "Gestão de Usuários",
@@ -224,7 +256,16 @@
       "lastLogin": "Último login",
       "actions": "Ações",
       "activeStatus": "Ativo",
-      "inactiveStatus": "Inativo"
+      "inactiveStatus": "Inativo",
+      "activateUser": "Ativar ou desativar {{name}}",
+      "columns": {
+        "name": "Nome",
+        "email": "E-mail",
+        "permission": "Permissão",
+        "status": "Status",
+        "lastLogin": "Último login",
+        "actions": "Ações"
+      }
     },
     "orders": {
       "title": "Controle de Ordens de Serviço",
@@ -233,18 +274,34 @@
       "tabPending": "Pendentes",
       "tabInProgress": "Em andamento",
       "tabCompleted": "Concluídas",
+      "tabs": {
+        "all": "Todas",
+        "pending": "Pendentes",
+        "inProgress": "Em andamento",
+        "completed": "Concluídas"
+      },
       "provider": "Prestador",
       "property": "Propriedade / Casa",
       "client": "Cliente",
       "status": "Status",
       "date": "Data",
       "total": "Total",
-      "emptyMessage": "Nenhuma ordem encontrada para este filtro."
+      "emptyMessage": "Nenhuma ordem encontrada para este filtro.",
+      "columns": {
+        "provider": "Prestador",
+        "property": "Propriedade",
+        "client": "Cliente",
+        "status": "Status",
+        "date": "Data",
+        "total": "Total"
+      }
     },
     "extras": {
       "title": "Catálogo de Serviços Extras",
       "subtitle": "Defina preços para serviços adicionais como limpeza de vidros, geladeira e forno.",
       "newService": "Novo serviço",
+      "editService": "Editar serviço extra",
+      "createService": "Novo serviço extra",
       "service": "Serviço",
       "price": "Preço",
       "estimatedTime": "Tempo estimado",
@@ -254,7 +311,20 @@
       "serviceName": "Nome do serviço",
       "defaultPrice": "Preço padrão (R$)",
       "estimatedTimeMin": "Tempo estimado (min)",
-      "serviceNamePlaceholder": "Ex: Limpeza de Geladeira"
+      "serviceNamePlaceholder": "Ex: Limpeza de Geladeira",
+      "columns": {
+        "service": "Serviço",
+        "price": "Preço",
+        "estimatedTime": "Tempo estimado"
+      },
+      "form": {
+        "name": "Nome do serviço",
+        "namePlaceholder": "Ex: Limpeza de Geladeira",
+        "price": "Preço padrão (R$)",
+        "pricePlaceholder": "0,00",
+        "time": "Tempo estimado (min)",
+        "timePlaceholder": "30"
+      }
     },
     "billing": {
       "title": "Relatórios Financeiros",
@@ -267,16 +337,26 @@
       "completedOrders": "Ordens concluídas",
       "billingDetail": "Detalhamento para cobrança",
       "exportStatement": "Exportar extrato",
+      "exportReport": "Exportar extrato",
       "finishedAt": "Concluída em",
       "property": "Propriedade",
       "provider": "Prestador",
       "status": "Status",
-      "total": "Total"
+      "total": "Total",
+      "columns": {
+        "property": "Propriedade",
+        "provider": "Prestador",
+        "status": "Status",
+        "finishedAt": "Concluída em",
+        "total": "Total"
+      }
     },
     "contracts": {
       "title": "Modelos de Contrato",
       "subtitle": "Escreva os textos que clientes e prestadores aceitarão digitalmente.",
       "newTemplate": "Novo modelo",
+      "editTemplate": "Editar modelo",
+      "createTemplate": "Novo modelo de contrato",
       "model": "Modelo",
       "type": "Tipo",
       "version": "Versão",
@@ -291,7 +371,25 @@
       "clientEb": "Cliente EB",
       "providerEb": "Prestador EB",
       "activeStatus": "Ativo",
-      "inactiveStatus": "Inativo"
+      "inactiveStatus": "Inativo",
+      "columns": {
+        "template": "Modelo",
+        "type": "Tipo",
+        "version": "Versão",
+        "status": "Status",
+        "updatedAt": "Atualizado em"
+      },
+      "form": {
+        "title": "Título",
+        "type": "Tipo",
+        "version": "Versão",
+        "versionPlaceholder": "1.0",
+        "content": "Texto do contrato"
+      },
+      "types": {
+        "clientEb": "Cliente EB",
+        "providerEb": "Prestador EB"
+      }
     },
     "reviews": {
       "title": "Painel de Qualidade",
@@ -303,7 +401,15 @@
       "rating": "Nota",
       "comment": "Comentário",
       "date": "Data",
-      "reviewsCount": "{{count}} avaliações"
+      "reviewsCount": "{{count}} avaliações",
+      "columns": {
+        "provider": "Prestador",
+        "client": "Cliente",
+        "property": "Propriedade",
+        "rating": "Nota",
+        "comment": "Comentário",
+        "date": "Data"
+      }
     },
     "syncLog": {
       "title": "Log de Sincronização iCal",
@@ -315,7 +421,15 @@
       "message": "Mensagem",
       "executedAt": "Executado em",
       "success": "Sucesso",
-      "error": "Erro"
+      "error": "Erro",
+      "columns": {
+        "property": "Propriedade",
+        "client": "Cliente",
+        "icalUrl": "Link iCal",
+        "status": "Status",
+        "message": "Mensagem",
+        "ranAt": "Executado em"
+      }
     },
     "properties": {
       "title": "Gestão de Propriedades",
@@ -331,7 +445,15 @@
       "latitudeHint": "Ex: -22.9711",
       "longitudeHint": "Ex: -43.1822",
       "latitudePlaceholder": "-22.9711",
-      "longitudePlaceholder": "-43.1822"
+      "longitudePlaceholder": "-43.1822",
+      "form": {
+        "latitude": "Latitude",
+        "latitudeHint": "Ex: -22.9711",
+        "latitudePlaceholder": "-22.9711",
+        "longitude": "Longitude",
+        "longitudeHint": "Ex: -43.1822",
+        "longitudePlaceholder": "-43.1822"
+      }
     }
   },
   "provider": {
