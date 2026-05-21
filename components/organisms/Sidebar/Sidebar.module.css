@@ -226,7 +226,7 @@
   height: 40px;
   align-self: center;
   border-radius: 50%;
-  background: var(--color-sidebar-promo);
+  background: #e8eef8;
   color: var(--color-primary);
   font-family: var(--font-heading);
   font-size: 14px;
@@ -234,18 +234,11 @@
   display: grid;
   place-items: center;
   text-decoration: none;
-  transition:
-    background var(--transition-base),
-    transform var(--transition-fast);
+  transform: translateY(-1px);
 }
 
 .sidebarFooter .promoCompact {
   margin: 0;
-}
-
-.promoCompact:hover {
-  background: #e8eef8;
-  transform: translateY(-1px);
 }
 
 .promoCompactActive {
