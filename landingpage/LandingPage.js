@@ -2,11 +2,8 @@ import {
   NavbarSection,
   HeroSection,
   LanguagesSection,
-  ImpactSection,
   FeaturesSection,
   HowItWorksSection,
-  PortalsSection,
-  StatsSection,
   CtaSection,
   FooterSection,
 } from './sections';
@@ -18,12 +15,9 @@ export default function LandingPage() {
       <NavbarSection />
       <main className={styles.main}>
         <HeroSection />
-        <LanguagesSection />
         <FeaturesSection />
         <HowItWorksSection />
-        <PortalsSection />
-        <ImpactSection />
-        <StatsSection />
+        <LanguagesSection />
         <CtaSection />
       </main>
       <FooterSection />

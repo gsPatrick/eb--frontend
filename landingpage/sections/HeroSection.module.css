@@ -147,6 +147,11 @@
   margin-bottom: var(--space-8);
 }
 
+.demoLink {
+  display: inline-flex;
+  text-decoration: none;
+}
+
 .trust {
   list-style: none;
   display: flex;

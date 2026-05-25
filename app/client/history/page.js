@@ -149,24 +149,33 @@ export default function ClientHistoryPage() {
                         </div>
                       </div>
 
-                      {entry.beforePhotos.length > 0 && (
-                        <div className={styles.photoSection}>
-                          <p className={styles.photoGroupTitle}>{t('common.before')}</p>
-                          <div className={styles.photoGrid}>
-                            {entry.beforePhotos.map((photo) => (
-                              <img key={photo} src={photo} alt="" className={styles.photoThumb} />
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {entry.afterPhotos.length > 0 && (
-                        <div className={styles.photoSection}>
-                          <p className={styles.photoGroupTitle}>{t('common.after')}</p>
-                          <div className={styles.photoGrid}>
-                            {entry.afterPhotos.map((photo) => (
-                              <img key={photo} src={photo} alt="" className={styles.photoThumb} />
-                            ))}
+                      {(entry.beforePhotos.length > 0 || entry.afterPhotos.length > 0) && (
+                        <div className={styles.photoCompareSection}>
+                          <div className={styles.photoCompareGrid}>
+                            <div className={styles.photoCompareColumn}>
+                              <p className={styles.photoGroupTitle}>{t('common.before')}</p>
+                              <div className={styles.photoCompareStack}>
+                                {entry.beforePhotos.length > 0 ? (
+                                  entry.beforePhotos.map((photo) => (
+                                    <img key={photo} src={photo} alt="" className={styles.photoCompareThumb} />
+                                  ))
+                                ) : (
+                                  <p className={styles.photoCompareEmpty}>{t('client.history.noPhotos')}</p>
+                                )}
+                              </div>
+                            </div>
+                            <div className={styles.photoCompareColumn}>
+                              <p className={styles.photoGroupTitle}>{t('common.after')}</p>
+                              <div className={styles.photoCompareStack}>
+                                {entry.afterPhotos.length > 0 ? (
+                                  entry.afterPhotos.map((photo) => (
+                                    <img key={photo} src={photo} alt="" className={styles.photoCompareThumb} />
+                                  ))
+                                ) : (
+                                  <p className={styles.photoCompareEmpty}>{t('client.history.noPhotos')}</p>
+                                )}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       )}

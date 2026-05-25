@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import layout from '../landingpage.module.css';
 import styles from './HowItWorksSection.module.css';
 
-const STEPS = ['step1', 'step2', 'step3', 'step4'];
+const STEPS = ['step1', 'step2', 'step3'];
 
 export default function HowItWorksSection() {
   const { t } = useTranslation();
@@ -14,10 +14,7 @@ export default function HowItWorksSection() {
       <div className={layout.container}>
         <div className={styles.header}>
           <span className={styles.sectionLabel}>{t('landing.howItWorks.label')}</span>
-          <h2 className={styles.sectionTitle}>
-            {t('landing.howItWorks.title')}{' '}
-            <span className={styles.accent}>{t('landing.howItWorks.titleHighlight')}</span>
-          </h2>
+          <h2 className={styles.sectionTitle}>{t('landing.howItWorks.title')}</h2>
         </div>
 
         <ol className={styles.timeline}>

@@ -23,7 +23,15 @@ export default function LanguagesSection() {
         <div className={styles.flagGrid} role="list">
           {LOCALES.map((locale) => (
             <article key={locale.code} className={styles.flagCard} role="listitem">
-              <span className={styles.flag} aria-hidden="true">
+              <img
+                src={locale.flagImage}
+                alt=""
+                className={styles.flagImage}
+                width={48}
+                height={32}
+                loading="lazy"
+              />
+              <span className={styles.flagEmoji} aria-hidden="true">
                 {locale.flag}
               </span>
               <div className={styles.flagMeta}>

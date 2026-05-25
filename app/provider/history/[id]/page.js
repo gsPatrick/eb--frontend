@@ -103,35 +103,42 @@ export default function ProviderHistoryDetailPage() {
           ) : null}
         </article>
 
-        {order.beforePhotos?.length ? (
-          <section className={styles.historyPhotoSection}>
-            <h3 className={styles.panelTitle}>{t('common.before')}</h3>
-            <div className={styles.historyPhotoGrid}>
-              {order.beforePhotos.map((photo) => (
-                <a key={photo} href={photo} target="_blank" rel="noopener noreferrer">
-                  <img src={photo} alt={t('common.before')} className={styles.historyPhotoThumb} />
-                </a>
-              ))}
+        {(order.beforePhotos?.length || order.afterPhotos?.length) ? (
+          <section className={styles.photoCompareSection}>
+            <div className={styles.photoCompareGrid}>
+              <div className={styles.photoCompareColumn}>
+                <h3 className={styles.panelTitle}>{t('common.before')}</h3>
+                <div className={styles.photoCompareStack}>
+                  {order.beforePhotos?.length ? (
+                    order.beforePhotos.map((photo) => (
+                      <a key={photo} href={photo} target="_blank" rel="noopener noreferrer">
+                        <img src={photo} alt={t('common.before')} className={styles.photoCompareThumb} />
+                      </a>
+                    ))
+                  ) : (
+                    <p className={styles.photoCompareEmpty}>{t('provider.history.noPhotos')}</p>
+                  )}
+                </div>
+              </div>
+              <div className={styles.photoCompareColumn}>
+                <h3 className={styles.panelTitle}>{t('common.after')}</h3>
+                <div className={styles.photoCompareStack}>
+                  {order.afterPhotos?.length ? (
+                    order.afterPhotos.map((photo) => (
+                      <a key={photo} href={photo} target="_blank" rel="noopener noreferrer">
+                        <img src={photo} alt={t('common.after')} className={styles.photoCompareThumb} />
+                      </a>
+                    ))
+                  ) : (
+                    <p className={styles.photoCompareEmpty}>{t('provider.history.noPhotos')}</p>
+                  )}
+                </div>
+              </div>
             </div>
           </section>
-        ) : null}
-
-        {order.afterPhotos?.length ? (
-          <section className={styles.historyPhotoSection}>
-            <h3 className={styles.panelTitle}>{t('common.after')}</h3>
-            <div className={styles.historyPhotoGrid}>
-              {order.afterPhotos.map((photo) => (
-                <a key={photo} href={photo} target="_blank" rel="noopener noreferrer">
-                  <img src={photo} alt={t('common.after')} className={styles.historyPhotoThumb} />
-                </a>
-              ))}
-            </div>
-          </section>
-        ) : null}
-
-        {!order.beforePhotos?.length && !order.afterPhotos?.length ? (
+        ) : (
           <p className={styles.scheduleMeta}>{t('provider.history.noPhotos')}</p>
-        ) : null}
+        )}
       </div>
     </ProviderLayout>
   );

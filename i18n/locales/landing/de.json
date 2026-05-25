@@ -1,12 +1,70 @@
 {
-  "nav": { "features": "Funktionen", "howItWorks": "So funktioniert's", "languages": "Sprachen", "experiences": "Erlebnisse", "login": "Anmelden", "register": "Registrieren", "cta": "Loslegen", "languageLabel": "Sprache" },
-  "hero": { "videoBadge": "Feldausführung", "badge": "EB Services · Anbieter & Kunde", "title": "Professionelle Reinigung mit", "titleHighlight": "visuellem Nachweis", "titleEnd": "und validiertem GPS", "subtitle": "Anbieter arbeiten in der App mit Geofence, Fotos und Check-out. Kunden verfolgen Immobilien, Verlauf und Verträge im Webportal.", "createAccount": "Konto erstellen", "login": "Anmelden", "trust1": "Check-in innerhalb 200 m", "trust2": "Vorher/Nachher-Fotos", "trust3": "Mobile App + Kundenportal" },
-  "features": { "label": "Funktionen", "title": "Entwickelt für", "titleHighlight": "Anbieter und Kunde", "subtitle": "Jede Funktion ist für Feldausführung und Kundenvertrauen konzipiert.", "forProvider": "Anbieter", "forClient": "Kunde", "forBoth": "Beide", "geofence": { "title": "GPS-Geofence", "description": "Check-in/out innerhalb 200 m — Vertragsgenauigkeit mit visuellen Alerts." }, "photos": { "title": "Visueller Nachweis", "description": "Vorher/Nachher-Fotos im Flow. Kunden sehen Ergebnisse im Verlauf." }, "realtime": { "title": "Echtzeit", "description": "Neue Aufträge, kritischer Bestand und Updates sofort synchronisiert." }, "inventory": { "title": "Inventar", "description": "Anbieter prüft Bestand im Feld; Kunden erhalten kritische Alerts." }, "billing": { "title": "Einnahmen & Abrechnung", "description": "Anbieter verfolgt Einnahmen; Kunden sehen Verträge und Rechnungen." }, "reviews": { "title": "Bewertungen", "description": "Kunden bewerten jede abgeschlossene Reinigung." } },
-  "howItWorks": { "label": "So funktioniert's", "title": "Vom Check-in zum Check-out,", "titleHighlight": "reibungslos", "step1Title": "Neuer Auftrag in der App", "step1Desc": "Anbieter erhält die Reinigung in Echtzeit auf dem Handy.", "step2Title": "GPS Check-in", "step2Desc": "Nähevalidierung (200 m), Vorher-Fotos und geführte Ausführung.", "step3Title": "Extras & Inventar", "step3Desc": "Zusatzleistungen im Feld. Kritischer Bestand wird verfolgt.", "step4Title": "Check-out & Bewertung", "step4Desc": "Nachher-Fotos, GPS und Service abgeschlossen. Kunde bewertet im Portal." },
-  "languages": { "label": "Global", "stripLabel": "Verfügbar in 5 Sprachen", "title": "Ihre Operation spricht", "titleHighlight": "5 Sprachen", "subtitle": "Mobile App und Webportale auf Portugiesisch, Englisch, Spanisch, Französisch und Deutsch.", "hint": "PT · EN · ES · FR · DE — dieselbe EB Services Erfahrung." },
-  "impact": { "line1": "Technologie, die", "line2": "jede Reinigung in Vertrauen verwandelt." },
-  "experiences": { "label": "Erlebnisse", "title": "Anbieter und Kunde,", "titleHighlight": "verbunden", "subtitle": "Zwei Interfaces für Ausführung und Vertrauen — volle Funktionen in jedem Profil.", "providerTitle": "Anbieter", "providerTagline": "Mobile App · Feld", "providerDesc": "Tagesagenda, cinematischer Flow, GPS, Fotos und Offline-Sync.", "providerCta": "Als Anbieter anmelden", "providerFeatures": ["200 m Geofence Check-in", "Vorher/Nachher-Fotos", "Extras & Feldinventar", "Einnahmenverlauf", "Sofortige Auftragsbenachrichtigung"], "clientTitle": "Kunde", "clientTagline": "Webportal · volle Übersicht", "clientDesc": "Immobilien, Reinigungen, Inventar und digitale Verträge.", "clientCta": "Als Kunde anmelden", "clientFeatures": ["Immobilien & Kalender", "Verlauf mit Fotos", "Kritische Bestandsalerts", "Verträge & Abrechnung", "Bewertung nach Reinigung"] },
-  "stats": { "geofence": "Geofence-Radius", "languages": "Unterstützte Sprachen", "portals": "Web- & Mobile-Portale", "sync": "Echtzeit-Sync", "ariaLabel": "EB Services Kennzahlen" },
-  "cta": { "title": "Bereit, Ihre Reinigung zu optimieren?", "subtitle": "Mobile App für Anbieter und Webportal für Kunden — in 5 Sprachen.", "createAccount": "Konto erstellen", "hasAccess": "Ich habe bereits Zugang" },
-  "footer": { "tagline": "Professionelle Reinigung mit Technologie.", "product": "Produkt", "access": "Zugang", "copyright": "© {{year}} EB Services. Alle Rechte vorbehalten." }
+  "nav": {
+    "features": "Segments",
+    "howItWorks": "Technology",
+    "languages": "Languages",
+    "experiences": "Experiences",
+    "login": "Sign in",
+    "register": "Create account",
+    "cta": "Get started",
+    "languageLabel": "Language"
+  },
+  "hero": {
+    "badge": "🎖️ VETERAN-OWNED & OPERATED",
+    "title": "Absolute Control, Technology and Trust in Your Property Cleaning.",
+    "subtitle": "Manage multiple contracts, validate teams via GPS, and inspect results with visual proof in real time. A modern platform that combines technology efficiency with the rigor, integrity, and operational excellence of military leadership.",
+    "createAccount": "Create Account",
+    "scheduleDemo": "Schedule a Demo"
+  },
+  "segments": {
+    "label": "Segments served",
+    "title": "Operational Efficiency and Rigor for Any Scenario.",
+    "subtitle": "Whether maintaining your company's corporate image or guaranteeing top ratings for your guests, our platform adapts perfectly to your industry's requirements.",
+    "commercial": {
+      "title": "Commercial Cleaning",
+      "description": "We keep offices, clinics, and commercial establishments impeccable—ensuring a productive, sanitized environment that conveys total professionalism to your clients."
+    },
+    "airbnb": {
+      "title": "Airbnb & Vacation Rentals",
+      "description": "The hospitality standard your short-term rental business needs. Mandatory before-and-after photos and validated check-in ensure the property is perfect before the next guest arrives."
+    },
+    "residential": {
+      "title": "Residential Cleaning",
+      "description": "Care, discretion, and the highest standards of trust for the maintenance and well-being of your home."
+    },
+    "postConstruction": {
+      "title": "Post-Construction Cleaning",
+      "description": "Technical and detailed removal of dust, paint residue, and construction debris. We leave the property completely ready to move in or inaugurate."
+    }
+  },
+  "howItWorks": {
+    "label": "Technology pillars",
+    "title": "The Technology that Guarantees Perfect Delivery.",
+    "step1Title": "Undeniable Visual Proof",
+    "step1Desc": "Mandatory before-and-after photo reports attached directly to your dashboard. Inspect every detail without needing to visit the site.",
+    "step2Title": "GPS Validation & Presence (Geofencing)",
+    "step2Desc": "Legal and operational security. The provider can only start the service within the property's actual perimeter, ensuring contracted time is fulfilled precisely.",
+    "step3Title": "Centralized Command Center",
+    "step3Desc": "Access histories, manage properties across different niches (an office and an Airbnb, for example), view invoices, and track schedules on a single screen."
+  },
+  "languages": {
+    "label": "Languages",
+    "title": "Your Operation Without Barriers:",
+    "titleHighlight": "Unified Management in 5 Languages",
+    "subtitle": "Lack of communication destroys operational efficiency. Our platform eliminates this problem by translating workflows instantly. While field teams execute tasks following instructions in their native language (English, Portuguese, Spanish, French, or German), your central management and reports remain perfectly aligned to your preferred language.",
+    "hint": "English · Portuguese · Spanish · French · German"
+  },
+  "cta": {
+    "title": "Ready to elevate the management and cleaning standard of your business?",
+    "subtitle": "Have the predictability, technology, and integrity of an operation structured by those who understand discipline, processes, and commitment.",
+    "contactSpecialist": "Talk to a Specialist",
+    "createAccount": "Create Account",
+    "hasAccess": "I already have access"
+  },
+  "footer": {
+    "tagline": "EB Services and Solutions — technology, rigor, and trust in professional cleaning.",
+    "product": "Product",
+    "access": "Access",
+    "copyright": "© {{year}} EB Services and Solutions. All rights reserved."
+  }
 }

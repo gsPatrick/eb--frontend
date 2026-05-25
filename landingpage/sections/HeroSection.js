@@ -3,15 +3,13 @@
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import Button from '@/components/atoms/Button';
-import Icon from '@/components/atoms/Icon';
 import HeroVideoLoop from '../components/HeroVideoLoop';
 import layout from '../landingpage.module.css';
 import styles from './HeroSection.module.css';
 
 const VIDEO_SRC = '/landing/hero.mp4';
 const LOGO_SRC = '/logo.png';
-
-const TRUST_KEYS = ['trust1', 'trust2', 'trust3'];
+const DEMO_MAILTO = 'mailto:contato@ebservices.com?subject=EB%20Services%20-%20Demo%20Request';
 
 export default function HeroSection() {
   const { t } = useTranslation();
@@ -30,23 +28,15 @@ export default function HeroSection() {
       <div className={styles.contentCol}>
         <div className={styles.contentInner}>
           <Link href="/" className={styles.heroLogoLink}>
-            <img
-              src={LOGO_SRC}
-              alt="eb. Services and Solutions"
-              className={styles.heroLogo}
-            />
+            <img src={LOGO_SRC} alt="EB Services and Solutions" className={styles.heroLogo} />
           </Link>
 
           <span className={styles.badge}>
-            <span className={styles.badgeDot} />
+            <span className={styles.badgeDot} aria-hidden="true" />
             {t('landing.hero.badge')}
           </span>
 
-          <h1 className={styles.title}>
-            {t('landing.hero.title')}{' '}
-            <span className={layout.gradientText}>{t('landing.hero.titleHighlight')}</span>{' '}
-            {t('landing.hero.titleEnd')}
-          </h1>
+          <h1 className={styles.title}>{t('landing.hero.title')}</h1>
 
           <p className={styles.subtitle}>{t('landing.hero.subtitle')}</p>
 
@@ -54,21 +44,12 @@ export default function HeroSection() {
             <Link href="/register">
               <Button size="lg">{t('landing.hero.createAccount')}</Button>
             </Link>
-            <Link href="/login">
+            <a href={DEMO_MAILTO} className={styles.demoLink}>
               <Button variant="secondary" size="lg">
-                {t('landing.hero.login')}
+                {t('landing.hero.scheduleDemo')}
               </Button>
-            </Link>
+            </a>
           </div>
-
-          <ul className={styles.trust}>
-            {TRUST_KEYS.map((key) => (
-              <li key={key}>
-                <Icon name="check" size={16} />
-                {t(`landing.hero.${key}`)}
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </section>

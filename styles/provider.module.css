@@ -430,6 +430,55 @@
   gap: var(--space-3);
 }
 
+.photoCompareSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.photoCompareGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.photoCompareColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.photoCompareStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.photoCompareThumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.photoCompareEmpty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  padding: var(--space-4);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-muted);
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
 .historyPhotoSection {
   display: flex;
   flex-direction: column;

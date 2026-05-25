@@ -1,130 +1,70 @@
 {
   "nav": {
-    "features": "Recursos",
-    "howItWorks": "Como funciona",
+    "features": "Segmentos",
+    "howItWorks": "Tecnologia",
     "languages": "Idiomas",
     "experiences": "Experiências",
     "login": "Entrar",
-    "register": "Cadastro",
-    "cta": "Começar grátis",
+    "register": "Criar conta",
+    "cta": "Começar",
     "languageLabel": "Idioma"
   },
   "hero": {
-    "videoBadge": "Execução em campo",
-    "badge": "EB Services · Prestador & Cliente",
-    "title": "Limpeza profissional com",
-    "titleHighlight": "prova visual",
-    "titleEnd": "e GPS validado",
-    "subtitle": "O prestador executa no app com geofence, fotos e check-out. O cliente acompanha propriedades, histórico e contratos pelo portal web — tudo em tempo real.",
-    "createAccount": "Criar conta",
-    "login": "Entrar",
-    "trust1": "Check-in a 200 m do imóvel",
-    "trust2": "Fotos antes e depois",
-    "trust3": "App mobile + portal cliente"
+    "badge": "🎖️ VETERAN-OWNED & OPERATED",
+    "title": "Controle Absoluto, Tecnologia e Confiança na Limpeza da sua Propriedade.",
+    "subtitle": "Gerencie múltiplos contratos, valide equipes por GPS e inspecione resultados com provas visuais em tempo real. Uma plataforma moderna que une a eficiência da tecnologia com o rigor, a integridade e a excelência operacional de uma liderança com histórico militar.",
+    "createAccount": "Criar Conta",
+    "scheduleDemo": "Agendar uma Demonstração"
   },
-  "features": {
-    "label": "Recursos",
-    "title": "Funcionalidades para",
-    "titleHighlight": "prestador e cliente",
-    "subtitle": "Cada recurso foi desenhado para quem executa a limpeza em campo e quem acompanha o serviço com confiança.",
-    "forProvider": "Prestador",
-    "forClient": "Cliente",
-    "forBoth": "Ambos",
-    "geofence": {
-      "title": "Geofence GPS",
-      "description": "Check-in e check-out validados a 200 m do imóvel — rigor contratual com alerta visual."
+  "segments": {
+    "label": "Segmentos atendidos",
+    "title": "Eficiência e Rigor Operacional para Qualquer Cenário.",
+    "subtitle": "Seja para manter a imagem corporativa da sua empresa ou garantir a nota máxima dos seus hóspedes, nossa plataforma adapta-se perfeitamente às exigências do seu setor.",
+    "commercial": {
+      "title": "Limpeza Comercial",
+      "description": "Mantemos escritórios, clínicas e estabelecimentos comerciais impecáveis, garantindo um ambiente produtivo, higienizado e que transmite total profissionalismo aos seus clientes."
     },
-    "photos": {
-      "title": "Prova visual",
-      "description": "Fotos antes e depois integradas ao fluxo. O cliente vê o resultado no histórico."
+    "airbnb": {
+      "title": "Airbnb & Vacation Rentals",
+      "description": "O padrão de hotelaria que o seu negócio de curto prazo precisa. Fotos de antes e depois obrigatórias e check-in validado para garantir que a propriedade estará perfeita antes da chegada do próximo hóspede."
     },
-    "realtime": {
-      "title": "Tempo real",
-      "description": "Nova OS, estoque crítico e atualizações sincronizadas instantaneamente."
+    "residential": {
+      "title": "Limpeza Residencial",
+      "description": "Cuidado, discrição e os mais altos critérios de confiança para a manutenção e o bem-estar do seu lar."
     },
-    "inventory": {
-      "title": "Inventário",
-      "description": "Prestador consulta estoque em campo; cliente recebe alertas de nível crítico."
-    },
-    "billing": {
-      "title": "Ganhos & faturamento",
-      "description": "Prestador acompanha total recebido; cliente visualiza contratos e cobranças."
-    },
-    "reviews": {
-      "title": "Avaliações",
-      "description": "Cliente avalia cada limpeza concluída — feedback direto após o serviço."
+    "postConstruction": {
+      "title": "Limpeza Pós-Obra",
+      "description": "Remoção técnica e detalhada de poeira, resíduos de tinta e detritos de construção. Deixamos o imóvel completamente pronto para morar ou inaugurar."
     }
   },
   "howItWorks": {
-    "label": "Como funciona",
-    "title": "Do check-in ao check-out,",
-    "titleHighlight": "sem fricção",
-    "step1Title": "Nova OS no app",
-    "step1Desc": "O prestador recebe a limpeza atribuída em tempo real no celular e ela aparece na agenda do dia.",
-    "step2Title": "Check-in com GPS",
-    "step2Desc": "Validação de proximidade (200 m), fotos “antes” e início da execução — tudo guiado passo a passo.",
-    "step3Title": "Extras & inventário",
-    "step3Desc": "Serviços adicionais marcados em campo. Cliente e prestador acompanham estoque crítico.",
-    "step4Title": "Check-out & avaliação",
-    "step4Desc": "Fotos “depois”, GPS novamente e serviço concluído. Cliente revisa e avalia pelo portal."
+    "label": "Pilares tecnológicos",
+    "title": "A Tecnologia que Garante a Entrega Perfeita.",
+    "step1Title": "Prova Visual Incontestável",
+    "step1Desc": "Relatórios fotográficos obrigatórios de \"Antes e Depois\" anexados diretamente ao seu painel. Você inspeciona cada detalhe sem precisar ir até o local.",
+    "step2Title": "Validação e Presença por GPS (Geofencing)",
+    "step2Desc": "Segurança jurídica e operacional. O prestador só consegue iniciar o serviço se estiver dentro do perímetro real do imóvel, garantindo que o tempo contratado seja cumprido à risca.",
+    "step3Title": "Central de Comando Centralizada",
+    "step3Desc": "Acesse históricos, gerencie propriedades de nichos diferentes (um escritório e um Airbnb, por exemplo), visualize invoices e acompanhe cronogramas em uma única tela."
   },
   "languages": {
-    "label": "Global",
-    "stripLabel": "Disponível em 5 idiomas",
-    "title": "Sua operação fala",
-    "titleHighlight": "5 idiomas",
-    "subtitle": "App mobile e portais web disponíveis em português, inglês, espanhol, francês e alemão. Troque o idioma a qualquer momento — a escolha fica salva para a próxima visita.",
-    "hint": "PT · EN · ES · FR · DE — mesma experiência EB Services em qualquer idioma."
-  },
-  "impact": {
-    "line1": "Tecnologia que transforma",
-    "line2": "cada limpeza em confiança."
-  },
-  "experiences": {
-    "label": "Experiências",
-    "title": "Prestador e cliente,",
-    "titleHighlight": "conectados",
-    "subtitle": "Duas interfaces pensadas para quem executa a limpeza e quem confia no serviço — com funcionalidades completas em cada perfil.",
-    "providerTitle": "Prestador",
-    "providerTagline": "App mobile · execução em campo",
-    "providerDesc": "Agenda do dia, fluxo cinematográfico de execução, GPS, fotos e sincronização offline.",
-    "providerCta": "Acessar como prestador",
-    "providerFeatures": [
-      "Check-in com geofence de 200 m",
-      "Fotos antes/depois pela câmera nativa",
-      "Serviços extras e inventário de campo",
-      "Histórico de ganhos e OS concluídas",
-      "Notificação instantânea de nova OS"
-    ],
-    "clientTitle": "Cliente",
-    "clientTagline": "Portal web · acompanhamento total",
-    "clientDesc": "Visão completa das propriedades, limpezas realizadas, estoque e contratos digitais.",
-    "clientCta": "Acessar como cliente",
-    "clientFeatures": [
-      "Propriedades e calendário de limpezas",
-      "Histórico com fotos do serviço",
-      "Alertas de estoque crítico",
-      "Contratos e faturamento",
-      "Avaliação pós-limpeza"
-    ]
-  },
-  "stats": {
-    "geofence": "Raio de geofence",
-    "languages": "Idiomas suportados",
-    "portals": "Portais web & mobile",
-    "sync": "Sync em tempo real",
-    "ariaLabel": "Números EB Services"
+    "label": "Idiomas",
+    "title": "Sua Operação sem Barreiras:",
+    "titleHighlight": "Gestão Unificada em 5 Idiomas",
+    "subtitle": "A falta de comunicação destrói a eficiência operacional. Nossa plataforma elimina esse problema traduzindo fluxos de trabalho instantaneamente. Enquanto as equipes em campo executam as tarefas seguindo instruções no idioma nativo delas (Inglês, Português, Espanhol, Francês ou Alemão), seu gerenciamento central e relatórios permanecem perfeitamente alinhados ao seu idioma de preferência.",
+    "hint": "Inglês · Português · Espanhol · Francês · Alemão"
   },
   "cta": {
-    "title": "Pronto para elevar sua operação de limpeza?",
-    "subtitle": "App mobile para prestadores e portal web para clientes — geofence, fotos, inventário e notificações em tempo real, em 5 idiomas.",
-    "createAccount": "Criar conta",
+    "title": "Pronto para elevar o padrão de gestão e limpeza do seu negócio?",
+    "subtitle": "Tenha a previsibilidade, a tecnologia e a integridade de uma operação estruturada por quem entende de disciplina, processos e compromisso.",
+    "contactSpecialist": "Falar com um Especialista",
+    "createAccount": "Criar Conta",
     "hasAccess": "Já tenho acesso"
   },
   "footer": {
-    "tagline": "Limpeza profissional com tecnologia — prestador em campo, cliente conectado.",
+    "tagline": "EB Services and Solutions — tecnologia, rigor e confiança na limpeza profissional.",
     "product": "Produto",
     "access": "Acesso",
-    "copyright": "© {{year}} EB Services. Todos os direitos reservados."
+    "copyright": "© {{year}} EB Services and Solutions. Todos os direitos reservados."
   }
 }

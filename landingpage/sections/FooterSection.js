@@ -9,7 +9,6 @@ const PRODUCT_LINKS = [
   { key: 'features', href: '#recursos' },
   { key: 'howItWorks', href: '#como-funciona' },
   { key: 'languages', href: '#idiomas' },
-  { key: 'experiences', href: '#experiencias' },
 ];
 
 const ACCESS_LINKS = [

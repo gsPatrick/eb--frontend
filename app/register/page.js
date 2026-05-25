@@ -11,12 +11,14 @@ import PasswordInput from '@/components/molecules/PasswordInput';
 import Select from '@/components/atoms/Select';
 import FormField from '@/components/molecules/FormField';
 import AuthLayout from '@/components/templates/AuthLayout';
+import { useLocale } from '@/context/I18nProvider';
 import { useToast } from '@/hooks/useToast';
 import { registerUser } from '@/services/auth.service';
 import styles from '@/styles/auth.module.css';
 
 export default function RegisterPage() {
   const { t } = useTranslation();
+  const { locale } = useLocale();
   const router = useRouter();
   const toast = useToast();
   const [loading, setLoading] = useState(false);
@@ -75,7 +77,7 @@ export default function RegisterPage() {
         password: form.password,
         role: form.role,
         phone: form.phone.trim() || undefined,
-        locale: 'pt',
+        locale,
       });
 
       toast.success(t('toast.registerSuccess'), t('toast.registerSuccessMessage'));

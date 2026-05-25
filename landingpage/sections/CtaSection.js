@@ -6,6 +6,8 @@ import Button from '@/components/atoms/Button';
 import layout from '../landingpage.module.css';
 import styles from './CtaSection.module.css';
 
+const SPECIALIST_MAILTO = 'mailto:contato@ebservices.com?subject=EB%20Services%20-%20Specialist';
+
 export default function CtaSection() {
   const { t } = useTranslation();
 
@@ -17,12 +19,12 @@ export default function CtaSection() {
           <h2 className={styles.title}>{t('landing.cta.title')}</h2>
           <p className={styles.subtitle}>{t('landing.cta.subtitle')}</p>
           <div className={styles.actions}>
+            <a href={SPECIALIST_MAILTO}>
+              <Button size="lg">{t('landing.cta.contactSpecialist')}</Button>
+            </a>
             <Link href="/register">
-              <Button size="lg">{t('landing.cta.createAccount')}</Button>
-            </Link>
-            <Link href="/login">
               <Button variant="secondary" size="lg">
-                {t('landing.cta.hasAccess')}
+                {t('landing.cta.createAccount')}
               </Button>
             </Link>
           </div>

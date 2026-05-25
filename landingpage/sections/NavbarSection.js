@@ -11,7 +11,6 @@ const NAV_KEYS = [
   { href: '#recursos', key: 'features' },
   { href: '#como-funciona', key: 'howItWorks' },
   { href: '#idiomas', key: 'languages' },
-  { href: '#experiencias', key: 'experiences' },
 ];
 
 export default function NavbarSection() {
