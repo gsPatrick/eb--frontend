@@ -49,6 +49,14 @@
     "total": "Total",
     "success": "Success",
     "error": "Error",
+    "attachments": {
+      "messageDetail": "Message",
+      "title": "Attachment",
+      "view": "View",
+      "viewPdf": "View PDF",
+      "download": "Download attachment",
+      "openInNewTab": "Open in new tab"
+    },
     "yes": "Yes",
     "no": "No",
     "notAvailable": "N/A",
@@ -654,6 +662,7 @@
       "attachmentField": "Attachment (optional)",
       "attachmentHint": "PDF, image, or document — up to 10 MB.",
       "downloadAttachment": "Download attachment",
+      "messageDetail": "Message",
       "types": {
         "general": "General",
         "invoice": "Invoice",
@@ -746,6 +755,14 @@
       "fromAdmin": "From EB admin",
       "fromYou": "Sent by you",
       "downloadAttachment": "Download attachment",
+      "messageDetail": "Message",
+      "read": "Read",
+      "unread": "Unread",
+      "columns": {
+        "from": "From",
+        "to": "To",
+        "date": "Date"
+      },
       "types": {
         "general": "Message",
         "invoice": "Invoice",
@@ -863,6 +880,14 @@
       "fromAdmin": "From EB admin",
       "fromYou": "Sent by you",
       "downloadAttachment": "Download attachment",
+      "messageDetail": "Message",
+      "read": "Read",
+      "unread": "Unread",
+      "columns": {
+        "from": "From",
+        "to": "To",
+        "date": "Date"
+      },
       "types": {
         "general": "Message",
         "invoice": "Invoice",

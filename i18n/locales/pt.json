@@ -50,6 +50,14 @@
     "total": "Total",
     "success": "Sucesso",
     "error": "Erro",
+    "attachments": {
+      "messageDetail": "Mensagem",
+      "title": "Anexo",
+      "view": "Visualizar",
+      "viewPdf": "Visualizar PDF",
+      "download": "Baixar anexo",
+      "openInNewTab": "Abrir em nova aba"
+    },
     "yes": "Sim",
     "no": "Não",
     "notAvailable": "N/D",
@@ -654,6 +662,7 @@
       "attachmentField": "Anexo (opcional)",
       "attachmentHint": "PDF, imagem ou documento — até 10 MB.",
       "downloadAttachment": "Baixar anexo",
+      "messageDetail": "Mensagem",
       "types": {
         "general": "Geral",
         "invoice": "Fatura",
@@ -735,6 +744,14 @@
       "fromAdmin": "Da equipe EB",
       "fromYou": "Enviada por você",
       "downloadAttachment": "Baixar anexo",
+      "messageDetail": "Mensagem",
+      "read": "Lida",
+      "unread": "Não lida",
+      "columns": {
+        "from": "De",
+        "to": "Para",
+        "date": "Data"
+      },
       "types": {
         "general": "Mensagem",
         "invoice": "Fatura",
@@ -852,6 +869,14 @@
       "fromAdmin": "Da equipe EB",
       "fromYou": "Enviada por você",
       "downloadAttachment": "Baixar anexo",
+      "messageDetail": "Mensagem",
+      "read": "Lida",
+      "unread": "Não lida",
+      "columns": {
+        "from": "De",
+        "to": "Para",
+        "date": "Data"
+      },
       "types": {
         "general": "Mensagem",
         "invoice": "Fatura",

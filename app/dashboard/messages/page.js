@@ -11,6 +11,7 @@ import FormField from '@/components/molecules/FormField';
 import Modal from '@/components/molecules/Modal';
 import PageHeader from '@/components/molecules/PageHeader';
 import DataTable from '@/components/organisms/DataTable';
+import MessageDetailModal from '@/components/organisms/MessageDetailModal/MessageDetailModal';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { useRealtimeRefresh } from '@/hooks/useRealtimeRefresh';
 import { useToast } from '@/hooks/useToast';
@@ -169,44 +170,13 @@ export default function AdminMessagesPage() {
         onRowClick={openMessage}
       />
 
-      <Modal
+      <MessageDetailModal
+        message={selected}
         isOpen={Boolean(selected)}
         onClose={() => setSelected(null)}
-        title={selected?.subject || t('admin.messages.title')}
-      >
-        {selected ? (
-          <div className={styles.modalBody}>
-            <div className={styles.messageMetaRow}>
-              <Badge variant={messageTypeBadgeVariant(selected.messageType)}>
-                {t(`admin.messages.types.${selected.messageType}`, { defaultValue: selected.messageType })}
-              </Badge>
-              <Badge variant={selected.recipient?.role === 'client' ? 'info' : 'success'}>
-                {t('admin.messages.deliveredTo', {
-                  role: t(`roles.${selected.recipient?.role || 'client'}`),
-                })}
-              </Badge>
-            </div>
-            <p>
-              <strong>{t('admin.messages.columns.from')}:</strong> {selected.sender?.name}
-            </p>
-            <p>
-              <strong>{t('admin.messages.columns.to')}:</strong> {selected.recipient?.name}
-            </p>
-            <p>{selected.body}</p>
-            {selected.attachmentUrl ? (
-              <a
-                href={selected.attachmentUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.attachmentLink}
-              >
-                <Icon name="download" size={16} />
-                {selected.attachmentName || t('admin.messages.downloadAttachment')}
-              </a>
-            ) : null}
-          </div>
-        ) : null}
-      </Modal>
+        translationScope="admin.messages"
+        showDeliveryBadge
+      />
 
       <Modal
         isOpen={composing}

@@ -4,13 +4,13 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Badge from '@/components/atoms/Badge';
 import Button from '@/components/atoms/Button';
-import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
 import Textarea from '@/components/atoms/Textarea';
 import FormField from '@/components/molecules/FormField';
 import PageHeader from '@/components/molecules/PageHeader';
 import Card from '@/components/molecules/Card';
 import EmptyState from '@/components/molecules/EmptyState';
+import MessageDetailModal from '@/components/organisms/MessageDetailModal/MessageDetailModal';
 import ClientLayout from '@/components/templates/ClientLayout';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { useRealtimeRefresh } from '@/hooks/useRealtimeRefresh';
@@ -31,6 +31,7 @@ export default function ClientMessagesPage() {
   const toast = useToast();
   const [form, setForm] = useState({ subject: '', body: '' });
   const [sending, setSending] = useState(false);
+  const [selected, setSelected] = useState(null);
 
   const fetchMessages = () => messagesApi.list({ limit: 100 }).then((response) => response.items);
   const { data: messages = [], loading, refetch, setData } = useApiQuery(fetchMessages, [], {
@@ -56,6 +57,19 @@ export default function ClientMessagesPage() {
       toast.error(t('toast.actionBlocked'), error.message);
     } finally {
       setSending(false);
+    }
+  };
+
+  const openMessage = async (message) => {
+    setSelected(message);
+    if (!message.readAt) {
+      try {
+        const updated = await messagesApi.markRead(message.id);
+        setData((prev) => prev.map((item) => (item.id === updated.id ? updated : item)));
+        setSelected(updated);
+      } catch {
+        /* ignore */
+      }
     }
   };
 
@@ -90,41 +104,43 @@ export default function ClientMessagesPage() {
         ) : (
           <div className={styles.messageList}>
             {sorted.map((message) => (
-              <Card key={message.id} className={styles.messageCard}>
+              <Card
+                key={message.id}
+                className={styles.messageCardClickable}
+                onClick={() => openMessage(message)}
+              >
                 <div className={styles.messageHeader}>
                   <strong>{message.subject}</strong>
                   <span>{formatDateTime(message.createdAt)}</span>
                 </div>
-                {message.messageType && message.messageType !== 'general' ? (
-                  <div className={styles.messageMeta}>
+                <div className={styles.messageMeta}>
+                  {message.messageType && message.messageType !== 'general' ? (
                     <Badge variant={messageTypeBadgeVariant(message.messageType)}>
                       {t(`client.messages.types.${message.messageType}`, {
                         defaultValue: message.messageType,
                       })}
                     </Badge>
-                  </div>
-                ) : null}
-                <p>{message.body}</p>
-                {message.attachmentUrl ? (
-                  <a
-                    href={message.attachmentUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.attachmentLink}
-                  >
-                    <Icon name="download" size={16} />
-                    {message.attachmentName || t('client.messages.downloadAttachment')}
-                  </a>
-                ) : null}
+                  ) : null}
+                  {!message.readAt ? <Badge variant="warning">{t('client.messages.unread')}</Badge> : null}
+                </div>
+                <p className={styles.messagePreview}>{message.body}</p>
                 <small className={styles.messageFooter}>
                   {message.sender?.role === 'admin'
                     ? t('client.messages.fromAdmin')
                     : t('client.messages.fromYou')}
+                  {message.attachmentUrl ? ` · ${t('common.attachments.title')}` : ''}
                 </small>
               </Card>
             ))}
           </div>
         )}
+
+        <MessageDetailModal
+          message={selected}
+          isOpen={Boolean(selected)}
+          onClose={() => setSelected(null)}
+          translationScope="client.messages"
+        />
       </div>
     </ClientLayout>
   );
