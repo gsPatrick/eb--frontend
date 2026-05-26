@@ -8,4 +8,7 @@ export * as usersApi from './users';
 export * as reportsApi from './reports';
 export * as reviewsApi from './reviews';
 export * as geocodingApi from './geocoding';
+export * as messagesApi from './messages';
+export * as fieldReportsApi from './fieldReports';
+export * as recurringSchedulesApi from './recurringSchedules';
 export * from './mappers';

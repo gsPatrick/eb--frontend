@@ -15,7 +15,7 @@ import DataTable from '@/components/organisms/DataTable';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { usePagination } from '@/hooks/usePagination';
 import { useToast } from '@/hooks/useToast';
-import { reportsApi, usersApi } from '@/src/services/api';
+import { ordersApi, reportsApi, usersApi } from '@/src/services/api';
 import { getOrderStatusBadge } from '@/utils/adminHelpers';
 import { formatCurrency, formatDate } from '@/utils/formatters';
 import styles from '@/styles/admin.module.css';
@@ -73,6 +73,11 @@ export default function BillingPage() {
     [],
     { initialData: [] }
   );
+  const { data: financialSummary } = useApiQuery(
+    () => ordersApi.getFinancialSummary(),
+    [],
+    { initialData: null }
+  );
   const [generating, setGenerating] = useState(false);
   const [report, setReport] = useState(null);
   const [filters, setFilters] = useState({
@@ -117,6 +122,27 @@ export default function BillingPage() {
             subtitle={t('admin.billing.subtitle')}
           />
         )}
+
+        {financialSummary ? (
+          <div className={styles.summaryRow}>
+            <StatCard
+              label={t('admin.billing.clientPending')}
+              value={formatCurrency(financialSummary.clientPendingTotal)}
+            />
+            <StatCard
+              label={t('admin.billing.clientPaid')}
+              value={formatCurrency(financialSummary.clientPaidTotal)}
+            />
+            <StatCard
+              label={t('admin.billing.commissionEarned')}
+              value={formatCurrency(financialSummary.commissionEarnedTotal)}
+            />
+            <StatCard
+              label={t('admin.billing.providerPending')}
+              value={formatCurrency(financialSummary.providerPendingTotal)}
+            />
+          </div>
+        ) : null}
 
         {!loading && (
           <form className={styles.toolbar} onSubmit={generateReport}>

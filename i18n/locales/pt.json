@@ -66,6 +66,8 @@
     "profile": "Meu perfil",
     "myProperties": "Minhas Propriedades",
     "inventory": "Inventário da Casa",
+    "inventoryAdmin": "Inventário (Admin)",
+    "upcomingOrders": "Próximas Limpezas",
     "contracts": "Meus Contratos",
     "history": "Histórico de Serviços",
     "contractTemplates": "Modelos de Contrato",
@@ -74,7 +76,10 @@
     "providerSchedule": "Agenda do Dia",
     "providerHistory": "Histórico",
     "providerInventory": "Atualizar Estoque",
-    "providerContracts": "Meus Contratos"
+    "providerContracts": "Meus Contratos",
+    "messages": "Caixa de entrada",
+    "schedules": "Recorrência",
+    "fieldReports": "Achados e danos"
   },
   "roles": {
     "admin": "Administradora",
@@ -217,7 +222,24 @@
     "loginFailed": "Falha no login",
     "registerFailed": "Falha no cadastro",
     "registerSuccess": "Cadastro enviado",
-    "registerSuccessMessage": "Sua conta foi criada e aguarda ativação por um administrador."
+    "registerSuccessMessage": "Sua conta foi criada e aguarda ativação por um administrador.",
+    "propertyCreated": "Propriedade cadastrada",
+    "orderCreated": "Ordem criada",
+    "orderCreatedMessage": "A ordem de serviço foi registrada e já aparece na lista.",
+    "inventoryItemCreated": "Item de inventário criado",
+    "inventoryItemUpdated": "Item de inventário atualizado",
+    "inventoryItemRemoved": "Item removido"
+  },
+  "cleaningTypes": {
+    "deep": "Limpeza profunda",
+    "regular": "Limpeza regular",
+    "post_construction": "Pós-obra",
+    "move_in": "Move in",
+    "move_out": "Move out",
+    "regular_airbnb": "Regular Airbnb",
+    "durationHours": "{{hours}}h",
+    "durationMinutes": "{{minutes}} min",
+    "durationHoursMinutes": "{{hours}}h {{minutes}} min"
   },
   "admin": {
     "dashboard": {
@@ -263,6 +285,7 @@
       "title": "Gestão de Usuários",
       "subtitle": "Ative ou desative funcionários e clientes, e ajuste permissões de acesso.",
       "exportList": "Exportar lista",
+      "searchPlaceholder": "Buscar por nome ou e-mail…",
       "name": "Nome",
       "email": "E-mail",
       "permission": "Permissão",
@@ -307,7 +330,9 @@
         "client": "Cliente",
         "status": "Status",
         "date": "Data",
-        "total": "Total"
+        "total": "Total",
+        "cleaningType": "Tipo de limpeza",
+        "estimatedTime": "Tempo estimado"
       },
       "assignProvider": "Atribuir prestador",
       "assignProviderHint": "Selecione um prestador ativo para enviar esta ordem ao app mobile.",
@@ -326,7 +351,64 @@
       "checkinLocation": "Check-in",
       "checkoutLocation": "Check-out",
       "noGps": "Sem coordenadas GPS",
-      "extrasSection": "Serviços extras"
+      "extrasSection": "Serviços extras",
+      "extraClientRequest": "Solicitado pelo cliente",
+      "newOrder": "Nova ordem",
+      "createModalTitle": "Nova ordem de serviço",
+      "form": {
+        "property": "Propriedade",
+        "propertyPlaceholder": "Selecionar propriedade…",
+        "date": "Data da limpeza",
+        "cleaningType": "Tipo de limpeza",
+        "estimatedTime": "Tempo estimado (minutos)",
+        "provider": "Prestador (opcional)",
+        "basePrice": "Preço base (opcional)",
+        "basePricePlaceholder": "Usa o preço padrão da propriedade se vazio"
+      },
+      "financeSection": "Financeiro",
+      "commissionEb": "Comissão EB (33%)",
+      "providerPayout": "Repasse prestador",
+      "clientPayment": "Cliente → EB",
+      "providerPayment": "EB → Prestador",
+      "paymentPending": "Pendente",
+      "paymentPaid": "Pago",
+      "savePayments": "Salvar pagamentos",
+      "generateInvoice": "Gerar invoice (teste)",
+      "downloadInvoice": "Baixar invoice",
+      "downloadReceipt": "Baixar recibo",
+      "financeHint": "Pagamento é manual (Zelle/cheque). Ao marcar prestador como pago, o recibo vai para a caixinha dele.",
+      "paymentsUpdated": "Pagamentos atualizados",
+      "paymentsUpdatedMessage": "Status financeiro salvo com sucesso.",
+      "invoiceGenerated": "Invoice gerado",
+      "invoiceGeneratedMessage": "PDF de teste gerado. Layout final quando você enviar o padrão.",
+      "sendReminder": "Enviar lembrete ao cliente",
+      "reminderSent": "Lembrete enviado",
+      "reminderSentMessage": "Cliente notificado sobre a limpeza de amanhã e extras."
+    },
+    "inventory": {
+      "title": "Inventário por Propriedade",
+      "subtitle": "Cadastre insumos item a item para cada unidade (café, lençóis, produtos de limpeza, etc.).",
+      "newItem": "Novo item",
+      "editItem": "Editar item",
+      "selectProperty": "Propriedade",
+      "selectPropertyPlaceholder": "Selecione uma propriedade…",
+      "selectPropertyFirst": "Selecione uma propriedade para ver ou cadastrar itens.",
+      "emptyForProperty": "Nenhum item cadastrado para esta propriedade.",
+      "propertyHint": "Gerenciando inventário de {{property}} (cliente: {{client}}).",
+      "columns": {
+        "item": "Item",
+        "quantity": "Quantidade",
+        "minimum": "Mínimo (alerta)",
+        "status": "Status"
+      },
+      "form": {
+        "name": "Nome do item",
+        "namePlaceholder": "Ex: Cápsula de café",
+        "quantity": "Quantidade atual",
+        "minimum": "Nível crítico (alerta)",
+        "unit": "Unidade",
+        "unitPlaceholder": "unidade, rolo, litro…"
+      }
     },
     "extras": {
       "title": "Catálogo de Serviços Extras",
@@ -375,6 +457,10 @@
       "provider": "Prestador",
       "status": "Status",
       "total": "Total",
+      "clientPending": "Cliente pendente (USD)",
+      "clientPaid": "Cliente pago (USD)",
+      "commissionEarned": "Comissão EB recebida",
+      "providerPending": "Prestador pendente (USD)",
       "columns": {
         "property": "Propriedade",
         "provider": "Prestador",
@@ -489,7 +575,82 @@
         "latitudePlaceholder": "-22.9711",
         "longitude": "Longitude",
         "longitudeHint": "Ex: -43.1822",
-        "longitudePlaceholder": "-43.1822"
+        "longitudePlaceholder": "-43.1822",
+        "name": "Nome da propriedade",
+        "namePlaceholder": "Ex: Apt 302 — Ocean View",
+        "client": "Cliente / Property manager",
+        "clientPlaceholder": "Selecionar cliente…",
+        "icalUrl": "Link iCal Airbnb (opcional)",
+        "icalPlaceholder": "https://…",
+        "defaultPrice": "Preço padrão da limpeza"
+      },
+      "newProperty": "Nova propriedade",
+      "createModalTitle": "Cadastrar propriedade",
+      "searchPlaceholder": "Buscar propriedade por nome ou endereço…"
+    },
+    "messages": {
+      "title": "Caixa de entrada",
+      "subtitle": "Mensagens de clientes e prestadores. Responda por aqui.",
+      "compose": "Nova mensagem",
+      "sent": "Mensagem enviada",
+      "sentMessage": "Sua resposta foi entregue.",
+      "recipient": "Destinatário",
+      "selectRecipient": "Selecione…",
+      "subjectField": "Assunto",
+      "bodyField": "Mensagem",
+      "send": "Enviar",
+      "read": "Lida",
+      "unread": "Não lida",
+      "columns": {
+        "from": "De",
+        "to": "Para",
+        "subject": "Assunto",
+        "date": "Data",
+        "status": "Status"
+      }
+    },
+    "fieldReports": {
+      "title": "Achados e danos",
+      "subtitle": "Relatórios de dano, achado ou perdido durante a limpeza.",
+      "detailTitle": "Detalhes do relatório",
+      "resolved": "Relatório resolvido",
+      "resolvedMessage": "Marcado como resolvido.",
+      "markResolved": "Marcar como resolvido",
+      "columns": {
+        "property": "Propriedade",
+        "provider": "Prestador",
+        "type": "Tipo",
+        "status": "Status",
+        "date": "Data"
+      },
+      "types": { "damage": "Dano", "found": "Achado", "lost": "Perdido" },
+      "statuses": { "open": "Aberto", "resolved": "Resolvido" }
+    },
+    "schedules": {
+      "title": "Recorrência",
+      "subtitle": "Limpezas semanais, quinzenais ou mensais.",
+      "new": "Nova recorrência",
+      "runNow": "Gerar OS pendentes",
+      "runSuccess": "Recorrências processadas",
+      "runSuccessMessage": "Ordens geradas conforme agenda.",
+      "created": "Recorrência criada",
+      "createdMessage": "Agenda recorrente salva.",
+      "columns": {
+        "property": "Propriedade",
+        "provider": "Prestador",
+        "frequency": "Frequência",
+        "nextRun": "Próxima",
+        "type": "Tipo",
+        "status": "Status"
+      },
+      "frequencies": { "weekly": "Semanal", "biweekly": "Quinzenal", "monthly": "Mensal" },
+      "form": {
+        "property": "Propriedade",
+        "selectProperty": "Selecione…",
+        "provider": "Prestador (opcional)",
+        "frequency": "Frequência",
+        "startDate": "Data inicial",
+        "basePrice": "Preço base (opcional)"
       }
     }
   },
@@ -502,6 +663,15 @@
       "continueService": "Continuar serviço",
       "startExecution": "Iniciar execução",
       "openMaps": "Como chegar"
+    },
+    "messages": {
+      "title": "Mensagens para a EB",
+      "subtitle": "Fale com o admin sobre agenda, pagamentos ou problemas.",
+      "subject": "Assunto",
+      "body": "Mensagem",
+      "sendToAdmin": "Enviar para admin",
+      "sent": "Mensagem enviada",
+      "sentMessage": "Sua mensagem foi entregue ao admin."
     },
     "execution": {
       "notFound": "Ordem de serviço não encontrada.",
@@ -585,6 +755,31 @@
       "statusClean": "Imóvel limpo e pronto para hóspedes",
       "statusDirty": "Limpeza necessária",
       "statusScheduled": "Limpeza programada"
+    },
+    "orders": {
+      "title": "Próximas Limpezas",
+      "subtitle": "Veja tipo de limpeza, tempo estimado e solicite serviços extras até 24 horas antes.",
+      "cleaningType": "Tipo de limpeza",
+      "estimatedTime": "Tempo estimado",
+      "extrasTitle": "Serviços extras",
+      "extrasHintOpen": "Toque nos botões abaixo para incluir extras nesta limpeza (prazo: até 24h antes).",
+      "extrasHintClosed": "Prazo encerrado ou limpeza já iniciada — não é possível alterar extras.",
+      "requestedByYou": "Você solicitou",
+      "extraRequested": "Extra solicitado",
+      "extraRequestedMessage": "O serviço extra foi incluído nesta ordem.",
+      "emptyTitle": "Nenhuma limpeza pendente",
+      "emptyDescription": "Quando uma ordem for agendada para suas propriedades, ela aparecerá aqui."
+    },
+    "messages": {
+      "title": "Mensagens para a EB",
+      "subtitle": "Fale com a equipe admin. Cliente e prestador nunca se falam diretamente.",
+      "subject": "Assunto",
+      "body": "Mensagem",
+      "sendToAdmin": "Enviar para admin",
+      "sent": "Mensagem enviada",
+      "sentMessage": "A equipe responderá nesta caixa.",
+      "fromAdmin": "Da equipe EB",
+      "fromYou": "Enviada por você"
     },
     "inventory": {
       "title": "Inventário da Casa",

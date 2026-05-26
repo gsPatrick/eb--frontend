@@ -16,6 +16,8 @@ import { useEffect, useState } from 'react';
 
 const NAV_ITEMS = [
   { href: '/client/properties', labelKey: 'nav.myProperties', icon: 'properties' },
+  { href: '/client/orders', labelKey: 'nav.upcomingOrders', icon: 'orders' },
+  { href: '/client/messages', labelKey: 'nav.messages', icon: 'orders' },
   { href: '/client/inventory', labelKey: 'nav.inventory', icon: 'inventory' },
   { href: '/client/contracts', labelKey: 'nav.contracts', icon: 'contracts' },
   { href: '/client/history', labelKey: 'nav.history', icon: 'history' },

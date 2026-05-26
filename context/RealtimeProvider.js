@@ -11,8 +11,8 @@ const RealtimeContext = createContext(null);
 
 export { RealtimeContext };
 
-const ADMIN_EVENTS = new Set(['ORDER_CHECKIN', 'INVENTORY_CRITICAL']);
-const CLIENT_EVENTS = new Set(['ORDER_COMPLETED', 'INVENTORY_CRITICAL']);
+const ADMIN_EVENTS = new Set(['ORDER_CHECKIN', 'INVENTORY_CRITICAL', 'INBOX_MESSAGE', 'FIELD_REPORT']);
+const CLIENT_EVENTS = new Set(['ORDER_COMPLETED', 'INVENTORY_CRITICAL', 'INBOX_MESSAGE', 'CLEANING_REMINDER', 'FIELD_REPORT']);
 
 export function RealtimeProvider({ children, audience = 'admin' }) {
   const toast = useToast();
@@ -80,6 +80,18 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
       if (type === 'INVENTORY_CRITICAL') {
         bumpRefresh('inventory');
         bumpRefresh('dashboard');
+      }
+
+      if (type === 'INBOX_MESSAGE') {
+        bumpRefresh('messages');
+      }
+
+      if (type === 'FIELD_REPORT') {
+        bumpRefresh('fieldReports');
+      }
+
+      if (type === 'CLEANING_REMINDER') {
+        bumpRefresh('orders');
       }
     });
 

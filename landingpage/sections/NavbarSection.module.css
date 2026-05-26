@@ -17,7 +17,8 @@
 }
 
 .logo img {
-  height: 48px;
+  height: 56px;
+  max-width: min(220px, 42vw);
   width: auto;
   filter: brightness(0) invert(1);
 }

@@ -19,6 +19,51 @@ export async function assign(id, providerId) {
   return mapServiceOrder(result.order);
 }
 
+export async function create(payload) {
+  const response = await apiClient.post('/service-orders', payload);
+  const result = unwrapResponse(response);
+  return mapServiceOrder(result.order);
+}
+
+export async function update(id, payload) {
+  const response = await apiClient.patch(`/service-orders/${id}`, payload);
+  const result = unwrapResponse(response);
+  return mapServiceOrder(result.order);
+}
+
+export async function requestExtra(id, extraId) {
+  const response = await apiClient.post(`/service-orders/${id}/request-extras`, { extraId });
+  const result = unwrapResponse(response);
+  return mapServiceOrder(result.order);
+}
+
+export async function updatePayments(id, payload) {
+  const response = await apiClient.patch(`/service-orders/${id}/payments`, payload);
+  const result = unwrapResponse(response);
+  return mapServiceOrder(result.order);
+}
+
+export async function createInvoice(id) {
+  const response = await apiClient.post(`/service-orders/${id}/invoice`);
+  const result = unwrapResponse(response);
+  return {
+    order: mapServiceOrder(result.order),
+    invoiceUrl: result.invoiceUrl,
+    invoiceNumber: result.invoiceNumber,
+  };
+}
+
+export async function sendReminder(id) {
+  const response = await apiClient.post(`/service-orders/${id}/reminder`);
+  return unwrapResponse(response);
+}
+
+export async function getFinancialSummary() {
+  const response = await apiClient.get('/service-orders/financial/summary');
+  const result = unwrapResponse(response);
+  return result.summary;
+}
+
 function buildOrderFormData({ lat, long, photos = [] }) {
   const formData = new FormData();
   formData.append('lat', String(lat));

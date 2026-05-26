@@ -7,7 +7,10 @@ import Badge from '@/components/atoms/Badge';
 import Button from '@/components/atoms/Button';
 import Icon from '@/components/atoms/Icon';
 import Select from '@/components/atoms/Select';
+import FormField from '@/components/molecules/FormField';
 import { formatCurrency, formatDate } from '@/utils/formatters';
+import { API_ORIGIN } from '@/src/services/api/api-client';
+import { formatEstimatedDuration, getCleaningTypeLabel } from '@/utils/cleaningTypes';
 import { getOrderStatusBadge } from '@/utils/adminHelpers';
 import { ordersApi } from '@/src/services/api';
 import { useToast } from '@/hooks/useToast';
@@ -68,15 +71,23 @@ export default function OrderDetailModal({
   onClose,
   providers = [],
   onAssigned,
+  onUpdated,
 }) {
   const { t } = useTranslation();
   const toast = useToast();
   const [selectedProviderId, setSelectedProviderId] = useState('');
   const [assigning, setAssigning] = useState(false);
+  const [clientPaymentStatus, setClientPaymentStatus] = useState('pending');
+  const [providerPaymentStatus, setProviderPaymentStatus] = useState('pending');
+  const [savingPayments, setSavingPayments] = useState(false);
+  const [generatingInvoice, setGeneratingInvoice] = useState(false);
+  const [sendingReminder, setSendingReminder] = useState(false);
 
   useEffect(() => {
     setSelectedProviderId(order?.providerId || '');
-  }, [order?.id, order?.providerId]);
+    setClientPaymentStatus(order?.clientPaymentStatus || 'pending');
+    setProviderPaymentStatus(order?.providerPaymentStatus || 'pending');
+  }, [order?.id, order?.providerId, order?.clientPaymentStatus, order?.providerPaymentStatus]);
 
   const status = useMemo(
     () => (order ? getOrderStatusBadge(order.status, t) : null),
@@ -102,6 +113,56 @@ export default function OrderDetailModal({
     } finally {
       setAssigning(false);
     }
+  };
+
+  const handleSavePayments = async () => {
+    if (!order) return;
+    setSavingPayments(true);
+    try {
+      const updated = await ordersApi.updatePayments(order.id, {
+        clientPaymentStatus,
+        providerPaymentStatus,
+      });
+      toast.success(t('admin.orders.paymentsUpdated'), t('admin.orders.paymentsUpdatedMessage'));
+      onUpdated?.(updated);
+    } catch (error) {
+      toast.error(t('common.error'), error.message);
+    } finally {
+      setSavingPayments(false);
+    }
+  };
+
+  const handleGenerateInvoice = async () => {
+    if (!order) return;
+    setGeneratingInvoice(true);
+    try {
+      const result = await ordersApi.createInvoice(order.id);
+      toast.success(t('admin.orders.invoiceGenerated'), t('admin.orders.invoiceGeneratedMessage'));
+      onUpdated?.(result.order);
+    } catch (error) {
+      toast.error(t('common.error'), error.message);
+    } finally {
+      setGeneratingInvoice(false);
+    }
+  };
+
+  const handleSendReminder = async () => {
+    if (!order) return;
+    setSendingReminder(true);
+    try {
+      await ordersApi.sendReminder(order.id);
+      toast.success(t('admin.orders.reminderSent'), t('admin.orders.reminderSentMessage'));
+    } catch (error) {
+      toast.error(t('common.error'), error.message);
+    } finally {
+      setSendingReminder(false);
+    }
+  };
+
+  const openDocument = (url) => {
+    if (!url) return;
+    const href = url.startsWith('http') ? url : `${API_ORIGIN}${url}`;
+    window.open(href, '_blank', 'noopener,noreferrer');
   };
 
   if (!order) return null;
@@ -131,10 +192,78 @@ export default function OrderDetailModal({
             <strong>{formatDate(order.scheduledDate)}</strong>
           </div>
           <div className={styles.metaCard}>
+            <span>{t('admin.orders.columns.cleaningType')}</span>
+            <strong>{getCleaningTypeLabel(order.cleaningType, t)}</strong>
+          </div>
+          <div className={styles.metaCard}>
+            <span>{t('admin.orders.columns.estimatedTime')}</span>
+            <strong>{formatEstimatedDuration(order.estimatedDurationMinutes, t)}</strong>
+          </div>
+          <div className={styles.metaCard}>
             <span>{t('admin.orders.columns.total')}</span>
             <strong>{formatCurrency(order.totalPrice)}</strong>
           </div>
+          <div className={styles.metaCard}>
+            <span>{t('admin.orders.commissionEb')}</span>
+            <strong>{formatCurrency(order.commissionAmount)}</strong>
+          </div>
+          <div className={styles.metaCard}>
+            <span>{t('admin.orders.providerPayout')}</span>
+            <strong>{formatCurrency(order.providerPayoutAmount)}</strong>
+          </div>
         </div>
+
+        <section className={styles.section}>
+          <h3 className={styles.sectionTitle}>{t('admin.orders.financeSection')}</h3>
+          <div className={styles.assignRow}>
+            <FormField label={t('admin.orders.clientPayment')} htmlFor="client-payment">
+              <Select
+                id="client-payment"
+                value={clientPaymentStatus}
+                onChange={(event) => setClientPaymentStatus(event.target.value)}
+              >
+                <option value="pending">{t('admin.orders.paymentPending')}</option>
+                <option value="paid">{t('admin.orders.paymentPaid')}</option>
+              </Select>
+            </FormField>
+            <FormField label={t('admin.orders.providerPayment')} htmlFor="provider-payment">
+              <Select
+                id="provider-payment"
+                value={providerPaymentStatus}
+                onChange={(event) => setProviderPaymentStatus(event.target.value)}
+              >
+                <option value="pending">{t('admin.orders.paymentPending')}</option>
+                <option value="paid">{t('admin.orders.paymentPaid')}</option>
+              </Select>
+            </FormField>
+          </div>
+          <div className={styles.assignRow}>
+            <Button variant="secondary" loading={generatingInvoice} onClick={handleGenerateInvoice}>
+              {t('admin.orders.generateInvoice')}
+            </Button>
+            {order.status === 'pending' ? (
+              <Button variant="secondary" loading={sendingReminder} onClick={handleSendReminder}>
+                {t('admin.orders.sendReminder')}
+              </Button>
+            ) : null}
+            <Button variant="primary" loading={savingPayments} onClick={handleSavePayments}>
+              {t('admin.orders.savePayments')}
+            </Button>
+          </div>
+          <div className={styles.documentLinks}>
+            {order.invoiceUrl ? (
+              <Button variant="ghost" size="sm" onClick={() => openDocument(order.invoiceUrl)}>
+                {t('admin.orders.downloadInvoice')}
+              </Button>
+            ) : null}
+            {order.receiptUrl ? (
+              <Button variant="ghost" size="sm" onClick={() => openDocument(order.receiptUrl)}>
+                {t('admin.orders.downloadReceipt')}
+              </Button>
+            ) : null}
+          </div>
+          <p className={styles.assignHint}>{t('admin.orders.financeHint')}</p>
+        </section>
 
         {canAssign && (
           <section className={styles.assignSection}>
@@ -213,7 +342,12 @@ export default function OrderDetailModal({
             <ul className={styles.extrasList}>
               {order.extras.map((extra) => (
                 <li key={extra.name}>
-                  <span>{extra.name}</span>
+                  <span>
+                    {extra.name}
+                    {extra.source === 'client_request' ? (
+                      <Badge variant="info">{t('admin.orders.extraClientRequest')}</Badge>
+                    ) : null}
+                  </span>
                   <strong>{formatCurrency(extra.defaultPrice ?? extra.price ?? 0)}</strong>
                 </li>
               ))}

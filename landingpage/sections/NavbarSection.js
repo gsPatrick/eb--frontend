@@ -19,7 +19,7 @@ export default function NavbarSection() {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <Logo variant="compact" href="/" className={styles.logo} />
+        <Logo variant="default" href="/" className={styles.logo} />
 
         <nav className={styles.nav} aria-label="Principal">
           {NAV_KEYS.map((link) => (

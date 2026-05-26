@@ -61,6 +61,18 @@
   display: flex;
   gap: var(--space-3);
   flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+
+.filterHint {
+  margin: 0 0 var(--space-4);
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+}
+
+.formGrid {
+  display: grid;
+  gap: var(--space-4);
 }
 
 .propertyGrid {

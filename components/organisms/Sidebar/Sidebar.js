@@ -17,8 +17,12 @@ import { cn } from '@/utils/cn';
 const NAV_ITEMS = [
   { href: '/dashboard', labelKey: 'nav.dashboard', icon: 'dashboard', exact: true },
   { href: '/dashboard/properties', labelKey: 'nav.properties', icon: 'properties' },
+  { href: '/dashboard/inventory', labelKey: 'nav.inventoryAdmin', icon: 'inventory' },
   { href: '/dashboard/users', labelKey: 'nav.users', icon: 'users' },
   { href: '/dashboard/orders', labelKey: 'nav.orders', icon: 'orders' },
+  { href: '/dashboard/schedules', labelKey: 'nav.schedules', icon: 'sync' },
+  { href: '/dashboard/messages', labelKey: 'nav.messages', icon: 'orders' },
+  { href: '/dashboard/field-reports', labelKey: 'nav.fieldReports', icon: 'reviews' },
   { href: '/dashboard/extras', labelKey: 'nav.extras', icon: 'extras' },
   { href: '/dashboard/billing', labelKey: 'nav.billing', icon: 'billing' },
   { href: '/dashboard/contracts', labelKey: 'nav.contractTemplates', icon: 'contracts' },

@@ -66,6 +66,8 @@
     "profile": "My profile",
     "myProperties": "My Properties",
     "inventory": "House Inventory",
+    "inventoryAdmin": "Inventory (Admin)",
+    "upcomingOrders": "Upcoming Cleanings",
     "contracts": "My Contracts",
     "history": "Service History",
     "contractTemplates": "Contract Templates",
@@ -74,7 +76,10 @@
     "providerSchedule": "Today's Schedule",
     "providerHistory": "History",
     "providerInventory": "Update Inventory",
-    "providerContracts": "My Contracts"
+    "providerContracts": "My Contracts",
+    "messages": "Inbox",
+    "schedules": "Recurring Schedules",
+    "fieldReports": "Field Reports"
   },
   "roles": {
     "admin": "Administrator",
@@ -217,7 +222,24 @@
     "templateUpdated": "Template updated",
     "templateCreated": "Template created",
     "reportGenerated": "Statement generated",
-    "reportGeneratedMessage": "Report ready to send to clients."
+    "reportGeneratedMessage": "Report ready to send to clients.",
+    "propertyCreated": "Property created",
+    "orderCreated": "Order created",
+    "orderCreatedMessage": "The service order was saved and is now listed.",
+    "inventoryItemCreated": "Inventory item created",
+    "inventoryItemUpdated": "Inventory item updated",
+    "inventoryItemRemoved": "Item removed"
+  },
+  "cleaningTypes": {
+    "deep": "Deep cleaning",
+    "regular": "Regular cleaning",
+    "post_construction": "Post-construction",
+    "move_in": "Move in",
+    "move_out": "Move out",
+    "regular_airbnb": "Regular Airbnb",
+    "durationHours": "{{hours}}h",
+    "durationMinutes": "{{minutes}} min",
+    "durationHoursMinutes": "{{hours}}h {{minutes}} min"
   },
   "admin": {
     "dashboard": {
@@ -263,6 +285,7 @@
       "title": "User Management",
       "subtitle": "Activate or deactivate staff and clients, and adjust access permissions.",
       "exportList": "Export list",
+      "searchPlaceholder": "Search by name or email…",
       "name": "Name",
       "email": "Email",
       "permission": "Permission",
@@ -307,7 +330,9 @@
         "client": "Client",
         "status": "Status",
         "date": "Date",
-        "total": "Total"
+        "total": "Total",
+        "cleaningType": "Cleaning type",
+        "estimatedTime": "Estimated time"
       },
       "assignProvider": "Assign provider",
       "assignProviderHint": "Select an active provider to send this order to the mobile app.",
@@ -326,7 +351,64 @@
       "checkinLocation": "Check-in",
       "checkoutLocation": "Check-out",
       "noGps": "No GPS coordinates",
-      "extrasSection": "Extra services"
+      "extrasSection": "Extra services",
+      "extraClientRequest": "Requested by client",
+      "newOrder": "New order",
+      "createModalTitle": "New service order",
+      "form": {
+        "property": "Property",
+        "propertyPlaceholder": "Select property…",
+        "date": "Cleaning date",
+        "cleaningType": "Cleaning type",
+        "estimatedTime": "Estimated time (minutes)",
+        "provider": "Provider (optional)",
+        "basePrice": "Base price (optional)",
+        "basePricePlaceholder": "Uses property default price if empty"
+      },
+      "financeSection": "Financials",
+      "commissionEb": "EB commission (33%)",
+      "providerPayout": "Provider payout",
+      "clientPayment": "Client → EB",
+      "providerPayment": "EB → Provider",
+      "paymentPending": "Pending",
+      "paymentPaid": "Paid",
+      "savePayments": "Save payments",
+      "generateInvoice": "Generate invoice (test)",
+      "downloadInvoice": "Download invoice",
+      "downloadReceipt": "Download receipt",
+      "financeHint": "Payment is manual (Zelle/check). When provider is marked paid, receipt goes to their inbox.",
+      "paymentsUpdated": "Payments updated",
+      "paymentsUpdatedMessage": "Financial status saved successfully.",
+      "invoiceGenerated": "Invoice generated",
+      "invoiceGeneratedMessage": "Test PDF generated. Final layout when you send the template.",
+      "sendReminder": "Send reminder to client",
+      "reminderSent": "Reminder sent",
+      "reminderSentMessage": "Client notified about tomorrow's cleaning and extras."
+    },
+    "inventory": {
+      "title": "Inventory by Property",
+      "subtitle": "Register supplies item by item for each unit (coffee, linens, cleaning products, etc.).",
+      "newItem": "New item",
+      "editItem": "Edit item",
+      "selectProperty": "Property",
+      "selectPropertyPlaceholder": "Select a property…",
+      "selectPropertyFirst": "Select a property to view or register items.",
+      "emptyForProperty": "No items registered for this property.",
+      "propertyHint": "Managing inventory for {{property}} (client: {{client}}).",
+      "columns": {
+        "item": "Item",
+        "quantity": "Quantity",
+        "minimum": "Minimum (alert)",
+        "status": "Status"
+      },
+      "form": {
+        "name": "Item name",
+        "namePlaceholder": "E.g.: Coffee pods",
+        "quantity": "Current quantity",
+        "minimum": "Critical level (alert)",
+        "unit": "Unit",
+        "unitPlaceholder": "unit, roll, liter…"
+      }
     },
     "extras": {
       "title": "Extra Services Catalog",
@@ -375,6 +457,10 @@
       "status": "Status",
       "total": "Total",
       "exportReport": "Export statement",
+      "clientPending": "Client pending (USD)",
+      "clientPaid": "Client paid (USD)",
+      "commissionEarned": "EB commission earned",
+      "providerPending": "Provider pending (USD)",
       "columns": {
         "property": "Property",
         "provider": "Provider",
@@ -489,7 +575,93 @@
         "latitudePlaceholder": "-22.9711",
         "longitude": "Longitude",
         "longitudeHint": "e.g. -43.1822",
-        "longitudePlaceholder": "-43.1822"
+        "longitudePlaceholder": "-43.1822",
+        "name": "Property name",
+        "namePlaceholder": "E.g.: Apt 302 — Ocean View",
+        "client": "Client / Property manager",
+        "clientPlaceholder": "Select client…",
+        "icalUrl": "Airbnb iCal link (optional)",
+        "icalPlaceholder": "https://…",
+        "defaultPrice": "Default cleaning price"
+      },
+      "newProperty": "New property",
+      "createModalTitle": "Register property",
+      "searchPlaceholder": "Search properties by name or address…"
+    },
+    "messages": {
+      "title": "Inbox",
+      "subtitle": "Messages from clients and providers. Reply directly from here.",
+      "compose": "Compose",
+      "sent": "Message sent",
+      "sentMessage": "Your reply was delivered.",
+      "recipient": "Recipient",
+      "selectRecipient": "Select recipient…",
+      "subjectField": "Subject",
+      "bodyField": "Message",
+      "send": "Send",
+      "read": "Read",
+      "unread": "Unread",
+      "columns": {
+        "from": "From",
+        "to": "To",
+        "subject": "Subject",
+        "date": "Date",
+        "status": "Status"
+      }
+    },
+    "fieldReports": {
+      "title": "Field Reports",
+      "subtitle": "Damage, found items, and lost items reported during cleanings.",
+      "detailTitle": "Report details",
+      "resolved": "Report resolved",
+      "resolvedMessage": "Marked as resolved.",
+      "markResolved": "Mark as resolved",
+      "columns": {
+        "property": "Property",
+        "provider": "Provider",
+        "type": "Type",
+        "status": "Status",
+        "date": "Date"
+      },
+      "types": {
+        "damage": "Damage",
+        "found": "Found item",
+        "lost": "Lost item"
+      },
+      "statuses": {
+        "open": "Open",
+        "resolved": "Resolved"
+      }
+    },
+    "schedules": {
+      "title": "Recurring Schedules",
+      "subtitle": "Weekly, biweekly, or monthly cleanings for residential and commercial clients.",
+      "new": "New schedule",
+      "runNow": "Run due schedules",
+      "runSuccess": "Schedules processed",
+      "runSuccessMessage": "Due recurring orders were generated.",
+      "created": "Schedule created",
+      "createdMessage": "Recurring schedule saved successfully.",
+      "columns": {
+        "property": "Property",
+        "provider": "Provider",
+        "frequency": "Frequency",
+        "nextRun": "Next run",
+        "type": "Cleaning type",
+        "status": "Status"
+      },
+      "frequencies": {
+        "weekly": "Weekly",
+        "biweekly": "Biweekly",
+        "monthly": "Monthly"
+      },
+      "form": {
+        "property": "Property",
+        "selectProperty": "Select property…",
+        "provider": "Provider (optional)",
+        "frequency": "Frequency",
+        "startDate": "Start date",
+        "basePrice": "Base price (optional)"
       }
     }
   },
@@ -502,6 +674,15 @@
       "continueService": "Continue service",
       "startExecution": "Start execution",
       "openMaps": "Get directions"
+    },
+    "messages": {
+      "title": "Messages to EB",
+      "subtitle": "Contact the admin team about schedules, payments, or issues.",
+      "subject": "Subject",
+      "body": "Message",
+      "sendToAdmin": "Send to admin",
+      "sent": "Message sent",
+      "sentMessage": "Your message was delivered to the admin inbox."
     },
     "execution": {
       "notFound": "Work order not found.",
@@ -585,6 +766,31 @@
       "statusClean": "Property clean and ready for guests",
       "statusDirty": "Cleaning required",
       "statusScheduled": "Cleaning scheduled"
+    },
+    "orders": {
+      "title": "Upcoming Cleanings",
+      "subtitle": "See cleaning type, estimated time, and request extra services up to 24 hours before.",
+      "cleaningType": "Cleaning type",
+      "estimatedTime": "Estimated time",
+      "extrasTitle": "Extra services",
+      "extrasHintOpen": "Tap the buttons below to add extras to this cleaning (deadline: up to 24h before).",
+      "extrasHintClosed": "Deadline passed or cleaning already started — extras cannot be changed.",
+      "requestedByYou": "You requested",
+      "extraRequested": "Extra requested",
+      "extraRequestedMessage": "The extra service was added to this order.",
+      "emptyTitle": "No pending cleanings",
+      "emptyDescription": "When an order is scheduled for your properties, it will appear here."
+    },
+    "messages": {
+      "title": "Messages to EB",
+      "subtitle": "Contact the admin team. Clients and providers never message each other directly.",
+      "subject": "Subject",
+      "body": "Message",
+      "sendToAdmin": "Send to admin",
+      "sent": "Message sent",
+      "sentMessage": "The admin team will reply in this inbox.",
+      "fromAdmin": "From EB admin",
+      "fromYou": "Sent by you"
     },
     "inventory": {
       "title": "House Inventory",

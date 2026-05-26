@@ -1,9 +1,10 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Badge from '@/components/atoms/Badge';
 import Button from '@/components/atoms/Button';
+import Input from '@/components/atoms/Input';
 import Select from '@/components/atoms/Select';
 import Switch from '@/components/atoms/Switch';
 import PageHeader from '@/components/molecules/PageHeader';
@@ -21,9 +22,10 @@ import styles from '@/styles/admin.module.css';
 export default function UsersPage() {
   const { t } = useTranslation();
   const toast = useToast();
+  const [search, setSearch] = useState('');
   const { data: users = [], loading, setData } = useApiQuery(
-    () => usersApi.list().then((response) => response.items),
-    [],
+    () => usersApi.list({ search: search.trim() || undefined, limit: 200 }).then((response) => response.items),
+    [search],
     { initialData: [] }
   );
   const { paginatedItems, paginationProps } = usePagination(users);
@@ -139,6 +141,15 @@ export default function UsersPage() {
             actions={<Button variant="secondary">{t('admin.users.exportList')}</Button>}
           />
         )}
+
+        <div className={styles.filters}>
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder={t('admin.users.searchPlaceholder')}
+          />
+        </div>
+
         <DataTable
           columns={columns}
           rows={paginatedItems}
