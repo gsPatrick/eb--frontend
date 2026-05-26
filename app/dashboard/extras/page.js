@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '@/components/atoms/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
+import CommissionNotice from '@/components/molecules/CommissionNotice';
 import FormField from '@/components/molecules/FormField';
 import Modal from '@/components/molecules/Modal';
 import PageHeader from '@/components/molecules/PageHeader';
@@ -183,6 +184,7 @@ export default function ExtrasPage() {
                 placeholder={t('admin.extras.form.pricePlaceholder')}
               />
             </FormField>
+            <CommissionNotice amount={form.defaultPrice} />
             <FormField label={t('admin.extras.form.time')} htmlFor="extra-time" required>
               <Input
                 id="extra-time"

@@ -8,63 +8,75 @@ import Button from '@/components/atoms/Button';
 import Icon from '@/components/atoms/Icon';
 import Select from '@/components/atoms/Select';
 import FormField from '@/components/molecules/FormField';
+import LocationLabel from '@/components/molecules/LocationLabel';
 import { formatCurrency, formatDate } from '@/utils/formatters';
 import { API_ORIGIN } from '@/src/services/api/api-client';
 import { formatEstimatedDuration, getCleaningTypeLabel } from '@/utils/cleaningTypes';
 import { getOrderStatusBadge } from '@/utils/adminHelpers';
 import { ordersApi } from '@/src/services/api';
 import { useToast } from '@/hooks/useToast';
-import { useReverseGeocode } from '@/hooks/useReverseGeocode';
 import styles from './OrderDetailModal.module.css';
 
 const COMMISSION_RATE = 0.33;
 const PHOTOS_PER_PAGE = 2;
 
-function MapPreview({ lat, lng, label, variant = 'property', emptyLabel }) {
-  if (lat == null || lng == null) {
+function PhotoCarousel({ title, photos, emptyMessage }) {
+  const [page, setPage] = useState(0);
+  const photoList = photos || [];
+  const totalPages = Math.max(1, Math.ceil(photoList.length / PHOTOS_PER_PAGE));
+  const pagePhotos = photoList.slice(page * PHOTOS_PER_PAGE, page * PHOTOS_PER_PAGE + PHOTOS_PER_PAGE);
+
+  useEffect(() => {
+    setPage(0);
+  }, [photoList.length]);
+
+  if (!photoList.length) {
     return (
-      <div className={styles.mapCard}>
-        <div className={styles.mapEmpty}>
-          <Icon name="map" size={22} />
-          <span>{emptyLabel}</span>
-        </div>
-        <span className={`${styles.mapLabel} ${styles[`mapLabel_${variant}`]}`}>{label}</span>
-      </div>
-    );
-  }
-
-  const delta = 0.004;
-  const bbox = `${lng - delta},${lat - delta},${lng + delta},${lat + delta}`;
-
-  return (
-    <div className={styles.mapCard}>
-      <iframe
-        title={`Mapa ${label}`}
-        className={styles.mapFrame}
-        loading="lazy"
-        src={`https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat}%2C${lng}`}
-      />
-      <span className={`${styles.mapLabel} ${styles[`mapLabel_${variant}`]}`}>{label}</span>
-    </div>
-  );
-}
-
-function PhotoPanel({ title, photos, emptyMessage }) {
-  return (
-    <div className={styles.panel}>
-      <h3 className={styles.panelTitle}>{title}</h3>
-      {photos?.length ? (
-        <div className={styles.photoGrid}>
-          {photos.map((photo) => (
-            <img key={photo} src={photo} alt={title} className={styles.photo} />
-          ))}
-        </div>
-      ) : (
+      <div className={styles.panel}>
+        <h3 className={styles.panelTitle}>{title}</h3>
         <div className={styles.emptyPhotos}>
           <Icon name="info" size={18} />
           <span>{emptyMessage}</span>
         </div>
-      )}
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles.panel}>
+      <div className={styles.carouselHeader}>
+        <h3 className={styles.panelTitle}>{title}</h3>
+        {photoList.length > PHOTOS_PER_PAGE ? (
+          <div className={styles.carouselControls}>
+            <button
+              type="button"
+              className={styles.carouselBtn}
+              disabled={page === 0}
+              onClick={() => setPage((current) => Math.max(0, current - 1))}
+              aria-label="Previous photos"
+            >
+              <Icon name="chevronLeft" size={16} />
+            </button>
+            <span className={styles.carouselCounter}>
+              {page + 1}/{totalPages}
+            </span>
+            <button
+              type="button"
+              className={styles.carouselBtn}
+              disabled={page >= totalPages - 1}
+              onClick={() => setPage((current) => Math.min(totalPages - 1, current + 1))}
+              aria-label="Next photos"
+            >
+              <Icon name="chevronRight" size={16} />
+            </button>
+          </div>
+        ) : null}
+      </div>
+      <div className={styles.carouselGrid}>
+        {pagePhotos.map((photo) => (
+          <img key={photo} src={photo} alt={title} className={styles.photo} />
+        ))}
+      </div>
     </div>
   );
 }

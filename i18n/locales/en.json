@@ -363,7 +363,9 @@
         "estimatedTime": "Estimated time (minutes)",
         "provider": "Provider (optional)",
         "basePrice": "Base price (optional)",
-        "basePricePlaceholder": "Uses property default price if empty"
+        "basePricePlaceholder": "Uses property default price if empty",
+        "commissionHint": "EB applies a 33% commission on the order base value.",
+        "commissionBreakdown": "Total {{total}} · EB commission (33%): {{commission}} · Provider payout: {{payout}}"
       },
       "financeSection": "Financials",
       "commissionEb": "EB commission (33%)",
@@ -754,7 +756,9 @@
     "searchAddress": "Search address",
     "searchPlaceholder": "Enter street, neighborhood, or city...",
     "searchHint": "We use OpenStreetMap (free) to convert address to coordinates.",
-    "resolvedAddress": "Address found"
+    "resolvedAddress": "Address found",
+    "selectAddressHint": "Select a real address from the suggestions to save GPS coordinates.",
+    "addressSelected": "Address confirmed with GPS coordinates."
   },
   "client": {
     "portalTitle": "Client Portal",

@@ -8,6 +8,7 @@ import Button from '@/components/atoms/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
 import Select from '@/components/atoms/Select';
+import CommissionNotice from '@/components/molecules/CommissionNotice';
 import FormField from '@/components/molecules/FormField';
 import Modal from '@/components/molecules/Modal';
 import PageHeader from '@/components/molecules/PageHeader';
@@ -79,6 +80,11 @@ export default function OrdersPage() {
     () => providers.filter((user) => user.role === 'provider' && user.active),
     [providers]
   );
+  const previewBasePrice = useMemo(() => {
+    if (createForm.basePrice !== '') return Number(createForm.basePrice);
+    const selectedProperty = properties.find((item) => item.id === createForm.propertyId);
+    return Number(selectedProperty?.defaultCleaningPrice || 0);
+  }, [createForm.basePrice, createForm.propertyId, properties]);
 
   useEffect(() => {
     resetPage();
@@ -300,6 +306,9 @@ export default function OrdersPage() {
               placeholder={t('admin.orders.form.basePricePlaceholder')}
             />
           </FormField>
+          <div className={styles.formFullWidth}>
+            <CommissionNotice amount={previewBasePrice} />
+          </div>
         </form>
       </Modal>
     </div>

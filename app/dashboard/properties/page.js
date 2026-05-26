@@ -8,6 +8,7 @@ import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
 import Card from '@/components/molecules/Card';
 import CardGridSkeleton from '@/components/molecules/CardGridSkeleton';
+import AddressSearchField from '@/components/molecules/AddressSearchField';
 import EmptyState from '@/components/molecules/EmptyState';
 import FormField from '@/components/molecules/FormField';
 import LocationLabel from '@/components/molecules/LocationLabel';
@@ -20,7 +21,7 @@ import { usePagination } from '@/hooks/usePagination';
 import { useReverseGeocode } from '@/hooks/useReverseGeocode';
 import { useToast } from '@/hooks/useToast';
 import Select from '@/components/atoms/Select';
-import { geocodingApi, propertiesApi, usersApi } from '@/src/services/api';
+import { propertiesApi, usersApi } from '@/src/services/api';
 import styles from '@/styles/admin.module.css';
 
 const EMPTY_PROPERTY_FORM = {
@@ -29,8 +30,8 @@ const EMPTY_PROPERTY_FORM = {
   clientId: '',
   icalUrl: '',
   defaultCleaningPrice: '',
-  latitude: '',
-  longitude: '',
+  latitude: null,
+  longitude: null,
 };
 
 export default function PropertiesPage() {
@@ -47,10 +48,8 @@ export default function PropertiesPage() {
   const [createForm, setCreateForm] = useState(EMPTY_PROPERTY_FORM);
   const [syncingId, setSyncingId] = useState(null);
   const [saving, setSaving] = useState(false);
-  const [form, setForm] = useState({ address: '', latitude: '', longitude: '' });
+  const [form, setForm] = useState({ address: '', latitude: null, longitude: null });
   const [locating, setLocating] = useState(false);
-  const [searching, setSearching] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
   const { paginatedItems, paginationProps } = usePagination(properties);
   const { data: clients = [] } = useApiQuery(
     () => usersApi.list({ role: 'client', limit: 200 }).then((response) => response.items),
@@ -65,11 +64,10 @@ export default function PropertiesPage() {
 
   const openEdit = (property) => {
     setEditing(property);
-    setSearchResults([]);
     setForm({
       address: property.address || '',
-      latitude: property.latitude ?? '',
-      longitude: property.longitude ?? '',
+      latitude: property.latitude != null ? Number(property.latitude) : null,
+      longitude: property.longitude != null ? Number(property.longitude) : null,
     });
   };
 
@@ -96,6 +94,12 @@ export default function PropertiesPage() {
 
   const handleCreateProperty = async (event) => {
     event.preventDefault();
+
+    if (createForm.latitude == null || createForm.longitude == null) {
+      toast.warning(t('toast.actionBlocked'), t('location.selectAddressHint'));
+      return;
+    }
+
     setSaving(true);
     try {
       const created = await propertiesApi.create({
@@ -106,8 +110,8 @@ export default function PropertiesPage() {
         defaultCleaningPrice: createForm.defaultCleaningPrice
           ? Number(createForm.defaultCleaningPrice)
           : 0,
-        latitude: createForm.latitude ? Number(createForm.latitude) : undefined,
-        longitude: createForm.longitude ? Number(createForm.longitude) : undefined,
+        latitude: Number(createForm.latitude),
+        longitude: Number(createForm.longitude),
       });
       setData((prev) => [created, ...prev]);
       toast.success(t('toast.propertyCreated'), created.name);
@@ -130,8 +134,8 @@ export default function PropertiesPage() {
       (position) => {
         setForm((prev) => ({
           ...prev,
-          latitude: position.coords.latitude.toFixed(6),
-          longitude: position.coords.longitude.toFixed(6),
+          latitude: Number(position.coords.latitude.toFixed(6)),
+          longitude: Number(position.coords.longitude.toFixed(6)),
         }));
         toast.success(t('toast.geofenceUpdated'), t('admin.properties.locationCaptured'));
         setLocating(false);
@@ -144,50 +148,39 @@ export default function PropertiesPage() {
     );
   };
 
-  const handleSearchAddress = async () => {
-    if (!form.address.trim() || form.address.trim().length < 3) {
-      toast.warning(t('toast.actionBlocked'), t('location.searchPlaceholder'));
-      return;
-    }
-
-    setSearching(true);
-    try {
-      const results = await geocodingApi.search(form.address.trim());
-      setSearchResults(results);
-      if (!results.length) {
-        toast.warning(t('toast.actionBlocked'), t('location.unknownAddress'));
-      }
-    } catch (err) {
-      toast.error(t('toast.actionBlocked'), err.message);
-    } finally {
-      setSearching(false);
-    }
+  const handleAddressFieldChange = (next) => {
+    setForm((prev) => ({
+      ...prev,
+      address: next.address,
+      latitude: next.latitude,
+      longitude: next.longitude,
+    }));
   };
 
-  const handlePickSearchResult = (result) => {
-    setForm({
-      address: result.address || result.label,
-      latitude: Number(result.latitude).toFixed(6),
-      longitude: Number(result.longitude).toFixed(6),
-    });
-    setSearchResults([]);
+  const handleCreateAddressChange = (next) => {
+    setCreateForm((prev) => ({
+      ...prev,
+      address: next.address,
+      latitude: next.latitude,
+      longitude: next.longitude,
+    }));
   };
-
-  useEffect(() => {
-    if (!editing) {
-      setSearchResults([]);
-    }
-  }, [editing]);
 
   const handleSaveGeo = async (event) => {
     event.preventDefault();
+
+    if (form.latitude == null || form.longitude == null) {
+      toast.warning(t('toast.actionBlocked'), t('location.selectAddressHint'));
+      return;
+    }
+
     setSaving(true);
 
     try {
       const updated = await propertiesApi.update(editing.id, {
         address: form.address.trim() || editing.address,
-        latitude: form.latitude ? Number(form.latitude) : null,
-        longitude: form.longitude ? Number(form.longitude) : null,
+        latitude: Number(form.latitude),
+        longitude: Number(form.longitude),
       });
       setData((prev) => prev.map((item) => (item.id === editing.id ? updated : item)));
       toast.success(t('toast.geofenceUpdated'), t('toast.geofenceUpdatedMessage'));
@@ -302,30 +295,14 @@ export default function PropertiesPage() {
               hint={t('location.searchHint')}
               className={styles.geoAddressField}
             >
-              <div className={styles.geoAddressRow}>
-                <Input
-                  id="geo-address"
-                  value={form.address}
-                  onChange={(e) => setForm((prev) => ({ ...prev, address: e.target.value }))}
-                  placeholder={t('admin.properties.addressPlaceholder')}
-                />
-                <Button type="button" variant="secondary" loading={searching} onClick={handleSearchAddress}>
-                  {t('location.searchAddress')}
-                </Button>
-              </div>
+              <AddressSearchField
+                id="geo-address"
+                value={form}
+                onChange={handleAddressFieldChange}
+                placeholder={t('admin.properties.addressPlaceholder')}
+                required
+              />
             </FormField>
-
-            {searchResults.length > 0 ? (
-              <ul className={styles.geoSearchResults}>
-                {searchResults.map((result) => (
-                  <li key={`${result.latitude}-${result.longitude}-${result.label}`}>
-                    <button type="button" onClick={() => handlePickSearchResult(result)}>
-                      <strong>{result.label}</strong>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
 
             <Button
               type="button"
@@ -337,42 +314,14 @@ export default function PropertiesPage() {
               {t('admin.properties.useMyLocation')}
             </Button>
 
-            {form.latitude && form.longitude ? (
+            {form.latitude != null && form.longitude != null ? (
               <LocationLabel
-                latitude={Number(form.latitude)}
-                longitude={Number(form.longitude)}
+                latitude={form.latitude}
+                longitude={form.longitude}
                 address={resolvedAddress || form.address}
                 className={styles.geoResolved}
               />
             ) : null}
-            <FormField
-              label={t('admin.properties.form.latitude')}
-              htmlFor="latitude"
-              hint={t('admin.properties.form.latitudeHint')}
-            >
-              <Input
-                id="latitude"
-                type="number"
-                step="any"
-                value={form.latitude}
-                onChange={(e) => setForm((prev) => ({ ...prev, latitude: e.target.value }))}
-                placeholder={t('admin.properties.form.latitudePlaceholder')}
-              />
-            </FormField>
-            <FormField
-              label={t('admin.properties.form.longitude')}
-              htmlFor="longitude"
-              hint={t('admin.properties.form.longitudeHint')}
-            >
-              <Input
-                id="longitude"
-                type="number"
-                step="any"
-                value={form.longitude}
-                onChange={(e) => setForm((prev) => ({ ...prev, longitude: e.target.value }))}
-                placeholder={t('admin.properties.form.longitudePlaceholder')}
-              />
-            </FormField>
           </form>
         </Modal>
 
@@ -401,11 +350,19 @@ export default function PropertiesPage() {
                 required
               />
             </FormField>
-            <FormField label={t('admin.properties.addressLabel')} htmlFor="prop-address">
-              <Input
+            <FormField
+              label={t('admin.properties.addressLabel')}
+              htmlFor="prop-address"
+              hint={t('location.searchHint')}
+            >
+              <AddressSearchField
                 id="prop-address"
-                value={createForm.address}
-                onChange={(e) => setCreateForm((prev) => ({ ...prev, address: e.target.value }))}
+                value={{
+                  address: createForm.address,
+                  latitude: createForm.latitude,
+                  longitude: createForm.longitude,
+                }}
+                onChange={handleCreateAddressChange}
                 placeholder={t('admin.properties.addressPlaceholder')}
                 required
               />

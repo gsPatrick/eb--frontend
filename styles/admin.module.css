@@ -75,6 +75,10 @@
   gap: var(--space-4);
 }
 
+.formFullWidth {
+  grid-column: 1 / -1;
+}
+
 .propertyGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

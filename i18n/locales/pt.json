@@ -363,7 +363,9 @@
         "estimatedTime": "Tempo estimado (minutos)",
         "provider": "Prestador (opcional)",
         "basePrice": "Preço base (opcional)",
-        "basePricePlaceholder": "Usa o preço padrão da propriedade se vazio"
+        "basePricePlaceholder": "Usa o preço padrão da propriedade se vazio",
+        "commissionHint": "Será aplicada comissão EB de 33% sobre o valor base da ordem.",
+        "commissionBreakdown": "Total {{total}} · Comissão EB (33%): {{commission}} · Repasse prestador: {{payout}}"
       },
       "financeSection": "Financeiro",
       "commissionEb": "Comissão EB (33%)",
@@ -743,7 +745,9 @@
     "searchAddress": "Buscar endereço",
     "searchPlaceholder": "Digite rua, bairro ou cidade...",
     "searchHint": "Usamos OpenStreetMap (gratuito) para converter endereço em coordenadas.",
-    "resolvedAddress": "Endereço encontrado"
+    "resolvedAddress": "Endereço encontrado",
+    "selectAddressHint": "Selecione um endereço real nas sugestões para salvar as coordenadas GPS.",
+    "addressSelected": "Endereço confirmado com coordenadas GPS."
   },
   "client": {
     "portalTitle": "Portal do Cliente",
