@@ -1,4 +1,10 @@
-import apiClient, { unwrapList, unwrapResponse } from './api-client';
+import apiClient, { API_ORIGIN, unwrapList, unwrapResponse } from './api-client';
+
+function resolveAttachmentUrl(url) {
+  if (!url) return null;
+  if (url.startsWith('http') || url.startsWith('data:')) return url;
+  return `${API_ORIGIN}${url.startsWith('/') ? url : `/${url}`}`;
+}
 
 function mapMessage(message) {
   if (!message) return null;
@@ -6,6 +12,9 @@ function mapMessage(message) {
     id: message.id,
     subject: message.subject,
     body: message.body,
+    messageType: message.messageType || message.message_type || 'general',
+    attachmentUrl: resolveAttachmentUrl(message.attachmentUrl || message.attachment_url),
+    attachmentName: message.attachmentName || message.attachment_name || null,
     readAt: message.readAt || message.read_at || null,
     createdAt: message.createdAt || message.created_at,
     serviceOrderId: message.serviceOrderId || message.service_order_id || null,
@@ -44,7 +53,23 @@ export async function getUnreadCount() {
   return result.unreadCount ?? 0;
 }
 
-export async function create(payload) {
+export async function create(payload, attachmentFile) {
+  if (attachmentFile) {
+    const formData = new FormData();
+    Object.entries(payload).forEach(([key, value]) => {
+      if (value != null && value !== '') {
+        formData.append(key, value);
+      }
+    });
+    formData.append('attachment', attachmentFile);
+
+    const response = await apiClient.post('/messages', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    const result = unwrapResponse(response);
+    return mapMessage(result.message);
+  }
+
   const response = await apiClient.post('/messages', payload);
   const result = unwrapResponse(response);
   return mapMessage(result.message);

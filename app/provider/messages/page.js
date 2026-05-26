@@ -2,7 +2,9 @@
 
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Badge from '@/components/atoms/Badge';
 import Button from '@/components/atoms/Button';
+import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
 import Textarea from '@/components/atoms/Textarea';
 import FormField from '@/components/molecules/FormField';
@@ -11,10 +13,18 @@ import Card from '@/components/molecules/Card';
 import EmptyState from '@/components/molecules/EmptyState';
 import ProviderLayout from '@/components/templates/ProviderLayout';
 import { useApiQuery } from '@/hooks/useApiQuery';
+import { useRealtimeRefresh } from '@/hooks/useRealtimeRefresh';
 import { useToast } from '@/hooks/useToast';
 import { messagesApi } from '@/src/services/api';
 import { formatDateTime } from '@/utils/formatters';
 import styles from '@/styles/admin.module.css';
+
+function messageTypeBadgeVariant(type) {
+  if (type === 'invoice') return 'info';
+  if (type === 'receipt') return 'success';
+  if (type === 'reminder') return 'warning';
+  return 'default';
+}
 
 export default function ProviderMessagesPage() {
   const { t } = useTranslation();
@@ -27,6 +37,8 @@ export default function ProviderMessagesPage() {
     [],
     { initialData: [] }
   );
+
+  useRealtimeRefresh('messages', refetch);
 
   const sorted = useMemo(
     () => [...messages].sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt))),
@@ -79,12 +91,37 @@ export default function ProviderMessagesPage() {
         ) : (
           <div className={styles.messageList}>
             {sorted.map((message) => (
-              <Card key={message.id}>
+              <Card key={message.id} className={styles.messageCard}>
                 <div className={styles.messageHeader}>
                   <strong>{message.subject}</strong>
                   <span>{formatDateTime(message.createdAt)}</span>
                 </div>
+                {message.messageType && message.messageType !== 'general' ? (
+                  <div className={styles.messageMeta}>
+                    <Badge variant={messageTypeBadgeVariant(message.messageType)}>
+                      {t(`provider.messages.types.${message.messageType}`, {
+                        defaultValue: message.messageType,
+                      })}
+                    </Badge>
+                  </div>
+                ) : null}
                 <p>{message.body}</p>
+                {message.attachmentUrl ? (
+                  <a
+                    href={message.attachmentUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.attachmentLink}
+                  >
+                    <Icon name="download" size={16} />
+                    {message.attachmentName || t('provider.messages.downloadAttachment')}
+                  </a>
+                ) : null}
+                <small className={styles.messageFooter}>
+                  {message.sender?.role === 'admin'
+                    ? t('provider.messages.fromAdmin')
+                    : t('provider.messages.fromYou')}
+                </small>
               </Card>
             ))}
           </div>

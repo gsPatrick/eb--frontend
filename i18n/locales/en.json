@@ -409,17 +409,19 @@
       "paymentPending": "Pending",
       "paymentPaid": "Paid",
       "savePayments": "Save payments",
-      "generateInvoice": "Generate invoice (test)",
+      "generateInvoice": "Generate invoice",
       "downloadInvoice": "Download invoice",
       "downloadReceipt": "Download receipt",
-      "financeHint": "Payment is manual (Zelle/check). When provider is marked paid, receipt goes to their inbox.",
+      "financeHint": "Payment is manual (Zelle/check). Invoices, receipts, and reminders are sent to the client or provider inbox — you can track everything in Inbox.",
       "paymentsUpdated": "Payments updated",
       "paymentsUpdatedMessage": "Financial status saved successfully.",
       "invoiceGenerated": "Invoice generated",
-      "invoiceGeneratedMessage": "Test PDF generated. Final layout when you send the template.",
+      "invoiceSentToInboxMessage": "The invoice PDF was sent to {{name}}'s inbox. You can track it in Inbox.",
+      "receiptSentToInbox": "Receipt sent",
+      "receiptSentToInboxMessage": "The receipt PDF was sent to {{name}}'s inbox. You can track it in Inbox.",
       "sendReminder": "Send reminder to client",
       "reminderSent": "Reminder sent",
-      "reminderSentMessage": "Client notified about tomorrow's cleaning and extras."
+      "reminderSentToInboxMessage": "The reminder was sent to {{name}}'s inbox. You can track it in Inbox.",
     },
     "inventory": {
       "title": "Inventory by Property",
@@ -626,21 +628,43 @@
     },
     "messages": {
       "title": "Inbox",
-      "subtitle": "Messages from clients and providers. Reply directly from here.",
+      "subtitle": "All system messages — sent and received. Invoices and receipts appear here automatically.",
       "compose": "Compose",
       "sent": "Message sent",
       "sentMessage": "Your reply was delivered.",
+      "sentToInboxMessage": "The message was delivered to the recipient's inbox.",
+      "sendToInbox": "Send to inbox",
       "recipient": "Recipient",
-      "selectRecipient": "Select recipient…",
+      "selectRecipient": "Select client or provider…",
+      "recipientGroupClients": "Clients",
+      "recipientGroupProviders": "Providers",
       "subjectField": "Subject",
       "bodyField": "Message",
       "send": "Send",
       "read": "Read",
       "unread": "Unread",
+      "inboxHelpTitle": "How this inbox works",
+      "inboxHelpText": "Everything a client or provider receives in their messages area is also recorded here so you can track it.",
+      "inboxHelpInvoice": "Invoices: when you generate an order invoice, the client automatically gets a message with the PDF attached.",
+      "inboxHelpReceipt": "Receipts: when you mark a provider as paid, they automatically receive the receipt in their inbox.",
+      "inboxHelpManual": "Manual messages: use \"Compose\", pick client or provider, attach files if needed — delivery goes straight to their inbox.",
+      "composeIntro": "Choose who receives this. The message appears in the client or provider inbox, not in your personal email.",
+      "deliveryNotice": "This message will be delivered to {{name}}'s inbox ({{role}}).",
+      "deliveredTo": "Delivered to {{role}} inbox",
+      "attachmentField": "Attachment (optional)",
+      "attachmentHint": "PDF, image, or document — up to 10 MB.",
+      "downloadAttachment": "Download attachment",
+      "types": {
+        "general": "General",
+        "invoice": "Invoice",
+        "receipt": "Receipt",
+        "reminder": "Reminder"
+      },
       "columns": {
         "from": "From",
         "to": "To",
         "subject": "Subject",
+        "type": "Type",
         "date": "Date",
         "status": "Status"
       }
@@ -718,7 +742,16 @@
       "body": "Message",
       "sendToAdmin": "Send to admin",
       "sent": "Message sent",
-      "sentMessage": "Your message was delivered to the admin inbox."
+      "sentMessage": "Your message was delivered to the admin inbox.",
+      "fromAdmin": "From EB admin",
+      "fromYou": "Sent by you",
+      "downloadAttachment": "Download attachment",
+      "types": {
+        "general": "Message",
+        "invoice": "Invoice",
+        "receipt": "Receipt",
+        "reminder": "Reminder"
+      }
     },
     "execution": {
       "notFound": "Work order not found.",
@@ -828,7 +861,14 @@
       "sent": "Message sent",
       "sentMessage": "The admin team will reply in this inbox.",
       "fromAdmin": "From EB admin",
-      "fromYou": "Sent by you"
+      "fromYou": "Sent by you",
+      "downloadAttachment": "Download attachment",
+      "types": {
+        "general": "Message",
+        "invoice": "Invoice",
+        "receipt": "Receipt",
+        "reminder": "Reminder"
+      }
     },
     "inventory": {
       "title": "House Inventory",

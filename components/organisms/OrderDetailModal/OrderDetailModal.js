@@ -139,13 +139,27 @@ export default function OrderDetailModal({
 
   const handleSavePayments = async () => {
     if (!order) return;
+    const wasProviderPending = order.providerPaymentStatus !== 'paid';
+    const markingProviderPaid = providerPaymentStatus === 'paid' && wasProviderPending;
+
     setSavingPayments(true);
     try {
       const updated = await ordersApi.updatePayments(order.id, {
         clientPaymentStatus,
         providerPaymentStatus,
       });
-      toast.success(t('admin.orders.paymentsUpdated'), t('admin.orders.paymentsUpdatedMessage'));
+
+      if (markingProviderPaid) {
+        toast.success(
+          t('admin.orders.receiptSentToInbox'),
+          t('admin.orders.receiptSentToInboxMessage', {
+            name: order.provider || t('admin.orders.unassigned'),
+          })
+        );
+      } else {
+        toast.success(t('admin.orders.paymentsUpdated'), t('admin.orders.paymentsUpdatedMessage'));
+      }
+
       onUpdated?.(updated);
     } catch (error) {
       toast.error(t('common.error'), error.message);
@@ -159,7 +173,10 @@ export default function OrderDetailModal({
     setGeneratingInvoice(true);
     try {
       const result = await ordersApi.createInvoice(order.id);
-      toast.success(t('admin.orders.invoiceGenerated'), t('admin.orders.invoiceGeneratedMessage'));
+      toast.success(
+        t('admin.orders.invoiceGenerated'),
+        t('admin.orders.invoiceSentToInboxMessage', { name: order.client })
+      );
       onUpdated?.(result.order);
     } catch (error) {
       toast.error(t('common.error'), error.message);
@@ -173,7 +190,10 @@ export default function OrderDetailModal({
     setSendingReminder(true);
     try {
       await ordersApi.sendReminder(order.id);
-      toast.success(t('admin.orders.reminderSent'), t('admin.orders.reminderSentMessage'));
+      toast.success(
+        t('admin.orders.reminderSent'),
+        t('admin.orders.reminderSentToInboxMessage', { name: order.client })
+      );
     } catch (error) {
       toast.error(t('common.error'), error.message);
     } finally {

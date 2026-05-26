@@ -2,7 +2,9 @@
 
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Badge from '@/components/atoms/Badge';
 import Button from '@/components/atoms/Button';
+import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
 import Textarea from '@/components/atoms/Textarea';
 import FormField from '@/components/molecules/FormField';
@@ -16,6 +18,13 @@ import { useToast } from '@/hooks/useToast';
 import { messagesApi } from '@/src/services/api';
 import { formatDateTime } from '@/utils/formatters';
 import styles from '@/styles/client.module.css';
+
+function messageTypeBadgeVariant(type) {
+  if (type === 'invoice') return 'info';
+  if (type === 'receipt') return 'success';
+  if (type === 'reminder') return 'warning';
+  return 'default';
+}
 
 export default function ClientMessagesPage() {
   const { t } = useTranslation();
@@ -86,8 +95,28 @@ export default function ClientMessagesPage() {
                   <strong>{message.subject}</strong>
                   <span>{formatDateTime(message.createdAt)}</span>
                 </div>
+                {message.messageType && message.messageType !== 'general' ? (
+                  <div className={styles.messageMeta}>
+                    <Badge variant={messageTypeBadgeVariant(message.messageType)}>
+                      {t(`client.messages.types.${message.messageType}`, {
+                        defaultValue: message.messageType,
+                      })}
+                    </Badge>
+                  </div>
+                ) : null}
                 <p>{message.body}</p>
-                <small>
+                {message.attachmentUrl ? (
+                  <a
+                    href={message.attachmentUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.attachmentLink}
+                  >
+                    <Icon name="download" size={16} />
+                    {message.attachmentName || t('client.messages.downloadAttachment')}
+                  </a>
+                ) : null}
+                <small className={styles.messageFooter}>
                   {message.sender?.role === 'admin'
                     ? t('client.messages.fromAdmin')
                     : t('client.messages.fromYou')}

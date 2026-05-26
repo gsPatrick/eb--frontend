@@ -409,17 +409,19 @@
       "paymentPending": "Pendente",
       "paymentPaid": "Pago",
       "savePayments": "Salvar pagamentos",
-      "generateInvoice": "Gerar invoice (teste)",
-      "downloadInvoice": "Baixar invoice",
+      "generateInvoice": "Gerar fatura",
+      "downloadInvoice": "Baixar fatura",
       "downloadReceipt": "Baixar recibo",
-      "financeHint": "Pagamento é manual (Zelle/cheque). Ao marcar prestador como pago, o recibo vai para a caixinha dele.",
+      "financeHint": "Pagamento é manual (Zelle/cheque). Fatura, recibo e lembrete são enviados para a caixa de entrada do cliente ou prestador — você também vê tudo em Caixa de entrada.",
       "paymentsUpdated": "Pagamentos atualizados",
       "paymentsUpdatedMessage": "Status financeiro salvo com sucesso.",
-      "invoiceGenerated": "Invoice gerado",
-      "invoiceGeneratedMessage": "PDF de teste gerado. Layout final quando você enviar o padrão.",
+      "invoiceGenerated": "Fatura gerada",
+      "invoiceSentToInboxMessage": "A fatura com PDF foi enviada para a caixa de entrada de {{name}}. Você pode acompanhar em Caixa de entrada.",
+      "receiptSentToInbox": "Recibo enviado",
+      "receiptSentToInboxMessage": "O recibo com PDF foi enviado para a caixa de entrada de {{name}}. Você pode acompanhar em Caixa de entrada.",
       "sendReminder": "Enviar lembrete ao cliente",
       "reminderSent": "Lembrete enviado",
-      "reminderSentMessage": "Cliente notificado sobre a limpeza de amanhã e extras."
+      "reminderSentToInboxMessage": "O lembrete foi enviado para a caixa de entrada de {{name}}. Você pode acompanhar em Caixa de entrada.",
     },
     "inventory": {
       "title": "Inventário por Propriedade",
@@ -626,21 +628,43 @@
     },
     "messages": {
       "title": "Caixa de entrada",
-      "subtitle": "Mensagens de clientes e prestadores. Responda por aqui.",
+      "subtitle": "Todas as mensagens do sistema — enviadas e recebidas. Faturas e recibos aparecem aqui automaticamente.",
       "compose": "Nova mensagem",
       "sent": "Mensagem enviada",
       "sentMessage": "Sua resposta foi entregue.",
+      "sentToInboxMessage": "A mensagem foi entregue na caixa de entrada do destinatário.",
+      "sendToInbox": "Enviar para caixa de entrada",
       "recipient": "Destinatário",
-      "selectRecipient": "Selecione…",
+      "selectRecipient": "Selecione cliente ou prestador…",
+      "recipientGroupClients": "Clientes",
+      "recipientGroupProviders": "Prestadores",
       "subjectField": "Assunto",
       "bodyField": "Mensagem",
       "send": "Enviar",
       "read": "Lida",
       "unread": "Não lida",
+      "inboxHelpTitle": "Como funciona esta caixa",
+      "inboxHelpText": "Tudo que o cliente ou prestador recebe na área de mensagens deles também fica registrado aqui para você acompanhar.",
+      "inboxHelpInvoice": "Faturas: ao gerar a fatura de uma ordem, o cliente recebe automaticamente uma mensagem com o PDF anexo.",
+      "inboxHelpReceipt": "Recibos: ao marcar o prestador como pago, ele recebe automaticamente o recibo na caixa de entrada.",
+      "inboxHelpManual": "Mensagens manuais: use \"Nova mensagem\", escolha cliente ou prestador, anexe arquivos se precisar — a entrega vai direto para a caixa deles.",
+      "composeIntro": "Escolha quem vai receber. A mensagem aparece na caixa de entrada do cliente ou do prestador, não no seu e-mail pessoal.",
+      "deliveryNotice": "Esta mensagem será entregue na caixa de entrada de {{name}} ({{role}}).",
+      "deliveredTo": "Entregue na caixa do {{role}}",
+      "attachmentField": "Anexo (opcional)",
+      "attachmentHint": "PDF, imagem ou documento — até 10 MB.",
+      "downloadAttachment": "Baixar anexo",
+      "types": {
+        "general": "Geral",
+        "invoice": "Fatura",
+        "receipt": "Recibo",
+        "reminder": "Lembrete"
+      },
       "columns": {
         "from": "De",
         "to": "Para",
         "subject": "Assunto",
+        "type": "Tipo",
         "date": "Data",
         "status": "Status"
       }
@@ -707,7 +731,16 @@
       "body": "Mensagem",
       "sendToAdmin": "Enviar para admin",
       "sent": "Mensagem enviada",
-      "sentMessage": "Sua mensagem foi entregue ao admin."
+      "sentMessage": "Sua mensagem foi entregue ao admin.",
+      "fromAdmin": "Da equipe EB",
+      "fromYou": "Enviada por você",
+      "downloadAttachment": "Baixar anexo",
+      "types": {
+        "general": "Mensagem",
+        "invoice": "Fatura",
+        "receipt": "Recibo",
+        "reminder": "Lembrete"
+      }
     },
     "execution": {
       "notFound": "Ordem de serviço não encontrada.",
@@ -817,7 +850,14 @@
       "sent": "Mensagem enviada",
       "sentMessage": "A equipe responderá nesta caixa.",
       "fromAdmin": "Da equipe EB",
-      "fromYou": "Enviada por você"
+      "fromYou": "Enviada por você",
+      "downloadAttachment": "Baixar anexo",
+      "types": {
+        "general": "Mensagem",
+        "invoice": "Fatura",
+        "receipt": "Recibo",
+        "reminder": "Lembrete"
+      }
     },
     "inventory": {
       "title": "Inventário da Casa",
