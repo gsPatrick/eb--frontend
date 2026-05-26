@@ -12,8 +12,8 @@
 }
 
 .variant_success {
-  border-color: rgba(16, 185, 129, 0.25);
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(255, 255, 255, 0.72));
+  border-color: rgba(37, 99, 235, 0.25);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(255, 255, 255, 0.72));
 }
 
 .fullWidth {
@@ -80,7 +80,7 @@
 }
 
 .icon_success {
-  background: rgba(16, 185, 129, 0.14);
+  background: rgba(37, 99, 235, 0.14);
   color: var(--color-success);
 }
 

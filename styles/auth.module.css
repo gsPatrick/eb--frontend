@@ -52,7 +52,7 @@
   padding: var(--space-5);
   border-radius: var(--radius-lg);
   background: var(--color-accent-soft);
-  border: 1px solid rgba(84, 204, 139, 0.25);
+  border: 1px solid rgba(79, 124, 255, 0.25);
 }
 
 .successBox h3 {

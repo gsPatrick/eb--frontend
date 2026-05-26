@@ -4,7 +4,7 @@
   place-items: center;
   padding: var(--space-6);
   background:
-    radial-gradient(circle at top right, rgba(84, 204, 139, 0.12), transparent 35%),
+    radial-gradient(circle at top right, var(--color-accent-glow-soft), transparent 35%),
     linear-gradient(145deg, #061d4d 0%, var(--color-primary) 55%, #0a3078 100%);
 }
 

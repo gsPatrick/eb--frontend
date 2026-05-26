@@ -11,7 +11,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(84, 204, 139, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, var(--color-accent-glow), transparent);
 }
 
 .header {
@@ -83,7 +83,7 @@
   flex: 1;
   min-height: 48px;
   margin-block: var(--space-2);
-  background: linear-gradient(180deg, var(--color-accent), rgba(84, 204, 139, 0.2));
+  background: linear-gradient(180deg, var(--color-accent-light), var(--color-accent-glow-soft));
   border-radius: var(--radius-full);
 }
 

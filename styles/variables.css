@@ -1,6 +1,6 @@
 /**
  * EB Services — Design Tokens (Figma SaaS Dashboard UI Kit)
- * Fonts: Montserrat + Poppins | BG: #FCFCFC | Accent: #082567
+ * Fonts: Montserrat + Poppins | BG: #FCFCFC | Primary: #082567 | Accent: #4F7CFF
  */
 
 :root {
@@ -13,10 +13,15 @@
   --color-primary: #082567;
   --color-primary-hover: #061d4d;
   --color-primary-soft: rgba(8, 37, 103, 0.08);
-  --color-accent: #54cc8b;
-  --color-accent-soft: rgba(84, 204, 139, 0.12);
-  --color-success: #54cc8b;
-  --color-success-soft: rgba(84, 204, 139, 0.12);
+  --color-primary-light: #1a4a9e;
+  --color-accent: #4f7cff;
+  --color-accent-light: #93c5fd;
+  --color-accent-soft: rgba(79, 124, 255, 0.12);
+  --color-accent-glow: rgba(79, 124, 255, 0.35);
+  --color-accent-glow-soft: rgba(79, 124, 255, 0.12);
+  --color-accent-border: rgba(79, 124, 255, 0.35);
+  --color-success: #2563eb;
+  --color-success-soft: rgba(37, 99, 235, 0.12);
   --color-error: #e03131;
   --color-warning: #f59e0b;
   --color-warning-soft: rgba(245, 158, 11, 0.12);

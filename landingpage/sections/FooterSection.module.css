@@ -12,7 +12,7 @@
     90deg,
     transparent 0%,
     var(--color-accent) 20%,
-    #7ee0a8 50%,
+    var(--color-accent-light) 50%,
     var(--color-accent) 80%,
     transparent 100%
   );
@@ -24,7 +24,7 @@
   right: -80px;
   width: 420px;
   height: 420px;
-  background: radial-gradient(circle, rgba(84, 204, 139, 0.12), transparent 65%);
+  background: radial-gradient(circle, var(--color-accent-glow-soft), transparent 65%);
   pointer-events: none;
 }
 

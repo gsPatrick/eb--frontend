@@ -29,7 +29,7 @@
 }
 
 .titleHighlight {
-  background: linear-gradient(135deg, #54cc8b 0%, #9ae6b4 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -74,7 +74,7 @@
 .cardHighlight {
   box-shadow:
     0 18px 48px rgba(6, 29, 77, 0.22),
-    0 0 0 2px rgba(84, 204, 139, 0.35);
+    0 0 0 2px var(--color-accent-border);
 }
 
 .cardHead {
