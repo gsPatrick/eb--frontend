@@ -421,7 +421,7 @@
       "receiptSentToInboxMessage": "The receipt PDF was sent to {{name}}'s inbox. You can track it in Inbox.",
       "sendReminder": "Send reminder to client",
       "reminderSent": "Reminder sent",
-      "reminderSentToInboxMessage": "The reminder was sent to {{name}}'s inbox. You can track it in Inbox.",
+      "reminderSentToInboxMessage": "The reminder was sent to {{name}}'s inbox. You can track it in Inbox."
     },
     "inventory": {
       "title": "Inventory by Property",

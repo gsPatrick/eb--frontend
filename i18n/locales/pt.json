@@ -421,7 +421,7 @@
       "receiptSentToInboxMessage": "O recibo com PDF foi enviado para a caixa de entrada de {{name}}. Você pode acompanhar em Caixa de entrada.",
       "sendReminder": "Enviar lembrete ao cliente",
       "reminderSent": "Lembrete enviado",
-      "reminderSentToInboxMessage": "O lembrete foi enviado para a caixa de entrada de {{name}}. Você pode acompanhar em Caixa de entrada.",
+      "reminderSentToInboxMessage": "O lembrete foi enviado para a caixa de entrada de {{name}}. Você pode acompanhar em Caixa de entrada."
     },
     "inventory": {
       "title": "Inventário por Propriedade",
