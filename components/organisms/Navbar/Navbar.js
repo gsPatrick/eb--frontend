@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslation } from 'react-i18next';
 import Avatar from '@/components/atoms/Avatar';
 import Badge from '@/components/atoms/Badge';
 import FigmaIcon from '@/components/atoms/FigmaIcon';
@@ -10,16 +11,18 @@ import { FIGMA_ASSETS } from '@/constants/figmaAssets';
 import styles from './Navbar.module.css';
 
 export default function Navbar({ title, subtitle, onMenuClick, searchValue, onSearchChange, showSearch = true }) {
+  const { t } = useTranslation();
+
   const userMenuItems = [
-    { label: 'Meu perfil', icon: 'users', onClick: () => {} },
-    { label: 'Configurações', icon: 'settings', onClick: () => {} },
-    { label: 'Sair', icon: 'logout', onClick: () => {}, danger: true },
+    { label: t('nav.profile'), icon: 'users', onClick: () => {} },
+    { label: t('common.settings'), icon: 'settings', onClick: () => {} },
+    { label: t('common.logout'), icon: 'logout', onClick: () => {}, danger: true },
   ];
 
   return (
     <header className={styles.navbar}>
       <div className={styles.left}>
-        <button type="button" className={styles.menuBtn} onClick={onMenuClick} aria-label="Menu">
+        <button type="button" className={styles.menuBtn} onClick={onMenuClick} aria-label={t('common.openMenu')}>
           <Icon name="menu" size={20} />
         </button>
         <div>
@@ -30,12 +33,17 @@ export default function Navbar({ title, subtitle, onMenuClick, searchValue, onSe
 
       {showSearch && (
         <div className={styles.center}>
-          <SearchField value={searchValue} onChange={onSearchChange} placeholder="Search..." className={styles.search} />
+          <SearchField
+            value={searchValue}
+            onChange={onSearchChange}
+            placeholder={t('common.searchPlaceholder', { defaultValue: 'Search…' })}
+            className={styles.search}
+          />
         </div>
       )}
 
       <div className={styles.right}>
-        <button type="button" className={styles.iconBtn} aria-label="Notificações">
+        <button type="button" className={styles.iconBtn} aria-label={t('common.notifications')}>
           <Icon name="bell" size={20} />
           <Badge variant="error" size="sm" className={styles.badge}>3</Badge>
         </button>

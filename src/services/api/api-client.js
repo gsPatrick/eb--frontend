@@ -1,5 +1,17 @@
 import axios from 'axios';
+import { getI18nInstance } from '@/i18n';
 import { clearAuthSession } from '@/utils/authSession';
+
+function translateApiMessage(key, fallback) {
+  if (typeof window === 'undefined') return fallback;
+
+  try {
+    return getI18nInstance().t(key, { defaultValue: fallback });
+  } catch {
+    return fallback;
+  }
+}
+
 
 const DEFAULT_API_ORIGIN = 'https://sistema-api.a8v108.easypanel.host';
 
@@ -91,10 +103,13 @@ apiClient.interceptors.response.use(
       data?.message ||
       data?.error?.message ||
       error.message ||
-      'Erro inesperado. Tente novamente.';
+      translateApiMessage('common.unexpectedError', 'Unexpected error. Please try again.');
 
     if (status === 429) {
-      message = 'Muitas requisições. Aguarde alguns minutos e tente novamente.';
+      message = translateApiMessage(
+        'common.tooManyRequests',
+        'Too many requests. Wait a few minutes and try again.'
+      );
     }
 
     const apiError = new Error(message);

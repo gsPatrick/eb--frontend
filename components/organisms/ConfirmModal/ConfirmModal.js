@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslation } from 'react-i18next';
 import Button from '@/components/atoms/Button';
 import Modal from '@/components/molecules/Modal';
 
@@ -7,30 +8,32 @@ export default function ConfirmModal({
   isOpen,
   onClose,
   onConfirm,
-  title = 'Confirmar ação',
+  title,
   message,
-  confirmLabel = 'Confirmar',
-  cancelLabel = 'Cancelar',
+  confirmLabel,
+  cancelLabel,
   loading = false,
   danger = true,
 }) {
+  const { t } = useTranslation();
+
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={title}
+      title={title ?? t('common.confirmAction')}
       size="sm"
       footer={
         <>
           <Button variant="secondary" onClick={onClose} disabled={loading}>
-            {cancelLabel}
+            {cancelLabel ?? t('common.cancel')}
           </Button>
           <Button
             variant={danger ? 'danger' : 'primary'}
             onClick={onConfirm}
             loading={loading}
           >
-            {confirmLabel}
+            {confirmLabel ?? t('common.confirm')}
           </Button>
         </>
       }

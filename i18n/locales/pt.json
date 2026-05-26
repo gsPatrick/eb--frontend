@@ -53,7 +53,24 @@
     "yes": "Sim",
     "no": "Não",
     "notAvailable": "N/D",
-    "minutes": "min"
+    "minutes": "min",
+    "confirmAction": "Confirmar ação",
+    "confirm": "Confirmar",
+    "unexpectedError": "Erro inesperado. Tente novamente.",
+    "tooManyRequests": "Muitas requisições. Aguarde alguns minutos e tente novamente.",
+    "sessionEnded": "Sessão encerrada",
+    "alertIndex": "Alerta {{index}}",
+    "notifications": "Notificações",
+    "settings": "Configurações",
+    "pagination": {
+      "show": "Exibir",
+      "perPage": "por página",
+      "range": "{{start}}-{{end}} de {{total}}",
+      "empty": "0 registros",
+      "pageOf": "Página {{current}} de {{total}}",
+      "previousPage": "Página anterior",
+      "nextPage": "Próxima página"
+    }
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -120,6 +137,22 @@
       "passwordRequired": "Informe sua senha.",
       "loginFailed": "Falha no login",
       "emailPlaceholder": "seu@email.com"
+    },
+    "brand": {
+      "eyebrow": "Plataforma de gestão",
+      "title": "Controle total dos seus serviços e propriedades",
+      "text": "Acompanhe ordens de serviço, contratos, inventário e equipes em um painel moderno e intuitivo.",
+      "monitoring": "Monitoramento",
+      "digital": "Digital",
+      "secure": "Seguro"
+    },
+    "transition": {
+      "welcome": "Bem-vindo, {{name}}",
+      "welcomeBack": "Bem-vindo de volta",
+      "welcomeFallback": "de volta",
+      "goodbye": "Até logo",
+      "loginSubtitle": "Entrando na plataforma…",
+      "logoutSubtitle": "Encerrando sua sessão com segurança…"
     },
     "register": {
       "title": "Criar conta",

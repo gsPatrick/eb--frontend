@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslation } from 'react-i18next';
 import Icon from '@/components/atoms/Icon';
 import styles from './Pagination.module.css';
 import { cn } from '@/utils/cn';
@@ -16,6 +17,7 @@ export default function Pagination({
   embedded = false,
   className,
 }) {
+  const { t } = useTranslation();
   const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
   const currentPage = Math.min(page, totalPages);
   const start = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
@@ -24,7 +26,7 @@ export default function Pagination({
   return (
     <div className={cn(styles.root, embedded && styles.embedded, className)}>
       <div className={styles.pageSize}>
-        <label htmlFor="page-size">Exibir</label>
+        <label htmlFor="page-size">{t('common.pagination.show')}</label>
         <select
           id="page-size"
           className={styles.select}
@@ -37,12 +39,14 @@ export default function Pagination({
             </option>
           ))}
         </select>
-        <span>por página</span>
+        <span>{t('common.pagination.perPage')}</span>
       </div>
 
       <div className={styles.controls}>
         <span className={styles.summary}>
-          {totalItems > 0 ? `${start}-${end} de ${totalItems}` : '0 registros'}
+          {totalItems > 0
+            ? t('common.pagination.range', { start, end, total: totalItems })
+            : t('common.pagination.empty')}
         </span>
 
         <div className={styles.nav}>
@@ -51,13 +55,13 @@ export default function Pagination({
             className={styles.navButton}
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage <= 1}
-            aria-label="Página anterior"
+            aria-label={t('common.pagination.previousPage')}
           >
             <Icon name="chevronLeft" size={16} />
           </button>
 
           <span className={styles.pageInfo}>
-            Página {currentPage} de {totalPages}
+            {t('common.pagination.pageOf', { current: currentPage, total: totalPages })}
           </span>
 
           <button
@@ -65,7 +69,7 @@ export default function Pagination({
             className={styles.navButton}
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage >= totalPages}
-            aria-label="Próxima página"
+            aria-label={t('common.pagination.nextPage')}
           >
             <Icon name="chevronRight" size={16} />
           </button>

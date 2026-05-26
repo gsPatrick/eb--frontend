@@ -53,7 +53,24 @@
     "no": "No",
     "notAvailable": "N/A",
     "minutes": "min",
-    "reviewStock": "Stock para revisar"
+    "reviewStock": "Stock para revisar",
+    "confirmAction": "Confirmar acción",
+    "confirm": "Confirmar",
+    "unexpectedError": "Error inesperado. Inténtelo de nuevo.",
+    "tooManyRequests": "Demasiadas solicitudes. Espere unos minutos e inténtelo de nuevo.",
+    "sessionEnded": "Sesión cerrada",
+    "alertIndex": "Alerta {{index}}",
+    "notifications": "Notificaciones",
+    "settings": "Configuración",
+    "pagination": {
+      "show": "Mostrar",
+      "perPage": "por página",
+      "range": "{{start}}-{{end}} de {{total}}",
+      "empty": "0 registros",
+      "pageOf": "Página {{current}} de {{total}}",
+      "previousPage": "Página anterior",
+      "nextPage": "Página siguiente"
+    }
   },
   "nav": {
     "dashboard": "Panel",
@@ -66,11 +83,15 @@
     "profile": "Mi perfil",
     "myProperties": "Mis Propiedades",
     "inventory": "Inventario de la Casa",
+    "inventoryAdmin": "Inventario (Admin)",
     "contracts": "Mis Contratos",
     "history": "Historial de Servicios",
     "contractTemplates": "Plantillas de Contrato",
     "quality": "Calidad",
     "syncLog": "Sync iCal",
+    "messages": "Bandeja de entrada",
+    "schedules": "Programaciones recurrentes",
+    "fieldReports": "Informes de campo",
     "providerSchedule": "Agenda del Día",
     "providerHistory": "Historial",
     "providerInventory": "Actualizar Inventario",
@@ -115,6 +136,21 @@
       "passwordRequired": "Ingrese su contraseña.",
       "loginFailed": "Error al iniciar sesión",
       "emailPlaceholder": "su@email.com"
+    },
+    "brand": {
+      "eyebrow": "Plataforma de gestión",
+      "title": "Control total de sus servicios y propiedades",
+      "text": "Supervise órdenes de servicio, contratos, inventario y equipos en un panel moderno e intuitivo.",
+      "monitoring": "Monitoreo",
+      "digital": "Digital",
+      "secure": "Seguro"
+    },
+    "transition": {
+      "welcome": "Bienvenido, {{name}}",
+      "welcomeBack": "Bienvenido de nuevo",
+      "goodbye": "Hasta pronto",
+      "loginSubtitle": "Iniciando sesión…",
+      "logoutSubtitle": "Cerrando sesión de forma segura…"
     },
     "register": {
       "title": "Crear cuenta",

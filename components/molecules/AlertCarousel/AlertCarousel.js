@@ -75,7 +75,7 @@ export default function AlertCarousel({ items = [], className, interval = 3500, 
               type="button"
               className={cn(styles.dot, index === activeIndex && styles.dotActive)}
               onClick={() => setActiveIndex(index)}
-              aria-label={`Alerta ${index + 1}`}
+              aria-label={t('common.alertIndex', { index: index + 1 })}
             />
           ))}
         </div>

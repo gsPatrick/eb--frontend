@@ -53,7 +53,24 @@
     "no": "Non",
     "notAvailable": "N/A",
     "minutes": "min",
-    "reviewStock": "Stock à analyser"
+    "reviewStock": "Stock à analyser",
+    "confirmAction": "Confirmer l'action",
+    "confirm": "Confirmer",
+    "unexpectedError": "Erreur inattendue. Veuillez réessayer.",
+    "tooManyRequests": "Trop de requêtes. Attendez quelques minutes et réessayez.",
+    "sessionEnded": "Session terminée",
+    "alertIndex": "Alerte {{index}}",
+    "notifications": "Notifications",
+    "settings": "Paramètres",
+    "pagination": {
+      "show": "Afficher",
+      "perPage": "par page",
+      "range": "{{start}}-{{end}} sur {{total}}",
+      "empty": "0 enregistrements",
+      "pageOf": "Page {{current}} sur {{total}}",
+      "previousPage": "Page précédente",
+      "nextPage": "Page suivante"
+    }
   },
   "nav": {
     "dashboard": "Tableau de bord",
@@ -66,11 +83,15 @@
     "profile": "Mon profil",
     "myProperties": "Mes Propriétés",
     "inventory": "Inventaire de la Maison",
+    "inventoryAdmin": "Inventaire (Admin)",
     "contracts": "Mes Contrats",
     "history": "Historique des Services",
     "contractTemplates": "Modèles de Contrat",
     "quality": "Qualité",
     "syncLog": "Sync iCal",
+    "messages": "Boîte de réception",
+    "schedules": "Plannings récurrents",
+    "fieldReports": "Rapports de terrain",
     "providerSchedule": "Agenda du Jour",
     "providerHistory": "Historique",
     "providerInventory": "Mettre à Jour l'Inventaire",
@@ -115,6 +136,21 @@
       "passwordRequired": "Veuillez saisir votre mot de passe.",
       "loginFailed": "Échec de la connexion",
       "emailPlaceholder": "vous@email.com"
+    },
+    "brand": {
+      "eyebrow": "Plateforme de gestion",
+      "title": "Contrôle total de vos services et propriétés",
+      "text": "Suivez les ordres de service, contrats, inventaire et équipes dans un tableau de bord moderne et intuitif.",
+      "monitoring": "Surveillance",
+      "digital": "Digital",
+      "secure": "Sécurisé"
+    },
+    "transition": {
+      "welcome": "Bienvenue, {{name}}",
+      "welcomeBack": "Bon retour",
+      "goodbye": "À bientôt",
+      "loginSubtitle": "Connexion en cours…",
+      "logoutSubtitle": "Déconnexion sécurisée…"
     },
     "register": {
       "title": "Créer un compte",

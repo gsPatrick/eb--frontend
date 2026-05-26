@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 import { io } from 'socket.io-client';
 import { SOCKET_URL } from '@/src/services/api/api-client';
 import { clearAuthSession } from '@/utils/authSession';
@@ -15,6 +16,7 @@ const ADMIN_EVENTS = new Set(['ORDER_CHECKIN', 'INVENTORY_CRITICAL', 'INBOX_MESS
 const CLIENT_EVENTS = new Set(['ORDER_COMPLETED', 'INVENTORY_CRITICAL', 'INBOX_MESSAGE', 'CLEANING_REMINDER', 'FIELD_REPORT']);
 
 export function RealtimeProvider({ children, audience = 'admin' }) {
+  const { t } = useTranslation();
   const toast = useToast();
   const router = useRouter();
   const toastRef = useRef(toast);
@@ -96,7 +98,7 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
     });
 
     socket.on('force_logout', (payload) => {
-      toastRef.current.warning(payload?.title || 'Sessão encerrada', payload?.message || '');
+      toastRef.current.warning(payload?.title || t('common.sessionEnded'), payload?.message || '');
       clearAuthSession();
       routerRef.current.replace('/login');
     });
@@ -109,7 +111,7 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
       socket.disconnect();
       socketRef.current = null;
     };
-  }, [audience, bumpRefresh]);
+  }, [audience, bumpRefresh, t]);
 
   const value = useMemo(
     () => ({

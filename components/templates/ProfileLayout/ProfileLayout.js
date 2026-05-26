@@ -1,3 +1,6 @@
+'use client';
+
+import { useTranslation } from 'react-i18next';
 import Avatar from '@/components/atoms/Avatar';
 import Logo from '@/components/atoms/Logo';
 import { formatDate } from '@/utils/formatters';
@@ -9,10 +12,12 @@ export default function ProfileLayout({
   homeHref = '/dashboard',
   stats,
 }) {
+  const { t } = useTranslation();
+
   const defaultStats = [
-    { label: 'Admin', value: 'Acesso total' },
-    { label: 'Ativa', value: 'Conta verificada' },
-    { label: formatDate(user.lastLoginAt), value: 'Último acesso' },
+    { label: t('roles.admin'), value: t('profile.fullAccess') },
+    { label: t('common.active'), value: t('profile.verifiedAccount') },
+    { label: formatDate(user.lastLoginAt), value: t('profile.lastAccess') },
   ];
 
   const statItems = stats || defaultStats;
@@ -27,7 +32,7 @@ export default function ProfileLayout({
           <div className={styles.profileCard}>
             <Avatar name={user.name} src={user.avatar} size="lg" className={styles.avatar} />
             <h1>{user.firstName || user.name}</h1>
-            <span className={styles.roleLabel}>{user.roleLabel || 'Administradora'}</span>
+            <span className={styles.roleLabel}>{user.roleLabel || t('roles.admin')}</span>
             <p className={styles.email}>{user.email}</p>
           </div>
 

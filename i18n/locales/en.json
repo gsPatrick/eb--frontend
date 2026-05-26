@@ -53,7 +53,24 @@
     "no": "No",
     "notAvailable": "N/A",
     "minutes": "min",
-    "reviewStock": "Stock to review"
+    "reviewStock": "Stock to review",
+    "confirmAction": "Confirm action",
+    "confirm": "Confirm",
+    "unexpectedError": "Unexpected error. Please try again.",
+    "tooManyRequests": "Too many requests. Wait a few minutes and try again.",
+    "sessionEnded": "Session ended",
+    "alertIndex": "Alert {{index}}",
+    "notifications": "Notifications",
+    "settings": "Settings",
+    "pagination": {
+      "show": "Show",
+      "perPage": "per page",
+      "range": "{{start}}-{{end}} of {{total}}",
+      "empty": "0 records",
+      "pageOf": "Page {{current}} of {{total}}",
+      "previousPage": "Previous page",
+      "nextPage": "Next page"
+    }
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -120,6 +137,22 @@
       "passwordRequired": "Please enter your password.",
       "loginFailed": "Sign-in failed",
       "emailPlaceholder": "you@email.com"
+    },
+    "brand": {
+      "eyebrow": "Management platform",
+      "title": "Full control of your services and properties",
+      "text": "Track service orders, contracts, inventory and teams in a modern, intuitive dashboard.",
+      "monitoring": "Monitoring",
+      "digital": "Digital",
+      "secure": "Secure"
+    },
+    "transition": {
+      "welcome": "Welcome, {{name}}",
+      "welcomeBack": "Welcome back",
+      "welcomeFallback": "Welcome back",
+      "goodbye": "Goodbye",
+      "loginSubtitle": "Signing in…",
+      "logoutSubtitle": "Signing out securely…"
     },
     "register": {
       "title": "Create account",

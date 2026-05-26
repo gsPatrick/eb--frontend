@@ -1,8 +1,13 @@
+'use client';
+
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 import AuthFormFooter from './AuthFormFooter';
 import styles from './AuthLayout.module.css';
 
 export default function AuthLayout({ title, subtitle, children, authSwitch }) {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.layout}>
       <main className={styles.formPanel}>
@@ -40,28 +45,23 @@ export default function AuthLayout({ title, subtitle, children, authSwitch }) {
           </Link>
 
           <div className={styles.hero}>
-            <p className={styles.heroEyebrow}>Plataforma de gestão</p>
-            <h1 className={styles.heroTitle}>
-              Controle total dos seus serviços e propriedades
-            </h1>
-            <p className={styles.heroText}>
-              Acompanhe ordens de serviço, contratos, inventário e equipes em um
-              painel moderno e intuitivo.
-            </p>
+            <p className={styles.heroEyebrow}>{t('auth.brand.eyebrow')}</p>
+            <h1 className={styles.heroTitle}>{t('auth.brand.title')}</h1>
+            <p className={styles.heroText}>{t('auth.brand.text')}</p>
           </div>
 
           <div className={styles.stats}>
             <div className={styles.statCard}>
               <strong>24/7</strong>
-              <span>Monitoramento</span>
+              <span>{t('auth.brand.monitoring')}</span>
             </div>
             <div className={styles.statCard}>
               <strong>100%</strong>
-              <span>Digital</span>
+              <span>{t('auth.brand.digital')}</span>
             </div>
             <div className={styles.statCard}>
               <strong>RBAC</strong>
-              <span>Seguro</span>
+              <span>{t('auth.brand.secure')}</span>
             </div>
           </div>
         </div>

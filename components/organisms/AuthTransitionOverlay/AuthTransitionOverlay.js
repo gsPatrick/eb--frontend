@@ -1,11 +1,14 @@
 'use client';
 
+import { useTranslation } from 'react-i18next';
 import Icon from '@/components/atoms/Icon';
 import Logo from '@/components/atoms/Logo';
 import styles from './AuthTransitionOverlay.module.css';
 
 export default function AuthTransitionOverlay({ type, userName }) {
+  const { t } = useTranslation();
   const isLogin = type === 'login';
+  const firstName = userName?.split(' ')[0];
 
   return (
     <div className={styles.overlay} role="status" aria-live="polite" aria-busy="true">
@@ -20,10 +23,14 @@ export default function AuthTransitionOverlay({ type, userName }) {
         </div>
 
         <h2 className={styles.title}>
-          {isLogin ? `Bem-vindo, ${userName?.split(' ')[0] || 'de volta'}` : 'Até logo'}
+          {isLogin
+            ? firstName
+              ? t('auth.transition.welcome', { name: firstName })
+              : t('auth.transition.welcomeBack')
+            : t('auth.transition.goodbye')}
         </h2>
         <p className={styles.subtitle}>
-          {isLogin ? 'Entrando na plataforma…' : 'Encerrando sua sessão com segurança…'}
+          {isLogin ? t('auth.transition.loginSubtitle') : t('auth.transition.logoutSubtitle')}
         </p>
 
         <div className={styles.loader} aria-hidden="true">
