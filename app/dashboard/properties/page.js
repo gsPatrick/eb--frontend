@@ -10,6 +10,7 @@ import Card from '@/components/molecules/Card';
 import CardGridSkeleton from '@/components/molecules/CardGridSkeleton';
 import EmptyState from '@/components/molecules/EmptyState';
 import FormField from '@/components/molecules/FormField';
+import LocationLabel from '@/components/molecules/LocationLabel';
 import Modal from '@/components/molecules/Modal';
 import PageHeader from '@/components/molecules/PageHeader';
 import PageHeaderSkeleton from '@/components/molecules/PageHeaderSkeleton';
@@ -320,9 +321,6 @@ export default function PropertiesPage() {
                   <li key={`${result.latitude}-${result.longitude}-${result.label}`}>
                     <button type="button" onClick={() => handlePickSearchResult(result)}>
                       <strong>{result.label}</strong>
-                      <span>
-                        {Number(result.latitude).toFixed(6)}, {Number(result.longitude).toFixed(6)}
-                      </span>
                     </button>
                   </li>
                 ))}
@@ -340,11 +338,12 @@ export default function PropertiesPage() {
             </Button>
 
             {form.latitude && form.longitude ? (
-              <p className={styles.geoResolved}>
-                {t('location.resolvedAddress')}: {resolvedAddress || t('location.unknownAddress')}
-                <br />
-                {t('location.coordinates')}: {form.latitude}, {form.longitude}
-              </p>
+              <LocationLabel
+                latitude={Number(form.latitude)}
+                longitude={Number(form.longitude)}
+                address={resolvedAddress || form.address}
+                className={styles.geoResolved}
+              />
             ) : null}
             <FormField
               label={t('admin.properties.form.latitude')}

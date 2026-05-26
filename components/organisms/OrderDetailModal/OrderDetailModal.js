@@ -14,7 +14,11 @@ import { formatEstimatedDuration, getCleaningTypeLabel } from '@/utils/cleaningT
 import { getOrderStatusBadge } from '@/utils/adminHelpers';
 import { ordersApi } from '@/src/services/api';
 import { useToast } from '@/hooks/useToast';
+import { useReverseGeocode } from '@/hooks/useReverseGeocode';
 import styles from './OrderDetailModal.module.css';
+
+const COMMISSION_RATE = 0.33;
+const PHOTOS_PER_PAGE = 2;
 
 function MapPreview({ lat, lng, label, variant = 'property', emptyLabel }) {
   if (lat == null || lng == null) {
@@ -99,6 +103,12 @@ export default function OrderDetailModal({
     () => providers.filter((user) => user.role === 'provider' && user.active),
     [providers]
   );
+  const appliedCommissionRate = useMemo(() => {
+    const total = Number(order?.totalPrice || 0);
+    const commission = Number(order?.commissionAmount || 0);
+    if (total <= 0) return COMMISSION_RATE;
+    return commission / total;
+  }, [order?.totalPrice, order?.commissionAmount]);
 
   const handleAssign = async () => {
     if (!order || !selectedProviderId) return;
@@ -205,7 +215,10 @@ export default function OrderDetailModal({
           </div>
           <div className={styles.metaCard}>
             <span>{t('admin.orders.commissionEb')}</span>
-            <strong>{formatCurrency(order.commissionAmount)}</strong>
+            <div className={styles.commissionValue}>
+              <strong>{formatCurrency(order.commissionAmount)}</strong>
+              <Badge variant="info">{t('admin.orders.commissionRateBadge', { rate: Math.round(appliedCommissionRate * 100) })}</Badge>
+            </div>
           </div>
           <div className={styles.metaCard}>
             <span>{t('admin.orders.providerPayout')}</span>
@@ -213,53 +226,64 @@ export default function OrderDetailModal({
           </div>
         </div>
 
-        <section className={styles.section}>
+        <section className={styles.financeSection}>
           <h3 className={styles.sectionTitle}>{t('admin.orders.financeSection')}</h3>
-          <div className={styles.assignRow}>
-            <FormField label={t('admin.orders.clientPayment')} htmlFor="client-payment">
-              <Select
-                id="client-payment"
-                value={clientPaymentStatus}
-                onChange={(event) => setClientPaymentStatus(event.target.value)}
-              >
-                <option value="pending">{t('admin.orders.paymentPending')}</option>
-                <option value="paid">{t('admin.orders.paymentPaid')}</option>
-              </Select>
-            </FormField>
-            <FormField label={t('admin.orders.providerPayment')} htmlFor="provider-payment">
-              <Select
-                id="provider-payment"
-                value={providerPaymentStatus}
-                onChange={(event) => setProviderPaymentStatus(event.target.value)}
-              >
-                <option value="pending">{t('admin.orders.paymentPending')}</option>
-                <option value="paid">{t('admin.orders.paymentPaid')}</option>
-              </Select>
-            </FormField>
-          </div>
-          <div className={styles.assignRow}>
-            <Button variant="secondary" loading={generatingInvoice} onClick={handleGenerateInvoice}>
-              {t('admin.orders.generateInvoice')}
-            </Button>
-            {order.status === 'pending' ? (
-              <Button variant="secondary" loading={sendingReminder} onClick={handleSendReminder}>
-                {t('admin.orders.sendReminder')}
+          <div className={styles.financeToolbar}>
+            <div className={styles.financeGroup}>
+              <FormField label={t('admin.orders.clientPayment')} htmlFor="client-payment">
+                <Select
+                  id="client-payment"
+                  value={clientPaymentStatus}
+                  onChange={(event) => setClientPaymentStatus(event.target.value)}
+                >
+                  <option value="pending">{t('admin.orders.paymentPending')}</option>
+                  <option value="paid">{t('admin.orders.paymentPaid')}</option>
+                </Select>
+              </FormField>
+              <FormField label={t('admin.orders.providerPayment')} htmlFor="provider-payment">
+                <Select
+                  id="provider-payment"
+                  value={providerPaymentStatus}
+                  onChange={(event) => setProviderPaymentStatus(event.target.value)}
+                >
+                  <option value="pending">{t('admin.orders.paymentPending')}</option>
+                  <option value="paid">{t('admin.orders.paymentPaid')}</option>
+                </Select>
+              </FormField>
+            </div>
+
+            <div className={styles.financeDivider} aria-hidden="true" />
+
+            <div className={styles.financeGroup}>
+              <Button variant="secondary" loading={generatingInvoice} onClick={handleGenerateInvoice}>
+                {t('admin.orders.generateInvoice')}
               </Button>
-            ) : null}
-            <Button variant="primary" loading={savingPayments} onClick={handleSavePayments}>
-              {t('admin.orders.savePayments')}
-            </Button>
-          </div>
-          <div className={styles.documentLinks}>
-            {order.invoiceUrl ? (
-              <Button variant="ghost" size="sm" onClick={() => openDocument(order.invoiceUrl)}>
-                {t('admin.orders.downloadInvoice')}
+              {order.status === 'pending' ? (
+                <Button variant="secondary" loading={sendingReminder} onClick={handleSendReminder}>
+                  {t('admin.orders.sendReminder')}
+                </Button>
+              ) : null}
+              <Button variant="primary" loading={savingPayments} onClick={handleSavePayments}>
+                {t('admin.orders.savePayments')}
               </Button>
-            ) : null}
-            {order.receiptUrl ? (
-              <Button variant="ghost" size="sm" onClick={() => openDocument(order.receiptUrl)}>
-                {t('admin.orders.downloadReceipt')}
-              </Button>
+            </div>
+
+            {(order.invoiceUrl || order.receiptUrl) ? (
+              <>
+                <div className={styles.financeDivider} aria-hidden="true" />
+                <div className={styles.financeGroup}>
+                  {order.invoiceUrl ? (
+                    <Button variant="ghost" size="sm" onClick={() => openDocument(order.invoiceUrl)}>
+                      {t('admin.orders.downloadInvoice')}
+                    </Button>
+                  ) : null}
+                  {order.receiptUrl ? (
+                    <Button variant="ghost" size="sm" onClick={() => openDocument(order.receiptUrl)}>
+                      {t('admin.orders.downloadReceipt')}
+                    </Button>
+                  ) : null}
+                </div>
+              </>
             ) : null}
           </div>
           <p className={styles.assignHint}>{t('admin.orders.financeHint')}</p>
@@ -296,41 +320,49 @@ export default function OrderDetailModal({
           </section>
         )}
 
+        <div className={styles.sectionDivider} />
+
         <div className={styles.compareGrid}>
-          <PhotoPanel
+          <PhotoCarousel
             title={t('admin.orders.beforePhotos')}
             photos={order.beforePhotos}
             emptyMessage={t('admin.orders.noBeforePhotos')}
           />
-          <PhotoPanel
+          <PhotoCarousel
             title={t('admin.orders.afterPhotos')}
             photos={order.afterPhotos}
             emptyMessage={t('admin.orders.noAfterPhotos')}
           />
         </div>
 
+        <div className={styles.sectionDivider} />
+
         <section className={styles.section}>
           <h3 className={styles.sectionTitle}>{t('admin.orders.gpsTracking')}</h3>
           <div className={styles.mapGrid}>
-            <MapPreview
-              lat={order.propertyLat}
-              lng={order.propertyLong}
-              label={t('admin.orders.propertyLocation')}
+            <LocationLabel
+              title={t('admin.orders.propertyLocation')}
+              latitude={order.propertyLat}
+              longitude={order.propertyLong}
+              address={order.propertyAddress}
               variant="property"
+              mapOverlay
               emptyLabel={t('admin.orders.noGps')}
             />
-            <MapPreview
-              lat={order.checkinLat}
-              lng={order.checkinLong}
-              label={t('admin.orders.checkinLocation')}
+            <LocationLabel
+              title={t('admin.orders.checkinLocation')}
+              latitude={order.checkinLat}
+              longitude={order.checkinLong}
               variant="checkin"
+              mapOverlay
               emptyLabel={t('admin.orders.noGps')}
             />
-            <MapPreview
-              lat={order.checkoutLat}
-              lng={order.checkoutLong}
-              label={t('admin.orders.checkoutLocation')}
+            <LocationLabel
+              title={t('admin.orders.checkoutLocation')}
+              latitude={order.checkoutLat}
+              longitude={order.checkoutLong}
               variant="checkout"
+              mapOverlay
               emptyLabel={t('admin.orders.noGps')}
             />
           </div>

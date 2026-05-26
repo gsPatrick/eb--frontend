@@ -151,6 +151,8 @@ export default function ProviderExecutionPage() {
     order.checkinLat != null
       ? { lat: order.checkinLat, lng: order.checkinLong }
       : pendingCheckinCoords;
+  const checkoutCoords =
+    order.checkoutLat != null ? { lat: order.checkoutLat, lng: order.checkoutLong } : null;
   const hasBeforePhotos = order.beforePhotos.length > 0 || beforePhotoFiles.length > 0;
   const hasAfterPhotos = order.afterPhotos.length > 0 || afterPhotoFiles.length > 0;
   const step4Enabled = checkedIn && hasBeforePhotos;
@@ -174,10 +176,7 @@ export default function ProviderExecutionPage() {
 
     setGeofenceDistance(null);
     setPendingCheckinCoords(coords);
-    toast.success(
-      t('toast.checkInSuccess'),
-      t('toast.checkInGpsMessage', { lat: coords.lat, longitude: coords.lng })
-    );
+    toast.success(t('toast.checkInSuccess'), t('toast.checkInGpsMessage'));
   };
 
   const handleBeforePhotos = async (event) => {
@@ -336,14 +335,15 @@ export default function ProviderExecutionPage() {
             <span className={`${styles.gpsBadge} ${checkinCoords ? styles.gpsBadgeSuccess : ''}`}>
               <Icon name="map" size={16} />
               {checkinCoords
-                ? t('provider.execution.gpsCaptured', {
-                    lat: checkinCoords.lat,
-                    longitude: checkinCoords.lng,
-                  })
+                ? t('provider.execution.locationConfirmed')
                 : t('provider.execution.gpsNotCaptured')}
             </span>
             {checkinCoords ? (
-              <LocationLabel latitude={checkinCoords.lat} longitude={checkinCoords.lng} />
+              <LocationLabel
+                latitude={checkinCoords.lat}
+                longitude={checkinCoords.lng}
+                variant="checkin"
+              />
             ) : null}
             <Button
               onClick={handleCaptureCheckinGps}
@@ -429,12 +429,16 @@ export default function ProviderExecutionPage() {
             <span className={`${styles.gpsBadge} ${checkedOut ? styles.gpsBadgeSuccess : ''}`}>
               <Icon name="map" size={16} />
               {checkedOut
-                ? t('provider.execution.gpsCaptured', {
-                    lat: order.checkoutLat,
-                    longitude: order.checkoutLong,
-                  })
+                ? t('provider.execution.locationConfirmed')
                 : t('provider.execution.gpsCheckoutPending')}
             </span>
+            {checkoutCoords ? (
+              <LocationLabel
+                latitude={checkoutCoords.lat}
+                longitude={checkoutCoords.lng}
+                variant="checkout"
+              />
+            ) : null}
             <div className={styles.photoUpload}>
               <input
                 ref={afterInputRef}

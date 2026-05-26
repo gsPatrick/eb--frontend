@@ -76,6 +76,7 @@ export default function ProviderHistoryDetailPage() {
               title={t('provider.history.propertyLocation')}
               latitude={order.propertyLat}
               longitude={order.propertyLong}
+              address={order.propertyAddress}
             />
             <LocationLabel
               title={t('provider.history.checkInLocation')}
