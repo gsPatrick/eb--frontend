@@ -58,6 +58,12 @@
       "download": "Baixar anexo",
       "openInNewTab": "Abrir em nova aba"
     },
+    "notifications": {
+      "title": "Notificações",
+      "empty": "Nenhuma notificação ainda.",
+      "unread": "Nova",
+      "markAllRead": "Marcar todas como lidas"
+    },
     "yes": "Sim",
     "no": "Não",
     "notAvailable": "N/D",

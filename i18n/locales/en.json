@@ -57,6 +57,12 @@
       "download": "Download attachment",
       "openInNewTab": "Open in new tab"
     },
+    "notifications": {
+      "title": "Notifications",
+      "empty": "No notifications yet.",
+      "unread": "New",
+      "markAllRead": "Mark all as read"
+    },
     "yes": "Yes",
     "no": "No",
     "notAvailable": "N/A",

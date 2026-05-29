@@ -48,13 +48,30 @@
   padding-top: var(--space-6);
 }
 
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-4) 0;
+}
+
+.topBarActions {
+  margin-left: auto;
+}
+
+@media (min-width: 769px) {
+  .topBar {
+    padding: var(--space-4) var(--space-6) 0;
+  }
+}
+
 .mobileMenu {
   display: none;
   align-items: center;
   justify-content: center;
   width: 40px;
   height: 40px;
-  margin: var(--space-4) var(--space-4) 0;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-bg-elevated);

@@ -36,4 +36,22 @@ export async function resolve(id) {
   return mapFieldReport(result.report);
 }
 
+export async function create({ serviceOrderId, type, description, photos = [] }) {
+  const formData = new FormData();
+  formData.append('serviceOrderId', serviceOrderId);
+  formData.append('type', type);
+  formData.append('description', description);
+  photos.forEach((file) => {
+    if (file instanceof File) {
+      formData.append('photos', file);
+    }
+  });
+
+  const response = await apiClient.post('/field-reports', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  const result = unwrapResponse(response);
+  return mapFieldReport(result.report);
+}
+
 export { mapFieldReport };

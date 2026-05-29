@@ -19,6 +19,15 @@ export async function createAdmin(payload) {
   return mapUser(result.user);
 }
 
+export async function createClient(payload) {
+  const response = await apiClient.post('/users/clients', payload);
+  const result = unwrapResponse(response);
+  return {
+    user: mapUser(result.user),
+    property: result.property || null,
+  };
+}
+
 export async function updateStatus(id, active) {
   const response = await apiClient.patch(`/users/${id}/status`, { active });
   const result = unwrapResponse(response);

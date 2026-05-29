@@ -1,0 +1,81 @@
+.bellButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-elevated);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background var(--transition-base), color var(--transition-base);
+}
+
+.bellButton:hover {
+  background: var(--color-bg-muted);
+  color: var(--color-text-primary);
+}
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-error);
+  color: #fff;
+  font-size: 10px;
+  font-weight: var(--font-semibold);
+  line-height: 18px;
+  text-align: center;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-height: min(70vh, 520px);
+  overflow-y: auto;
+}
+
+.item {
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-elevated);
+  cursor: pointer;
+}
+
+.item.unread {
+  border-color: rgba(79, 124, 255, 0.35);
+  background: rgba(79, 124, 255, 0.06);
+}
+
+.itemHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.item p {
+  margin: 0 0 var(--space-2);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.item small {
+  color: var(--color-text-muted);
+}
+
+.empty {
+  margin: 0;
+  padding: var(--space-6);
+  text-align: center;
+  color: var(--color-text-muted);
+}

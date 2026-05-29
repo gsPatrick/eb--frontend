@@ -12,8 +12,25 @@ const RealtimeContext = createContext(null);
 
 export { RealtimeContext };
 
-const ADMIN_EVENTS = new Set(['ORDER_CHECKIN', 'INVENTORY_CRITICAL', 'INBOX_MESSAGE', 'FIELD_REPORT']);
-const CLIENT_EVENTS = new Set(['ORDER_COMPLETED', 'INVENTORY_CRITICAL', 'INBOX_MESSAGE', 'CLEANING_REMINDER', 'FIELD_REPORT']);
+const ADMIN_EVENTS = new Set([
+  'ORDER_CHECKIN',
+  'INVENTORY_CRITICAL',
+  'INVENTORY_LOW',
+  'INBOX_MESSAGE',
+  'FIELD_REPORT',
+]);
+
+const CLIENT_EVENTS = new Set([
+  'ORDER_COMPLETED',
+  'INVENTORY_CRITICAL',
+  'INVENTORY_LOW',
+  'INBOX_MESSAGE',
+  'CLEANING_REMINDER',
+  'FIELD_REPORT',
+  'CLIENT_INVOICE',
+]);
+
+const PROVIDER_EVENTS = new Set(['ORDER_ASSIGNED', 'INBOX_MESSAGE', 'PROVIDER_RECEIPT']);
 
 export function RealtimeProvider({ children, audience = 'admin' }) {
   const { t } = useTranslation();
@@ -63,11 +80,16 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
     socket.on('notification', (payload) => {
       const type = payload?.type;
       const allowed =
-        audience === 'admin' ? ADMIN_EVENTS.has(type) : CLIENT_EVENTS.has(type);
+        audience === 'admin'
+          ? ADMIN_EVENTS.has(type)
+          : audience === 'provider'
+            ? PROVIDER_EVENTS.has(type)
+            : CLIENT_EVENTS.has(type);
 
       if (!allowed) return;
 
       toastRef.current.info(payload.title || type, payload.message || '');
+      bumpRefresh('notifications');
 
       if (type === 'ORDER_CHECKIN') {
         bumpRefresh('orders');
@@ -79,7 +101,7 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
         bumpRefresh('properties');
       }
 
-      if (type === 'INVENTORY_CRITICAL') {
+      if (type === 'INVENTORY_CRITICAL' || type === 'INVENTORY_LOW') {
         bumpRefresh('inventory');
         bumpRefresh('dashboard');
       }
@@ -93,6 +115,10 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
       }
 
       if (type === 'CLEANING_REMINDER') {
+        bumpRefresh('orders');
+      }
+
+      if (type === 'ORDER_ASSIGNED') {
         bumpRefresh('orders');
       }
     });

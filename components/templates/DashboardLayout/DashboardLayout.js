@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RealtimeProvider } from '@/context/RealtimeProvider';
 import Icon from '@/components/atoms/Icon';
+import NotificationBell from '@/components/organisms/NotificationBell/NotificationBell';
 import Sidebar from '@/components/organisms/Sidebar';
 import { PanelLoadingProvider } from '@/context/PanelLoadingContext';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -51,14 +52,19 @@ function DashboardLayoutShell({ children }) {
         onToggleCollapse={toggleSidebarCollapse}
       />
       <div className={styles.main}>
-        <button
-          type="button"
-          className={styles.mobileMenu}
-          onClick={() => setSidebarOpen(true)}
-          aria-label={t('common.openMenu')}
-        >
-          <Icon name="menu" size={20} />
-        </button>
+        <div className={styles.topBar}>
+          <button
+            type="button"
+            className={styles.mobileMenu}
+            onClick={() => setSidebarOpen(true)}
+            aria-label={t('common.openMenu')}
+          >
+            <Icon name="menu" size={20} />
+          </button>
+          <div className={styles.topBarActions}>
+            <NotificationBell />
+          </div>
+        </div>
         <main className={cn(styles.content, styles.contentFlush)}>{children}</main>
       </div>
     </div>
