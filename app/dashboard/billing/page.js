@@ -281,6 +281,34 @@ export default function BillingPage() {
                   onChange={(e) => setTemplateForm((prev) => ({ ...prev, zelle: e.target.value }))}
                 />
               </FormField>
+              <FormField label={t('admin.billing.venmo')} htmlFor="doc-venmo">
+                <Input
+                  id="doc-venmo"
+                  value={templateForm.venmo || ''}
+                  onChange={(e) => setTemplateForm((prev) => ({ ...prev, venmo: e.target.value }))}
+                  placeholder="@eb-services"
+                />
+              </FormField>
+              <FormField label={t('admin.billing.invoiceDueDays')} htmlFor="doc-due-days">
+                <Input
+                  id="doc-due-days"
+                  type="number"
+                  min="1"
+                  max="90"
+                  value={templateForm.invoiceDueDays ?? 14}
+                  onChange={(e) =>
+                    setTemplateForm((prev) => ({ ...prev, invoiceDueDays: e.target.value }))
+                  }
+                />
+              </FormField>
+              <FormField label={t('admin.billing.logoUrl')} htmlFor="doc-logo" className={styles.formFullWidth}>
+                <Input
+                  id="doc-logo"
+                  value={templateForm.logoUrl || ''}
+                  onChange={(e) => setTemplateForm((prev) => ({ ...prev, logoUrl: e.target.value }))}
+                  placeholder="https://…/logo.png"
+                />
+              </FormField>
               <FormField label={t('admin.billing.companyAddress')} htmlFor="doc-address" className={styles.formFullWidth}>
                 <Textarea
                   id="doc-address"
