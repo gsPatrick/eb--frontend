@@ -101,6 +101,7 @@ export function mapServiceOrder(order) {
     clientPaidAt: order.clientPaidAt || null,
     providerPaidAt: order.providerPaidAt || null,
     invoiceNumber: order.invoiceNumber || null,
+    receiptNumber: order.receiptNumber || null,
     invoiceUrl: resolveMediaUrl(order.invoiceUrl),
     receiptUrl: resolveMediaUrl(order.receiptUrl),
     extras: (order.extras || []).map((extra) => ({

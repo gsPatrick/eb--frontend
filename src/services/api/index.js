@@ -11,5 +11,6 @@ export * as geocodingApi from './geocoding';
 export * as messagesApi from './messages';
 export * as fieldReportsApi from './fieldReports';
 export * as notificationsApi from './notifications';
+export * as financialSettingsApi from './financialSettings';
 export * as recurringSchedulesApi from './recurringSchedules';
 export * from './mappers';

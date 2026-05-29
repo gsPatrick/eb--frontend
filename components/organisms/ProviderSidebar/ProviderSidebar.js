@@ -15,6 +15,7 @@ const NAV_ITEMS = [
   { href: '/provider/schedule', labelKey: 'nav.providerSchedule', icon: 'schedule' },
   { href: '/provider/history', labelKey: 'nav.providerHistory', icon: 'history' },
   { href: '/provider/messages', labelKey: 'nav.messages', icon: 'orders' },
+  { href: '/provider/field-reports', labelKey: 'nav.fieldReports', icon: 'reviews' },
   { href: '/provider/profile', labelKey: 'nav.profile', icon: 'users' },
 ];
 

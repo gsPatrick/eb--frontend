@@ -58,6 +58,14 @@ export default function ClientPropertiesPage() {
               subtitle={t('client.properties.subtitle')}
             />
 
+            <div className={styles.icalHelp}>
+              <Icon name="info" size={18} />
+              <div>
+                <strong>{t('client.properties.icalHelpTitle')}</strong>
+                <p>{t('client.properties.icalHelpText')}</p>
+              </div>
+            </div>
+
             {properties.length === 0 ? (
               <EmptyState
                 icon="properties"

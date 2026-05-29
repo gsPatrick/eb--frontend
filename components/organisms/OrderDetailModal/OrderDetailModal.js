@@ -7,11 +7,12 @@ import Badge from '@/components/atoms/Badge';
 import Button from '@/components/atoms/Button';
 import Icon from '@/components/atoms/Icon';
 import Select from '@/components/atoms/Select';
+import Input from '@/components/atoms/Input';
 import FormField from '@/components/molecules/FormField';
 import LocationLabel from '@/components/molecules/LocationLabel';
 import { formatCurrency, formatDate } from '@/utils/formatters';
 import { API_ORIGIN } from '@/src/services/api/api-client';
-import { formatEstimatedDuration, getCleaningTypeLabel } from '@/utils/cleaningTypes';
+import { getCleaningTypeLabel } from '@/utils/cleaningTypes';
 import { getOrderStatusBadge } from '@/utils/adminHelpers';
 import { ordersApi } from '@/src/services/api';
 import { useToast } from '@/hooks/useToast';
@@ -98,12 +99,17 @@ export default function OrderDetailModal({
   const [savingPayments, setSavingPayments] = useState(false);
   const [generatingInvoice, setGeneratingInvoice] = useState(false);
   const [sendingReminder, setSendingReminder] = useState(false);
+  const [estimatedDurationMinutes, setEstimatedDurationMinutes] = useState('');
+  const [savingDuration, setSavingDuration] = useState(false);
 
   useEffect(() => {
     setSelectedProviderId(order?.providerId || '');
     setClientPaymentStatus(order?.clientPaymentStatus || 'pending');
     setProviderPaymentStatus(order?.providerPaymentStatus || 'pending');
-  }, [order?.id, order?.providerId, order?.clientPaymentStatus, order?.providerPaymentStatus]);
+    setEstimatedDurationMinutes(
+      order?.estimatedDurationMinutes != null ? String(order.estimatedDurationMinutes) : '120'
+    );
+  }, [order?.id, order?.providerId, order?.clientPaymentStatus, order?.providerPaymentStatus, order?.estimatedDurationMinutes]);
 
   const status = useMemo(
     () => (order ? getOrderStatusBadge(order.status, t) : null),
@@ -134,6 +140,26 @@ export default function OrderDetailModal({
       toast.error(t('common.error'), error.message || t('admin.orders.assignError'));
     } finally {
       setAssigning(false);
+    }
+  };
+
+  const handleSaveDuration = async () => {
+    if (!order) return;
+    const minutes = Number(estimatedDurationMinutes);
+    if (!Number.isFinite(minutes) || minutes <= 0) {
+      toast.warning(t('toast.actionBlocked'), t('admin.orders.form.estimatedTimeInvalid'));
+      return;
+    }
+
+    setSavingDuration(true);
+    try {
+      const updated = await ordersApi.update(order.id, { estimatedDurationMinutes: minutes });
+      toast.success(t('admin.orders.durationUpdated'), t('admin.orders.durationUpdatedMessage'));
+      onUpdated?.(updated);
+    } catch (error) {
+      toast.error(t('common.error'), error.message);
+    } finally {
+      setSavingDuration(false);
     }
   };
 
@@ -239,7 +265,18 @@ export default function OrderDetailModal({
           </div>
           <div className={styles.metaCard}>
             <span>{t('admin.orders.columns.estimatedTime')}</span>
-            <strong>{formatEstimatedDuration(order.estimatedDurationMinutes, t)}</strong>
+            <div className={styles.durationEdit}>
+              <Input
+                type="number"
+                min="15"
+                step="15"
+                value={estimatedDurationMinutes}
+                onChange={(event) => setEstimatedDurationMinutes(event.target.value)}
+              />
+              <Button size="sm" variant="secondary" loading={savingDuration} onClick={handleSaveDuration}>
+                {t('common.save')}
+              </Button>
+            </div>
           </div>
           <div className={styles.metaCard}>
             <span>{t('admin.orders.columns.total')}</span>
@@ -300,10 +337,20 @@ export default function OrderDetailModal({
               </Button>
             </div>
 
-            {(order.invoiceUrl || order.receiptUrl) ? (
+            {(order.invoiceUrl || order.receiptUrl || order.invoiceNumber || order.receiptNumber) ? (
               <>
                 <div className={styles.financeDivider} aria-hidden="true" />
                 <div className={styles.financeGroup}>
+                  {order.invoiceNumber ? (
+                    <span className={styles.assignHint}>
+                      {t('admin.orders.invoiceNumber')}: {order.invoiceNumber}
+                    </span>
+                  ) : null}
+                  {order.receiptNumber ? (
+                    <span className={styles.assignHint}>
+                      {t('admin.orders.receiptNumber')}: {order.receiptNumber}
+                    </span>
+                  ) : null}
                   {order.invoiceUrl ? (
                     <Button variant="ghost" size="sm" onClick={() => openDocument(order.invoiceUrl)}>
                       {t('admin.orders.downloadInvoice')}

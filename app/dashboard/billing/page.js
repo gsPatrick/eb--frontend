@@ -1,10 +1,11 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Badge from '@/components/atoms/Badge';
 import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
+import Textarea from '@/components/atoms/Textarea';
 import Select from '@/components/atoms/Select';
 import FormField from '@/components/molecules/FormField';
 import PageHeader from '@/components/molecules/PageHeader';
@@ -15,7 +16,7 @@ import DataTable from '@/components/organisms/DataTable';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { usePagination } from '@/hooks/usePagination';
 import { useToast } from '@/hooks/useToast';
-import { ordersApi, reportsApi, usersApi } from '@/src/services/api';
+import { financialSettingsApi, ordersApi, reportsApi, usersApi } from '@/src/services/api';
 import { getOrderStatusBadge } from '@/utils/adminHelpers';
 import { formatCurrency, formatDate } from '@/utils/formatters';
 import styles from '@/styles/admin.module.css';
@@ -78,7 +79,14 @@ export default function BillingPage() {
     [],
     { initialData: null }
   );
+  const { data: docSettings, refetch: refetchDocSettings } = useApiQuery(
+    () => financialSettingsApi.get(),
+    [],
+    { initialData: null }
+  );
   const [generating, setGenerating] = useState(false);
+  const [savingTemplates, setSavingTemplates] = useState(false);
+  const [templateForm, setTemplateForm] = useState(null);
   const [report, setReport] = useState(null);
   const [filters, setFilters] = useState({
     startDate: '2026-05-01',
@@ -109,6 +117,27 @@ export default function BillingPage() {
       toast.error(t('toast.actionBlocked'), err.message);
     } finally {
       setGenerating(false);
+    }
+  };
+
+  useEffect(() => {
+    if (docSettings && !templateForm) {
+      setTemplateForm(docSettings);
+    }
+  }, [docSettings, templateForm]);
+
+  const handleSaveTemplates = async (event) => {
+    event.preventDefault();
+    if (!templateForm) return;
+    setSavingTemplates(true);
+    try {
+      await financialSettingsApi.update(templateForm);
+      await refetchDocSettings({ force: true });
+      toast.success(t('admin.billing.templatesSaved'), t('admin.billing.templatesSavedMessage'));
+    } catch (err) {
+      toast.error(t('toast.actionBlocked'), err.message);
+    } finally {
+      setSavingTemplates(false);
     }
   };
 
@@ -216,6 +245,74 @@ export default function BillingPage() {
             </div>
           </>
         )}
+
+        {templateForm ? (
+          <section className={styles.cardSection}>
+            <h2 className={styles.sectionTitle}>{t('admin.billing.documentTemplates')}</h2>
+            <p className={styles.filterHint}>{t('admin.billing.documentTemplatesHint')}</p>
+            <form className={styles.formGrid} onSubmit={handleSaveTemplates}>
+              <FormField label={t('admin.billing.companyName')} htmlFor="doc-company">
+                <Input
+                  id="doc-company"
+                  value={templateForm.companyName}
+                  onChange={(e) => setTemplateForm((prev) => ({ ...prev, companyName: e.target.value }))}
+                  required
+                />
+              </FormField>
+              <FormField label={t('admin.billing.companyEmail')} htmlFor="doc-email">
+                <Input
+                  id="doc-email"
+                  type="email"
+                  value={templateForm.companyEmail}
+                  onChange={(e) => setTemplateForm((prev) => ({ ...prev, companyEmail: e.target.value }))}
+                />
+              </FormField>
+              <FormField label={t('admin.billing.companyPhone')} htmlFor="doc-phone">
+                <Input
+                  id="doc-phone"
+                  value={templateForm.companyPhone}
+                  onChange={(e) => setTemplateForm((prev) => ({ ...prev, companyPhone: e.target.value }))}
+                />
+              </FormField>
+              <FormField label={t('admin.billing.zelle')} htmlFor="doc-zelle">
+                <Input
+                  id="doc-zelle"
+                  value={templateForm.zelle}
+                  onChange={(e) => setTemplateForm((prev) => ({ ...prev, zelle: e.target.value }))}
+                />
+              </FormField>
+              <FormField label={t('admin.billing.companyAddress')} htmlFor="doc-address" className={styles.formFullWidth}>
+                <Textarea
+                  id="doc-address"
+                  rows={2}
+                  value={templateForm.companyAddress}
+                  onChange={(e) => setTemplateForm((prev) => ({ ...prev, companyAddress: e.target.value }))}
+                />
+              </FormField>
+              <FormField label={t('admin.billing.invoiceFooter')} htmlFor="doc-invoice-footer" className={styles.formFullWidth}>
+                <Textarea
+                  id="doc-invoice-footer"
+                  rows={3}
+                  value={templateForm.invoiceFooter}
+                  onChange={(e) => setTemplateForm((prev) => ({ ...prev, invoiceFooter: e.target.value }))}
+                />
+              </FormField>
+              <FormField label={t('admin.billing.receiptFooter')} htmlFor="doc-receipt-footer" className={styles.formFullWidth}>
+                <Textarea
+                  id="doc-receipt-footer"
+                  rows={3}
+                  value={templateForm.receiptFooter}
+                  onChange={(e) => setTemplateForm((prev) => ({ ...prev, receiptFooter: e.target.value }))}
+                />
+              </FormField>
+              <div className={styles.formFullWidth}>
+                <Button type="submit" loading={savingTemplates}>
+                  {t('admin.billing.saveTemplates')}
+                </Button>
+              </div>
+            </form>
+          </section>
+        ) : null}
       </div>
   );
 }

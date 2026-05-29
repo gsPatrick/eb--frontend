@@ -321,9 +321,21 @@ export default function ProviderExecutionPage() {
             <Badge variant={status.variant}>{status.label}</Badge>
             <h1>{order.property}</h1>
             <p>
-              {order.propertyAddress} · {t('provider.execution.clientLabel')} {order.client} ·{' '}
-              {formatCurrency(order.totalPrice)}
+              {order.propertyAddress}
+              {order.estimatedDurationMinutes
+                ? ` · ~${Math.round(order.estimatedDurationMinutes / 60)}h`
+                : ''}{' '}
+              · {formatCurrency(order.providerPayoutAmount ?? order.totalPrice)}
             </p>
+            {(order.entryInstructions || order.gateCode || order.doorCode || order.lockboxCode) ? (
+              <div className={styles.accessInfo}>
+                <strong>{t('provider.execution.accessInfo')}</strong>
+                {order.entryInstructions ? <p>{order.entryInstructions}</p> : null}
+                {order.gateCode ? <p>{t('provider.execution.gateCode')}: {order.gateCode}</p> : null}
+                {order.doorCode ? <p>{t('provider.execution.doorCode')}: {order.doorCode}</p> : null}
+                {order.lockboxCode ? <p>{t('provider.execution.lockboxCode')}: {order.lockboxCode}</p> : null}
+              </div>
+            ) : null}
             <Link href="/provider/schedule">← {t('provider.execution.backToSchedule')}</Link>
           </div>
         </section>

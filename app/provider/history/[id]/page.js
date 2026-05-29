@@ -61,11 +61,8 @@ export default function ProviderHistoryDetailPage() {
           <div className={styles.historyCardHeader}>
             <div>
               <p className={styles.scheduleMeta}>
-                {t('provider.history.client')}: {order.client}
-              </p>
-              <p className={styles.scheduleMeta}>
                 {formatDate(order.finishedAt || order.scheduledDate, intlLocale)} ·{' '}
-                {formatCurrency(order.totalPrice, intlLocale)}
+                {formatCurrency(order.providerPayoutAmount ?? order.totalPrice, intlLocale)}
               </p>
             </div>
             <Badge variant={status.variant}>{status.label}</Badge>

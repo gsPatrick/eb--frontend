@@ -97,8 +97,10 @@ export default function ProviderSchedulePage() {
                               <p className={styles.scheduleMeta}>
                                 {order.propertyAddress}
                                 <br />
-                                {t('provider.schedule.client')}: {order.client} ·{' '}
-                                {formatCurrency(order.totalPrice, intlLocale)}
+                                {formatCurrency(order.providerPayoutAmount ?? order.totalPrice, intlLocale)}
+                                {order.estimatedDurationMinutes
+                                  ? ` · ~${Math.round(order.estimatedDurationMinutes / 60)}h`
+                                  : ''}
                               </p>
                             </div>
                             <Badge variant={status.variant}>{status.label}</Badge>

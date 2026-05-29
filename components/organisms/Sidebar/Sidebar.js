@@ -18,6 +18,7 @@ const NAV_ITEMS = [
   { href: '/dashboard', labelKey: 'nav.dashboard', icon: 'dashboard', exact: true },
   { href: '/dashboard/properties', labelKey: 'nav.properties', icon: 'properties' },
   { href: '/dashboard/inventory', labelKey: 'nav.inventoryAdmin', icon: 'inventory' },
+  { href: '/dashboard/clients', labelKey: 'nav.clients', icon: 'users' },
   { href: '/dashboard/users', labelKey: 'nav.users', icon: 'users' },
   { href: '/dashboard/orders', labelKey: 'nav.orders', icon: 'orders' },
   { href: '/dashboard/schedules', labelKey: 'nav.schedules', icon: 'sync' },

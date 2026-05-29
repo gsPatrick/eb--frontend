@@ -6,6 +6,7 @@ import Badge from '@/components/atoms/Badge';
 import Button from '@/components/atoms/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
+import Textarea from '@/components/atoms/Textarea';
 import Card from '@/components/molecules/Card';
 import CardGridSkeleton from '@/components/molecules/CardGridSkeleton';
 import AddressSearchField from '@/components/molecules/AddressSearchField';
@@ -32,6 +33,10 @@ const EMPTY_PROPERTY_FORM = {
   defaultCleaningPrice: '',
   latitude: null,
   longitude: null,
+  entryInstructions: '',
+  gateCode: '',
+  doorCode: '',
+  lockboxCode: '',
 };
 
 export default function PropertiesPage() {
@@ -49,6 +54,13 @@ export default function PropertiesPage() {
   const [syncingId, setSyncingId] = useState(null);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({ address: '', latitude: null, longitude: null });
+  const [accessEditing, setAccessEditing] = useState(null);
+  const [accessForm, setAccessForm] = useState({
+    entryInstructions: '',
+    gateCode: '',
+    doorCode: '',
+    lockboxCode: '',
+  });
   const [locating, setLocating] = useState(false);
   const { paginatedItems, paginationProps } = usePagination(properties);
   const { data: clients = [] } = useApiQuery(
@@ -112,6 +124,10 @@ export default function PropertiesPage() {
           : 0,
         latitude: Number(createForm.latitude),
         longitude: Number(createForm.longitude),
+        entryInstructions: createForm.entryInstructions.trim() || null,
+        gateCode: createForm.gateCode.trim() || null,
+        doorCode: createForm.doorCode.trim() || null,
+        lockboxCode: createForm.lockboxCode.trim() || null,
       });
       setData((prev) => [created, ...prev]);
       toast.success(t('toast.propertyCreated'), created.name);
@@ -164,6 +180,38 @@ export default function PropertiesPage() {
       latitude: next.latitude,
       longitude: next.longitude,
     }));
+  };
+
+  const openAccessEdit = (property) => {
+    setAccessEditing(property);
+    setAccessForm({
+      entryInstructions: property.entryInstructions || '',
+      gateCode: property.gateCode || '',
+      doorCode: property.doorCode || '',
+      lockboxCode: property.lockboxCode || '',
+    });
+  };
+
+  const handleSaveAccess = async (event) => {
+    event.preventDefault();
+    if (!accessEditing) return;
+
+    setSaving(true);
+    try {
+      const updated = await propertiesApi.update(accessEditing.id, {
+        entryInstructions: accessForm.entryInstructions.trim() || null,
+        gateCode: accessForm.gateCode.trim() || null,
+        doorCode: accessForm.doorCode.trim() || null,
+        lockboxCode: accessForm.lockboxCode.trim() || null,
+      });
+      setData((prev) => prev.map((item) => (item.id === accessEditing.id ? updated : item)));
+      toast.success(t('admin.properties.accessSaved'), t('admin.properties.accessSavedMessage'));
+      setAccessEditing(null);
+    } catch (err) {
+      toast.error(t('toast.actionBlocked'), err.message);
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleSaveGeo = async (event) => {
@@ -254,6 +302,10 @@ export default function PropertiesPage() {
                         >
                           <Icon name="sync" size={16} />
                           {t('admin.properties.syncAirbnb')}
+                        </Button>
+                        <Button variant="ghost" size="sm" onClick={() => openAccessEdit(property)}>
+                          <Icon name="edit" size={16} />
+                          {t('admin.properties.accessInfo')}
                         </Button>
                         <Button variant="ghost" size="sm" onClick={() => openEdit(property)}>
                           <Icon name="edit" size={16} />
@@ -400,6 +452,83 @@ export default function PropertiesPage() {
                 onChange={(e) =>
                   setCreateForm((prev) => ({ ...prev, defaultCleaningPrice: e.target.value }))
                 }
+              />
+            </FormField>
+            <FormField label={t('admin.properties.form.entryInstructions')} htmlFor="prop-entry" className={styles.formFullWidth}>
+              <Textarea
+                id="prop-entry"
+                rows={3}
+                value={createForm.entryInstructions}
+                onChange={(e) => setCreateForm((prev) => ({ ...prev, entryInstructions: e.target.value }))}
+              />
+            </FormField>
+            <FormField label={t('admin.properties.form.gateCode')} htmlFor="prop-gate">
+              <Input
+                id="prop-gate"
+                value={createForm.gateCode}
+                onChange={(e) => setCreateForm((prev) => ({ ...prev, gateCode: e.target.value }))}
+              />
+            </FormField>
+            <FormField label={t('admin.properties.form.doorCode')} htmlFor="prop-door">
+              <Input
+                id="prop-door"
+                value={createForm.doorCode}
+                onChange={(e) => setCreateForm((prev) => ({ ...prev, doorCode: e.target.value }))}
+              />
+            </FormField>
+            <FormField label={t('admin.properties.form.lockboxCode')} htmlFor="prop-lockbox">
+              <Input
+                id="prop-lockbox"
+                value={createForm.lockboxCode}
+                onChange={(e) => setCreateForm((prev) => ({ ...prev, lockboxCode: e.target.value }))}
+              />
+            </FormField>
+          </form>
+        </Modal>
+
+        <Modal
+          isOpen={Boolean(accessEditing)}
+          onClose={() => setAccessEditing(null)}
+          title={t('admin.properties.accessModalTitle', { name: accessEditing?.name || '' })}
+          footer={
+            <>
+              <Button variant="ghost" onClick={() => setAccessEditing(null)}>
+                {t('common.cancel')}
+              </Button>
+              <Button onClick={handleSaveAccess} loading={saving}>
+                {t('common.save')}
+              </Button>
+            </>
+          }
+        >
+          <form className={styles.formGrid} onSubmit={handleSaveAccess}>
+            <FormField label={t('admin.properties.form.entryInstructions')} htmlFor="access-entry" className={styles.formFullWidth}>
+              <Textarea
+                id="access-entry"
+                rows={4}
+                value={accessForm.entryInstructions}
+                onChange={(e) => setAccessForm((prev) => ({ ...prev, entryInstructions: e.target.value }))}
+              />
+            </FormField>
+            <FormField label={t('admin.properties.form.gateCode')} htmlFor="access-gate">
+              <Input
+                id="access-gate"
+                value={accessForm.gateCode}
+                onChange={(e) => setAccessForm((prev) => ({ ...prev, gateCode: e.target.value }))}
+              />
+            </FormField>
+            <FormField label={t('admin.properties.form.doorCode')} htmlFor="access-door">
+              <Input
+                id="access-door"
+                value={accessForm.doorCode}
+                onChange={(e) => setAccessForm((prev) => ({ ...prev, doorCode: e.target.value }))}
+              />
+            </FormField>
+            <FormField label={t('admin.properties.form.lockboxCode')} htmlFor="access-lockbox">
+              <Input
+                id="access-lockbox"
+                value={accessForm.lockboxCode}
+                onChange={(e) => setAccessForm((prev) => ({ ...prev, lockboxCode: e.target.value }))}
               />
             </FormField>
           </form>

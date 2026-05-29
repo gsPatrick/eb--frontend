@@ -7,7 +7,7 @@ import Button from '@/components/atoms/Button';
 import Icon from '@/components/atoms/Icon';
 import Modal from '@/components/molecules/Modal';
 import { useRealtimeRefresh } from '@/hooks/useRealtimeRefresh';
-import { notificationsApi } from '@/src/services/api/notifications';
+import { notificationsApi } from '@/src/services/api';
 import { formatDateTime } from '@/utils/formatters';
 import styles from './NotificationBell.module.css';
 

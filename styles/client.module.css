@@ -4,6 +4,28 @@
   gap: var(--space-6);
 }
 
+.icalHelp {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-primary-soft);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.icalHelp strong {
+  display: block;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.icalHelp p {
+  margin: 0;
+}
+
 .propertyGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));

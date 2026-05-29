@@ -44,7 +44,7 @@ export default function ProviderHistoryPage() {
   useRealtimeRefresh('history', refetch);
 
   const totalEarned = useMemo(
-    () => orders.reduce((sum, order) => sum + Number(order.totalPrice || 0), 0),
+    () => orders.reduce((sum, order) => sum + Number(order.providerPayoutAmount ?? order.totalPrice || 0), 0),
     [orders]
   );
 
@@ -101,12 +101,10 @@ export default function ProviderHistoryPage() {
                           <div>
                             <h2 className={styles.scheduleTitle}>{order.property}</h2>
                             <p className={styles.scheduleMeta}>
-                              {t('provider.history.client')}: {order.client}
-                              <br />
                               {order.propertyAddress}
                               <br />
                               {formatDate(order.finishedAt || order.scheduledDate, intlLocale)} ·{' '}
-                              {formatCurrency(order.totalPrice, intlLocale)}
+                              {formatCurrency(order.providerPayoutAmount ?? order.totalPrice, intlLocale)}
                             </p>
                           </div>
                           <Badge variant={status.variant}>{status.label}</Badge>

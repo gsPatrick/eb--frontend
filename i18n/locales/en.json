@@ -89,6 +89,7 @@
   "nav": {
     "dashboard": "Dashboard",
     "properties": "Properties",
+    "clients": "Clients",
     "users": "Users",
     "orders": "Orders",
     "extras": "Extra Services",
@@ -351,6 +352,32 @@
         "actions": "Actions"
       }
     },
+    "clients": {
+      "title": "Client Management",
+      "subtitle": "Register clients manually and optionally create their first property.",
+      "newClient": "New client",
+      "createModalTitle": "Register client",
+      "searchPlaceholder": "Search by name, email, or phone…",
+      "created": "Client created",
+      "createdMessage": "{{name}} was registered successfully.",
+      "columns": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "status": "Status",
+        "lastLogin": "Last login"
+      },
+      "form": {
+        "name": "Full name",
+        "email": "Email",
+        "password": "Temporary password",
+        "phone": "Phone",
+        "address": "Billing address",
+        "propertyName": "First property name",
+        "propertyAddress": "First property address",
+        "propertyOptional": "Optional — leave blank if the client has no property yet"
+      }
+    },
     "orders": {
       "title": "Work Order Control",
       "subtitle": "See who is at which property. Click a row to open details with photos and GPS.",
@@ -409,8 +436,10 @@
         "cleaningType": "Cleaning type",
         "estimatedTime": "Estimated time (minutes)",
         "provider": "Provider (optional)",
-        "basePrice": "Base price (optional)",
-        "basePricePlaceholder": "Uses property default price if empty",
+        "basePrice": "Base price (required)",
+        "basePriceRequiredPlaceholder": "Enter the service price",
+        "basePriceRequired": "Base price is required and must be greater than zero.",
+        "estimatedTimeInvalid": "Enter a valid estimated time in minutes.",
         "commissionHint": "EB applies a 33% commission on the order base value.",
         "commissionBreakdown": "Total {{total}} · EB commission (33%): {{commission}} · Provider payout: {{payout}}"
       },
@@ -426,6 +455,8 @@
       "generateInvoice": "Generate invoice",
       "downloadInvoice": "Download invoice",
       "downloadReceipt": "Download receipt",
+      "invoiceNumber": "Invoice #",
+      "receiptNumber": "Receipt #",
       "financeHint": "Payment is manual (Zelle/check). Invoices, receipts, and reminders are sent to the client or provider inbox — you can track everything in Inbox.",
       "paymentsUpdated": "Payments updated",
       "paymentsUpdatedMessage": "Financial status saved successfully.",
@@ -435,7 +466,9 @@
       "receiptSentToInboxMessage": "The receipt PDF was sent to {{name}}'s inbox. You can track it in Inbox.",
       "sendReminder": "Send reminder to client",
       "reminderSent": "Reminder sent",
-      "reminderSentToInboxMessage": "The reminder was sent to {{name}}'s inbox. You can track it in Inbox."
+      "reminderSentToInboxMessage": "The reminder was sent to {{name}}'s inbox. You can track it in Inbox.",
+      "durationUpdated": "Estimated time updated",
+      "durationUpdatedMessage": "The estimated duration was saved for this order."
     },
     "inventory": {
       "title": "Inventory by Property",
@@ -513,6 +546,18 @@
       "clientPaid": "Client paid (USD)",
       "commissionEarned": "EB commission earned",
       "providerPending": "Provider pending (USD)",
+      "documentTemplates": "Invoice & receipt templates",
+      "documentTemplatesHint": "Company details and footer text used when generating PDF invoices and payment receipts.",
+      "companyName": "Company name",
+      "companyEmail": "Company email",
+      "companyPhone": "Company phone",
+      "companyAddress": "Company address",
+      "zelle": "Zelle payment info",
+      "invoiceFooter": "Invoice footer text",
+      "receiptFooter": "Receipt footer text",
+      "saveTemplates": "Save document templates",
+      "templatesSaved": "Templates saved",
+      "templatesSavedMessage": "New invoices and receipts will use these settings.",
       "columns": {
         "property": "Property",
         "provider": "Provider",
@@ -634,8 +679,16 @@
         "clientPlaceholder": "Select client…",
         "icalUrl": "Airbnb iCal link (optional)",
         "icalPlaceholder": "https://…",
-        "defaultPrice": "Default cleaning price"
+        "defaultPrice": "Default cleaning price",
+        "entryInstructions": "Entry instructions",
+        "gateCode": "Gate code",
+        "doorCode": "Door / lock code",
+        "lockboxCode": "Lockbox code"
       },
+      "accessInfo": "Access info",
+      "accessModalTitle": "Property access — {{name}}",
+      "accessSaved": "Access info saved",
+      "accessSavedMessage": "Entry details were updated for the provider app.",
       "newProperty": "New property",
       "createModalTitle": "Register property",
       "searchPlaceholder": "Search properties by name or address…"
@@ -799,7 +852,23 @@
       "gpsCheckoutPending": "Check-out GPS pending",
       "addAfterPhotos": "Add after photos",
       "completeService": "Complete service",
-      "clientLabel": "Client"
+      "accessInfo": "Property access",
+      "entryInstructions": "Instructions",
+      "gateCode": "Gate code",
+      "doorCode": "Door code",
+      "lockboxCode": "Lockbox code"
+    },
+    "fieldReports": {
+      "title": "My field reports",
+      "subtitle": "Issues reported during service at properties.",
+      "empty": "No field reports submitted yet.",
+      "detailTitle": "Report details",
+      "columns": {
+        "property": "Property",
+        "type": "Type",
+        "status": "Status",
+        "date": "Date"
+      }
     },
     "inventory": {
       "title": "Inventory Update",
@@ -859,7 +928,9 @@
       "nextCleaning": "Next cleaning",
       "statusClean": "Property clean and ready for guests",
       "statusDirty": "Cleaning required",
-      "statusScheduled": "Cleaning scheduled"
+      "statusScheduled": "Cleaning scheduled",
+      "icalHelpTitle": "Airbnb calendar sync",
+      "icalHelpText": "Ask EB admin to connect your Airbnb iCal link on each property. Reservations will automatically create cleaning orders one day before checkout."
     },
     "orders": {
       "title": "Upcoming Cleanings",

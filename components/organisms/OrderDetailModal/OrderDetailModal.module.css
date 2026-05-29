@@ -65,6 +65,18 @@
   line-height: 1.3;
 }
 
+.durationEdit {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  align-items: center;
+}
+
+.durationEdit input {
+  flex: 1;
+  min-width: 0;
+}
+
 .commissionValue {
   display: flex;
   align-items: center;

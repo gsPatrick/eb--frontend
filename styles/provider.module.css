@@ -221,6 +221,24 @@
   color: #1f7a4d;
 }
 
+.accessInfo {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.accessInfo strong {
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.accessInfo p {
+  margin: 0 0 var(--space-1);
+}
+
 .photoUpload {
   display: flex;
   flex-direction: column;

@@ -92,19 +92,22 @@ export default function OrdersPage() {
 
   const handleCreateOrder = async (event) => {
     event.preventDefault();
+
+    const basePrice = Number(createForm.basePrice);
+    if (!Number.isFinite(basePrice) || basePrice <= 0) {
+      toast.warning(t('toast.actionBlocked'), t('admin.orders.form.basePriceRequired'));
+      return;
+    }
+
     setSaving(true);
     try {
-      const selectedProperty = properties.find((item) => item.id === createForm.propertyId);
       const created = await ordersApi.create({
         propertyId: createForm.propertyId,
         scheduledDate: createForm.scheduledDate,
         cleaningType: createForm.cleaningType,
         estimatedDurationMinutes: Number(createForm.estimatedDurationMinutes),
         providerId: createForm.providerId || undefined,
-        basePrice:
-          createForm.basePrice !== ''
-            ? Number(createForm.basePrice)
-            : selectedProperty?.defaultCleaningPrice,
+        basePrice,
       });
       setData((prev) => [created, ...prev]);
       toast.success(t('toast.orderCreated'), t('toast.orderCreatedMessage'));
@@ -299,11 +302,12 @@ export default function OrdersPage() {
             <Input
               id="order-price"
               type="number"
-              min="0"
+              min="0.01"
               step="0.01"
               value={createForm.basePrice}
               onChange={(e) => setCreateForm((prev) => ({ ...prev, basePrice: e.target.value }))}
-              placeholder={t('admin.orders.form.basePricePlaceholder')}
+              placeholder={t('admin.orders.form.basePriceRequiredPlaceholder')}
+              required
             />
           </FormField>
           <div className={styles.formFullWidth}>

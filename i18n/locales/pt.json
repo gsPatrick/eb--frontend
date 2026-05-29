@@ -89,6 +89,7 @@
   "nav": {
     "dashboard": "Dashboard",
     "properties": "Propriedades",
+    "clients": "Clientes",
     "users": "Usuários",
     "orders": "Ordens",
     "extras": "Serviços Extras",
@@ -351,6 +352,32 @@
         "actions": "Ações"
       }
     },
+    "clients": {
+      "title": "Gestão de Clientes",
+      "subtitle": "Cadastre clientes manualmente e, se quiser, já crie a primeira propriedade.",
+      "newClient": "Novo cliente",
+      "createModalTitle": "Cadastrar cliente",
+      "searchPlaceholder": "Buscar por nome, e-mail ou telefone…",
+      "created": "Cliente cadastrado",
+      "createdMessage": "{{name}} foi registrado com sucesso.",
+      "columns": {
+        "name": "Nome",
+        "email": "E-mail",
+        "phone": "Telefone",
+        "status": "Status",
+        "lastLogin": "Último login"
+      },
+      "form": {
+        "name": "Nome completo",
+        "email": "E-mail",
+        "password": "Senha temporária",
+        "phone": "Telefone",
+        "address": "Endereço de cobrança",
+        "propertyName": "Nome da primeira propriedade",
+        "propertyAddress": "Endereço da primeira propriedade",
+        "propertyOptional": "Opcional — deixe em branco se ainda não houver imóvel"
+      }
+    },
     "orders": {
       "title": "Controle de Ordens de Serviço",
       "subtitle": "Veja quem está em qual casa. Clique em uma linha para abrir o detalhamento com fotos e GPS.",
@@ -409,8 +436,10 @@
         "cleaningType": "Tipo de limpeza",
         "estimatedTime": "Tempo estimado (minutos)",
         "provider": "Prestador (opcional)",
-        "basePrice": "Preço base (opcional)",
-        "basePricePlaceholder": "Usa o preço padrão da propriedade se vazio",
+        "basePrice": "Preço base (obrigatório)",
+        "basePriceRequiredPlaceholder": "Informe o valor do serviço",
+        "basePriceRequired": "O preço base é obrigatório e deve ser maior que zero.",
+        "estimatedTimeInvalid": "Informe um tempo estimado válido em minutos.",
         "commissionHint": "Será aplicada comissão EB de 33% sobre o valor base da ordem.",
         "commissionBreakdown": "Total {{total}} · Comissão EB (33%): {{commission}} · Repasse prestador: {{payout}}"
       },
@@ -426,6 +455,8 @@
       "generateInvoice": "Gerar fatura",
       "downloadInvoice": "Baixar fatura",
       "downloadReceipt": "Baixar recibo",
+      "invoiceNumber": "Fatura nº",
+      "receiptNumber": "Recibo nº",
       "financeHint": "Pagamento é manual (Zelle/cheque). Fatura, recibo e lembrete são enviados para a caixa de entrada do cliente ou prestador — você também vê tudo em Caixa de entrada.",
       "paymentsUpdated": "Pagamentos atualizados",
       "paymentsUpdatedMessage": "Status financeiro salvo com sucesso.",
@@ -435,7 +466,9 @@
       "receiptSentToInboxMessage": "O recibo com PDF foi enviado para a caixa de entrada de {{name}}. Você pode acompanhar em Caixa de entrada.",
       "sendReminder": "Enviar lembrete ao cliente",
       "reminderSent": "Lembrete enviado",
-      "reminderSentToInboxMessage": "O lembrete foi enviado para a caixa de entrada de {{name}}. Você pode acompanhar em Caixa de entrada."
+      "reminderSentToInboxMessage": "O lembrete foi enviado para a caixa de entrada de {{name}}. Você pode acompanhar em Caixa de entrada.",
+      "durationUpdated": "Tempo estimado atualizado",
+      "durationUpdatedMessage": "A duração estimada foi salva para esta ordem."
     },
     "inventory": {
       "title": "Inventário por Propriedade",
@@ -513,6 +546,18 @@
       "clientPaid": "Cliente pago (USD)",
       "commissionEarned": "Comissão EB recebida",
       "providerPending": "Prestador pendente (USD)",
+      "documentTemplates": "Templates de fatura e recibo",
+      "documentTemplatesHint": "Dados da empresa e rodapés usados ao gerar PDFs de fatura e recibo de pagamento.",
+      "companyName": "Nome da empresa",
+      "companyEmail": "E-mail da empresa",
+      "companyPhone": "Telefone da empresa",
+      "companyAddress": "Endereço da empresa",
+      "zelle": "Dados Zelle",
+      "invoiceFooter": "Rodapé da fatura",
+      "receiptFooter": "Rodapé do recibo",
+      "saveTemplates": "Salvar templates",
+      "templatesSaved": "Templates salvos",
+      "templatesSavedMessage": "Novas faturas e recibos usarão estas configurações.",
       "columns": {
         "property": "Propriedade",
         "provider": "Prestador",
@@ -634,8 +679,16 @@
         "clientPlaceholder": "Selecionar cliente…",
         "icalUrl": "Link iCal Airbnb (opcional)",
         "icalPlaceholder": "https://…",
-        "defaultPrice": "Preço padrão da limpeza"
+        "defaultPrice": "Preço padrão da limpeza",
+        "entryInstructions": "Instruções de entrada",
+        "gateCode": "Código do portão",
+        "doorCode": "Código da porta/fechadura",
+        "lockboxCode": "Código do lockbox"
       },
+      "accessInfo": "Acesso ao imóvel",
+      "accessModalTitle": "Acesso — {{name}}",
+      "accessSaved": "Acesso salvo",
+      "accessSavedMessage": "Os dados de entrada foram atualizados para o app do prestador.",
       "newProperty": "Nova propriedade",
       "createModalTitle": "Cadastrar propriedade",
       "searchPlaceholder": "Buscar propriedade por nome ou endereço…"
@@ -788,7 +841,23 @@
       "gpsCheckoutPending": "GPS de saída pendente",
       "addAfterPhotos": "Adicionar fotos depois",
       "completeService": "Concluir serviço",
-      "clientLabel": "Cliente"
+      "accessInfo": "Acesso ao imóvel",
+      "entryInstructions": "Instruções",
+      "gateCode": "Código do portão",
+      "doorCode": "Código da porta",
+      "lockboxCode": "Código do lockbox"
+    },
+    "fieldReports": {
+      "title": "Meus relatórios de campo",
+      "subtitle": "Ocorrências reportadas durante o serviço.",
+      "empty": "Nenhum relatório enviado ainda.",
+      "detailTitle": "Detalhes do relatório",
+      "columns": {
+        "property": "Propriedade",
+        "type": "Tipo",
+        "status": "Status",
+        "date": "Data"
+      }
     },
     "inventory": {
       "title": "Atualização de Estoque",
@@ -848,7 +917,9 @@
       "nextCleaning": "Próxima limpeza",
       "statusClean": "Imóvel limpo e pronto para hóspedes",
       "statusDirty": "Limpeza necessária",
-      "statusScheduled": "Limpeza programada"
+      "statusScheduled": "Limpeza programada",
+      "icalHelpTitle": "Sincronização Airbnb",
+      "icalHelpText": "Peça ao admin EB para conectar o link iCal do Airbnb em cada propriedade. As reservas criarão limpezas automaticamente um dia antes do checkout."
     },
     "orders": {
       "title": "Próximas Limpezas",
