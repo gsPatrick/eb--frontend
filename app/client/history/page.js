@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import Badge from '@/components/atoms/Badge';
@@ -47,6 +47,23 @@ function mapOrderToHistoryEntry(order, reviewed = false) {
 }
 
 export default function ClientHistoryPage() {
+  return (
+    <Suspense
+      fallback={
+        <ClientLayout>
+          <div className={styles.page}>
+            <PageHeaderSkeleton />
+            <CardGridSkeleton variant="history" count={3} />
+          </div>
+        </ClientLayout>
+      }
+    >
+      <ClientHistoryPageContent />
+    </Suspense>
+  );
+}
+
+function ClientHistoryPageContent() {
   const { t } = useTranslation();
   const { intlLocale } = useLocale();
   const toast = useToast();
