@@ -44,7 +44,7 @@ export default function ProviderHistoryPage() {
   useRealtimeRefresh('history', refetch);
 
   const totalEarned = useMemo(
-    () => orders.reduce((sum, order) => sum + Number(order.providerPayoutAmount ?? order.totalPrice || 0), 0),
+    () => orders.reduce((sum, order) => sum + Number((order.providerPayoutAmount ?? order.totalPrice) || 0), 0),
     [orders]
   );
 
