@@ -99,6 +99,12 @@ export function RealtimeProvider({ children, audience = 'admin' }) {
       if (type === 'ORDER_COMPLETED') {
         bumpRefresh('history');
         bumpRefresh('properties');
+
+        if (payload?.data?.openReview && payload?.data?.serviceOrderId) {
+          routerRef.current.push(
+            `/client/history?reviewOrderId=${encodeURIComponent(payload.data.serviceOrderId)}`
+          );
+        }
       }
 
       if (type === 'INVENTORY_CRITICAL' || type === 'INVENTORY_LOW') {

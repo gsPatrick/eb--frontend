@@ -87,6 +87,7 @@ export default function OrderDetailModal({
   isOpen,
   onClose,
   providers = [],
+  extrasCatalog = [],
   onAssigned,
   onUpdated,
 }) {
@@ -96,20 +97,38 @@ export default function OrderDetailModal({
   const [assigning, setAssigning] = useState(false);
   const [clientPaymentStatus, setClientPaymentStatus] = useState('pending');
   const [providerPaymentStatus, setProviderPaymentStatus] = useState('pending');
+  const [providerPaymentMethod, setProviderPaymentMethod] = useState('');
   const [savingPayments, setSavingPayments] = useState(false);
   const [generatingInvoice, setGeneratingInvoice] = useState(false);
   const [sendingReminder, setSendingReminder] = useState(false);
   const [estimatedDurationMinutes, setEstimatedDurationMinutes] = useState('');
+  const [scheduledTime, setScheduledTime] = useState('');
   const [savingDuration, setSavingDuration] = useState(false);
+  const [savingSchedule, setSavingSchedule] = useState(false);
+  const [adminExtraId, setAdminExtraId] = useState('');
+  const [adminExtraPrice, setAdminExtraPrice] = useState('');
+  const [addingExtra, setAddingExtra] = useState(false);
 
   useEffect(() => {
     setSelectedProviderId(order?.providerId || '');
     setClientPaymentStatus(order?.clientPaymentStatus || 'pending');
     setProviderPaymentStatus(order?.providerPaymentStatus || 'pending');
+    setProviderPaymentMethod(order?.providerPaymentMethod || '');
     setEstimatedDurationMinutes(
       order?.estimatedDurationMinutes != null ? String(order.estimatedDurationMinutes) : '120'
     );
-  }, [order?.id, order?.providerId, order?.clientPaymentStatus, order?.providerPaymentStatus, order?.estimatedDurationMinutes]);
+    setScheduledTime(order?.scheduledTime || '');
+    setAdminExtraId('');
+    setAdminExtraPrice('');
+  }, [
+    order?.id,
+    order?.providerId,
+    order?.clientPaymentStatus,
+    order?.providerPaymentStatus,
+    order?.providerPaymentMethod,
+    order?.estimatedDurationMinutes,
+    order?.scheduledTime,
+  ]);
 
   const status = useMemo(
     () => (order ? getOrderStatusBadge(order.status, t) : null),
@@ -163,6 +182,48 @@ export default function OrderDetailModal({
     }
   };
 
+  const handleSaveSchedule = async () => {
+    if (!order) return;
+
+    setSavingSchedule(true);
+    try {
+      const updated = await ordersApi.update(order.id, {
+        scheduledTime: scheduledTime.trim() || null,
+      });
+      toast.success(t('admin.orders.scheduleUpdated'), t('admin.orders.scheduleUpdatedMessage'));
+      onUpdated?.(updated);
+    } catch (error) {
+      toast.error(t('common.error'), error.message);
+    } finally {
+      setSavingSchedule(false);
+    }
+  };
+
+  const handleAdminAddExtra = async () => {
+    if (!order || !adminExtraId) return;
+
+    setAddingExtra(true);
+    try {
+      const updated = await ordersApi.adminAddExtra(order.id, {
+        extraId: adminExtraId,
+        price: adminExtraPrice !== '' ? Number(adminExtraPrice) : undefined,
+      });
+      toast.success(t('admin.orders.extraAdded'), t('admin.orders.extraAddedMessage'));
+      onUpdated?.(updated);
+      setAdminExtraId('');
+      setAdminExtraPrice('');
+    } catch (error) {
+      toast.error(t('common.error'), error.message);
+    } finally {
+      setAddingExtra(false);
+    }
+  };
+
+  const availableExtras = useMemo(() => {
+    const usedIds = new Set((order?.extras || []).map((extra) => extra.extraId || extra.id));
+    return extrasCatalog.filter((extra) => extra.active && !usedIds.has(extra.id));
+  }, [order?.extras, extrasCatalog]);
+
   const handleSavePayments = async () => {
     if (!order) return;
     const wasProviderPending = order.providerPaymentStatus !== 'paid';
@@ -173,6 +234,7 @@ export default function OrderDetailModal({
       const updated = await ordersApi.updatePayments(order.id, {
         clientPaymentStatus,
         providerPaymentStatus,
+        providerPaymentMethod: providerPaymentMethod.trim() || null,
       });
 
       if (markingProviderPaid) {
@@ -260,6 +322,19 @@ export default function OrderDetailModal({
             <strong>{formatDate(order.scheduledDate)}</strong>
           </div>
           <div className={styles.metaCard}>
+            <span>{t('admin.orders.form.scheduledTime')}</span>
+            <div className={styles.durationEdit}>
+              <Input
+                type="time"
+                value={scheduledTime}
+                onChange={(event) => setScheduledTime(event.target.value)}
+              />
+              <Button size="sm" variant="secondary" loading={savingSchedule} onClick={handleSaveSchedule}>
+                {t('common.save')}
+              </Button>
+            </div>
+          </div>
+          <div className={styles.metaCard}>
             <span>{t('admin.orders.columns.cleaningType')}</span>
             <strong>{getCleaningTypeLabel(order.cleaningType, t)}</strong>
           </div>
@@ -318,6 +393,14 @@ export default function OrderDetailModal({
                   <option value="pending">{t('admin.orders.paymentPending')}</option>
                   <option value="paid">{t('admin.orders.paymentPaid')}</option>
                 </Select>
+              </FormField>
+              <FormField label={t('admin.orders.providerPaymentMethod')} htmlFor="provider-payment-method">
+                <Input
+                  id="provider-payment-method"
+                  value={providerPaymentMethod}
+                  onChange={(event) => setProviderPaymentMethod(event.target.value)}
+                  placeholder={t('admin.orders.providerPaymentMethodPlaceholder')}
+                />
               </FormField>
             </div>
 
@@ -458,6 +541,9 @@ export default function OrderDetailModal({
                     {extra.source === 'client_request' ? (
                       <Badge variant="info">{t('admin.orders.extraClientRequest')}</Badge>
                     ) : null}
+                    {extra.source === 'admin_manual' ? (
+                      <Badge variant="warning">{t('admin.orders.extraAdminManual')}</Badge>
+                    ) : null}
                   </span>
                   <strong>{formatCurrency(extra.defaultPrice ?? extra.price ?? 0)}</strong>
                 </li>
@@ -465,6 +551,38 @@ export default function OrderDetailModal({
             </ul>
           </section>
         )}
+
+        {availableExtras.length > 0 ? (
+          <section className={styles.section}>
+            <h3 className={styles.sectionTitle}>{t('admin.orders.addExtraSection')}</h3>
+            <div className={styles.assignRow}>
+              <Select
+                value={adminExtraId}
+                onChange={(event) => setAdminExtraId(event.target.value)}
+                className={styles.assignSelect}
+              >
+                <option value="">{t('admin.orders.selectExtra')}</option>
+                {availableExtras.map((extra) => (
+                  <option key={extra.id} value={extra.id}>
+                    {extra.name} — {formatCurrency(extra.defaultPrice)}
+                  </option>
+                ))}
+              </Select>
+              <Input
+                type="number"
+                min="0.01"
+                step="0.01"
+                value={adminExtraPrice}
+                onChange={(event) => setAdminExtraPrice(event.target.value)}
+                placeholder={t('admin.orders.customExtraPrice')}
+              />
+              <Button variant="primary" loading={addingExtra} disabled={!adminExtraId} onClick={handleAdminAddExtra}>
+                {t('admin.orders.addExtraButton')}
+              </Button>
+            </div>
+            <p className={styles.assignHint}>{t('admin.orders.addExtraHint')}</p>
+          </section>
+        ) : null}
       </div>
     </Modal>
   );

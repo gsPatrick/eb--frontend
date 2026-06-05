@@ -433,6 +433,7 @@
         "property": "Propriedade",
         "propertyPlaceholder": "Selecionar propriedade…",
         "date": "Data da limpeza",
+        "scheduledTime": "Horário da limpeza",
         "cleaningType": "Tipo de limpeza",
         "estimatedTime": "Tempo estimado (minutos)",
         "provider": "Prestador (opcional)",
@@ -449,6 +450,8 @@
       "providerPayout": "Repasse prestador",
       "clientPayment": "Cliente → EB",
       "providerPayment": "EB → Prestador",
+      "providerPaymentMethod": "Forma de pagamento ao prestador",
+      "providerPaymentMethodPlaceholder": "ex.: Zelle, Venmo, Cheque nº 123",
       "paymentPending": "Pendente",
       "paymentPaid": "Pago",
       "savePayments": "Salvar pagamentos",
@@ -468,7 +471,17 @@
       "reminderSent": "Lembrete enviado",
       "reminderSentToInboxMessage": "O lembrete foi enviado para a caixa de entrada de {{name}}. Você pode acompanhar em Caixa de entrada.",
       "durationUpdated": "Tempo estimado atualizado",
-      "durationUpdatedMessage": "A duração estimada foi salva para esta ordem."
+      "durationUpdatedMessage": "A duração estimada foi salva para esta ordem.",
+      "scheduleUpdated": "Horário atualizado",
+      "scheduleUpdatedMessage": "O horário da ordem foi salvo.",
+      "extraAdminManual": "Adicionado pelo admin",
+      "addExtraSection": "Adicionar extra (admin)",
+      "selectExtra": "Selecionar extra…",
+      "customExtraPrice": "Preço customizado (opcional)",
+      "addExtraButton": "Adicionar extra",
+      "addExtraHint": "O admin pode incluir extras a qualquer momento, inclusive após o prazo de 24h do cliente.",
+      "extraAdded": "Extra adicionado",
+      "extraAddedMessage": "O serviço extra foi incluído nesta ordem."
     },
     "inventory": {
       "title": "Inventário por Propriedade",
@@ -607,6 +620,18 @@
       "types": {
         "clientEb": "Cliente EB",
         "providerEb": "Prestador EB"
+      },
+      "tabs": {
+        "templates": "Modelos",
+        "acceptances": "Aceites registrados"
+      },
+      "acceptances": {
+        "user": "Usuário",
+        "role": "Perfil",
+        "contract": "Contrato",
+        "acceptedAt": "Aceito em",
+        "ip": "IP",
+        "empty": "Nenhum aceite registrado ainda."
       }
     },
     "reviews": {
@@ -692,6 +717,9 @@
       "accessModalTitle": "Acesso — {{name}}",
       "accessSaved": "Acesso salvo",
       "accessSavedMessage": "Os dados de entrada foram atualizados para o app do prestador.",
+      "fieldReports": "Achados / danos",
+      "fieldReportsTitle": "Achados — {{name}}",
+      "noFieldReports": "Nenhum achado registrado para este imóvel.",
       "newProperty": "Nova propriedade",
       "createModalTitle": "Cadastrar propriedade",
       "searchPlaceholder": "Buscar propriedade por nome ou endereço…"
@@ -922,7 +950,14 @@
       "statusDirty": "Limpeza necessária",
       "statusScheduled": "Limpeza programada",
       "icalHelpTitle": "Sincronização Airbnb",
-      "icalHelpText": "Peça ao admin EB para conectar o link iCal do Airbnb em cada propriedade. As reservas criarão limpezas automaticamente um dia antes do checkout."
+      "icalHelpText": "Peça ao admin EB para conectar o link iCal do Airbnb em cada propriedade. As reservas criarão limpezas automaticamente um dia antes do checkout.",
+      "editAccess": "Instruções de acesso",
+      "accessModalTitle": "Acesso — {{name}}",
+      "accessSaved": "Acesso salvo",
+      "accessSavedMessage": "As instruções foram atualizadas para o prestador.",
+      "viewFieldReports": "Achados / danos",
+      "fieldReportsTitle": "Achados — {{name}}",
+      "noFieldReports": "Nenhum achado registrado neste imóvel."
     },
     "orders": {
       "title": "Próximas Limpezas",

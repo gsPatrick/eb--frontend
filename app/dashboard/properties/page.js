@@ -22,7 +22,7 @@ import { usePagination } from '@/hooks/usePagination';
 import { useReverseGeocode } from '@/hooks/useReverseGeocode';
 import { useToast } from '@/hooks/useToast';
 import Select from '@/components/atoms/Select';
-import { propertiesApi, usersApi } from '@/src/services/api';
+import { propertiesApi, usersApi, fieldReportsApi } from '@/src/services/api';
 import styles from '@/styles/admin.module.css';
 
 const EMPTY_PROPERTY_FORM = {
@@ -55,6 +55,9 @@ export default function PropertiesPage() {
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({ address: '', latitude: null, longitude: null });
   const [accessEditing, setAccessEditing] = useState(null);
+  const [reportsProperty, setReportsProperty] = useState(null);
+  const [propertyReports, setPropertyReports] = useState([]);
+  const [loadingReports, setLoadingReports] = useState(false);
   const [accessForm, setAccessForm] = useState({
     entryInstructions: '',
     gateCode: '',
@@ -214,6 +217,19 @@ export default function PropertiesPage() {
     }
   };
 
+  const openFieldReports = async (property) => {
+    setReportsProperty(property);
+    setLoadingReports(true);
+    try {
+      const result = await fieldReportsApi.list({ propertyId: property.id, limit: 50 });
+      setPropertyReports(result.items);
+    } catch {
+      setPropertyReports([]);
+    } finally {
+      setLoadingReports(false);
+    }
+  };
+
   const handleSaveGeo = async (event) => {
     event.preventDefault();
 
@@ -306,6 +322,10 @@ export default function PropertiesPage() {
                         <Button variant="ghost" size="sm" onClick={() => openAccessEdit(property)}>
                           <Icon name="edit" size={16} />
                           {t('admin.properties.accessInfo')}
+                        </Button>
+                        <Button variant="ghost" size="sm" onClick={() => openFieldReports(property)}>
+                          <Icon name="reviews" size={16} />
+                          {t('admin.properties.fieldReports')}
                         </Button>
                         <Button variant="ghost" size="sm" onClick={() => openEdit(property)}>
                           <Icon name="edit" size={16} />
@@ -532,6 +552,39 @@ export default function PropertiesPage() {
               />
             </FormField>
           </form>
+        </Modal>
+
+        <Modal
+          isOpen={Boolean(reportsProperty)}
+          onClose={() => setReportsProperty(null)}
+          title={t('admin.properties.fieldReportsTitle', { name: reportsProperty?.name || '' })}
+          size="lg"
+        >
+          {loadingReports ? (
+            <p>{t('common.loading')}</p>
+          ) : propertyReports.length === 0 ? (
+            <p>{t('admin.properties.noFieldReports')}</p>
+          ) : (
+            <ul className={styles.fieldReportsList}>
+              {propertyReports.map((report) => (
+                <li key={report.id} className={styles.fieldReportItem}>
+                  <div className={styles.fieldReportHeader}>
+                    <Badge variant={report.status === 'resolved' ? 'success' : 'warning'}>
+                      {t(`admin.fieldReports.statuses.${report.status}`, report.status)}
+                    </Badge>
+                    <span>{report.createdAt ? new Date(report.createdAt).toLocaleDateString() : '—'}</span>
+                  </div>
+                  <strong>{t(`admin.fieldReports.types.${report.type}`, report.type)}</strong>
+                  <p>{report.description}</p>
+                  {report.provider ? (
+                    <p className={styles.assignHint}>
+                      {t('admin.fieldReports.columns.provider')}: {report.provider}
+                    </p>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          )}
         </Modal>
       </div>
   );

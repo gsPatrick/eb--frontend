@@ -433,6 +433,7 @@
         "property": "Property",
         "propertyPlaceholder": "Select property…",
         "date": "Cleaning date",
+        "scheduledTime": "Cleaning time",
         "cleaningType": "Cleaning type",
         "estimatedTime": "Estimated time (minutes)",
         "provider": "Provider (optional)",
@@ -449,6 +450,8 @@
       "providerPayout": "Provider payout",
       "clientPayment": "Client → EB",
       "providerPayment": "EB → Provider",
+      "providerPaymentMethod": "Provider payment method",
+      "providerPaymentMethodPlaceholder": "e.g. Zelle, Venmo, Check #123",
       "paymentPending": "Pending",
       "paymentPaid": "Paid",
       "savePayments": "Save payments",
@@ -468,7 +471,17 @@
       "reminderSent": "Reminder sent",
       "reminderSentToInboxMessage": "The reminder was sent to {{name}}'s inbox. You can track it in Inbox.",
       "durationUpdated": "Estimated time updated",
-      "durationUpdatedMessage": "The estimated duration was saved for this order."
+      "durationUpdatedMessage": "The estimated duration was saved for this order.",
+      "scheduleUpdated": "Schedule updated",
+      "scheduleUpdatedMessage": "The order time was saved.",
+      "extraAdminManual": "Added by admin",
+      "addExtraSection": "Add extra (admin)",
+      "selectExtra": "Select extra…",
+      "customExtraPrice": "Custom price (optional)",
+      "addExtraButton": "Add extra",
+      "addExtraHint": "Admins can add extras anytime, including after the client's 24h window.",
+      "extraAdded": "Extra added",
+      "extraAddedMessage": "The extra service was added to this order."
     },
     "inventory": {
       "title": "Inventory by Property",
@@ -607,6 +620,18 @@
       "types": {
         "clientEb": "Client EB",
         "providerEb": "Provider EB"
+      },
+      "tabs": {
+        "templates": "Templates",
+        "acceptances": "Recorded acceptances"
+      },
+      "acceptances": {
+        "user": "User",
+        "role": "Role",
+        "contract": "Contract",
+        "acceptedAt": "Accepted at",
+        "ip": "IP",
+        "empty": "No acceptances recorded yet."
       }
     },
     "reviews": {
@@ -692,6 +717,9 @@
       "accessModalTitle": "Property access — {{name}}",
       "accessSaved": "Access info saved",
       "accessSavedMessage": "Entry details were updated for the provider app.",
+      "fieldReports": "Findings / damage",
+      "fieldReportsTitle": "Findings — {{name}}",
+      "noFieldReports": "No findings recorded for this property.",
       "newProperty": "New property",
       "createModalTitle": "Register property",
       "searchPlaceholder": "Search properties by name or address…"
@@ -933,7 +961,14 @@
       "statusDirty": "Cleaning required",
       "statusScheduled": "Cleaning scheduled",
       "icalHelpTitle": "Airbnb calendar sync",
-      "icalHelpText": "Ask EB admin to connect your Airbnb iCal link on each property. Reservations will automatically create cleaning orders one day before checkout."
+      "icalHelpText": "Ask EB admin to connect your Airbnb iCal link on each property. Reservations will automatically create cleaning orders one day before checkout.",
+      "editAccess": "Access instructions",
+      "accessModalTitle": "Access — {{name}}",
+      "accessSaved": "Access saved",
+      "accessSavedMessage": "Entry instructions were updated for the provider.",
+      "viewFieldReports": "Findings / damage",
+      "fieldReportsTitle": "Findings — {{name}}",
+      "noFieldReports": "No findings recorded for this property."
     },
     "orders": {
       "title": "Upcoming Cleanings",

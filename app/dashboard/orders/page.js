@@ -30,6 +30,7 @@ import styles from '@/styles/admin.module.css';
 const EMPTY_ORDER_FORM = {
   propertyId: '',
   scheduledDate: '',
+  scheduledTime: '',
   cleaningType: 'regular_airbnb',
   estimatedDurationMinutes: '120',
   providerId: '',
@@ -56,6 +57,11 @@ export default function OrdersPage() {
   );
   const { data: properties = [] } = useApiQuery(
     () => propertiesApi.list({ limit: 200 }).then((response) => response.items),
+    [],
+    { initialData: [] }
+  );
+  const { data: extrasCatalog = [] } = useApiQuery(
+    () => ordersApi.listExtras({ limit: 200 }).then((response) => response.items),
     [],
     { initialData: [] }
   );
@@ -104,6 +110,7 @@ export default function OrdersPage() {
       const created = await ordersApi.create({
         propertyId: createForm.propertyId,
         scheduledDate: createForm.scheduledDate,
+        scheduledTime: createForm.scheduledTime.trim() || undefined,
         cleaningType: createForm.cleaningType,
         estimatedDurationMinutes: Number(createForm.estimatedDurationMinutes),
         providerId: createForm.providerId || undefined,
@@ -206,6 +213,7 @@ export default function OrdersPage() {
         isOpen={Boolean(selectedOrder)}
         onClose={() => setSelectedOrder(null)}
         providers={providers}
+        extrasCatalog={extrasCatalog}
           onAssigned={(updated) => {
             setData((prev) => prev.map((item) => (item.id === updated.id ? updated : item)));
             setSelectedOrder(updated);
@@ -256,6 +264,14 @@ export default function OrdersPage() {
               value={createForm.scheduledDate}
               onChange={(e) => setCreateForm((prev) => ({ ...prev, scheduledDate: e.target.value }))}
               required
+            />
+          </FormField>
+          <FormField label={t('admin.orders.form.scheduledTime')} htmlFor="order-time">
+            <Input
+              id="order-time"
+              type="time"
+              value={createForm.scheduledTime}
+              onChange={(e) => setCreateForm((prev) => ({ ...prev, scheduledTime: e.target.value }))}
             />
           </FormField>
           <FormField label={t('admin.orders.form.cleaningType')} htmlFor="order-type">

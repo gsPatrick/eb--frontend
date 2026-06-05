@@ -94,6 +94,12 @@ export async function checkOut(id, { lat, long, photos }) {
   return mapServiceOrder(result.order);
 }
 
+export async function adminAddExtra(id, { extraId, price }) {
+  const response = await apiClient.post(`/service-orders/${id}/admin-extras`, { extraId, price });
+  const result = unwrapResponse(response);
+  return mapServiceOrder(result.order);
+}
+
 export async function addExtra(id, extraId) {
   const response = await apiClient.post(`/service-orders/${id}/extras`, { extraId });
   const result = unwrapResponse(response);

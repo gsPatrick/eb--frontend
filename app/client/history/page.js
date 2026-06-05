@@ -1,6 +1,7 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import Badge from '@/components/atoms/Badge';
 import Button from '@/components/atoms/Button';
@@ -15,7 +16,7 @@ import { useLocale } from '@/context/I18nProvider';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { useRealtimeRefresh } from '@/hooks/useRealtimeRefresh';
 import { useToast } from '@/hooks/useToast';
-import { ordersApi } from '@/src/services/api';
+import { ordersApi, reviewsApi } from '@/src/services/api';
 import { formatDate } from '@/utils/formatters';
 import styles from '@/styles/client.module.css';
 
@@ -30,17 +31,18 @@ function downloadUrl(url, filename) {
   document.body.removeChild(link);
 }
 
-function mapOrderToHistoryEntry(order) {
+function mapOrderToHistoryEntry(order, reviewed = false) {
   return {
     id: order.id,
     property: order.property,
     provider: order.provider,
+    providerId: order.providerId,
     date: order.finishedAt || order.scheduledDate,
     finishedAt: order.finishedAt,
     beforePhotos: order.beforePhotos || [],
     afterPhotos: order.afterPhotos || [],
     totalPrice: order.totalPrice,
-    reviewed: false,
+    reviewed,
   };
 }
 
@@ -48,16 +50,21 @@ export default function ClientHistoryPage() {
   const { t } = useTranslation();
   const { intlLocale } = useLocale();
   const toast = useToast();
+  const searchParams = useSearchParams();
   const [reviewTarget, setReviewTarget] = useState(null);
-  const [reviewedIds, setReviewedIds] = useState(new Set());
 
-  const fetchHistory = useCallback(
-    () =>
-      ordersApi.list({ status: 'completed' }).then((result) =>
-        result.items.map(mapOrderToHistoryEntry)
-      ),
-    []
-  );
+  const fetchHistory = useCallback(async () => {
+    const [ordersResult, reviewsResult] = await Promise.all([
+      ordersApi.list({ status: 'completed' }),
+      reviewsApi.list({ limit: 200 }),
+    ]);
+    const reviewedIds = new Set(
+      reviewsResult.items.map((review) => review.serviceOrderId).filter(Boolean)
+    );
+    return ordersResult.items.map((order) =>
+      mapOrderToHistoryEntry(order, reviewedIds.has(order.id))
+    );
+  }, []);
 
   const { data: history = [], loading, refetch } = useApiQuery(fetchHistory, [], {
     initialData: [],
@@ -65,10 +72,30 @@ export default function ClientHistoryPage() {
 
   useRealtimeRefresh('history', refetch);
 
-  const historyWithReviews = history.map((entry) => ({
-    ...entry,
-    reviewed: entry.reviewed || reviewedIds.has(entry.id),
-  }));
+  useEffect(() => {
+    const reviewOrderId = searchParams.get('reviewOrderId');
+    if (!reviewOrderId || !history.length) return;
+    const entry = history.find((item) => item.id === reviewOrderId);
+    if (entry && !entry.reviewed) {
+      setReviewTarget(entry);
+    }
+  }, [searchParams, history]);
+
+  const handleReviewSubmit = async ({ rating, comment }) => {
+    if (!reviewTarget) return;
+    try {
+      await reviewsApi.create({
+        serviceOrderId: reviewTarget.id,
+        rating,
+        comment,
+      });
+      toast.success(t('toast.reviewSubmitted'), t('toast.reviewSubmittedMessage'));
+      setReviewTarget(null);
+      refetch();
+    } catch (error) {
+      toast.error(t('common.error'), error.message);
+    }
+  };
 
   const handleDownloadAll = (entry) => {
     const photos = [...entry.beforePhotos, ...entry.afterPhotos];
@@ -82,20 +109,13 @@ export default function ClientHistoryPage() {
     });
   };
 
-  const handleReviewSubmit = () => {
-    if (reviewTarget) {
-      setReviewedIds((prev) => new Set(prev).add(reviewTarget.id));
-    }
-    toast.success(t('toast.reviewSubmitted'), t('toast.reviewSubmittedMessage'));
-  };
-
   return (
     <ClientLayout>
       <div className={styles.page}>
         {loading ? (
           <>
             <PageHeaderSkeleton />
-            <CardGridSkeleton variant="history" count={historyWithReviews.length || 3} />
+            <CardGridSkeleton variant="history" count={history.length || 3} />
           </>
         ) : (
           <>
@@ -104,7 +124,7 @@ export default function ClientHistoryPage() {
               subtitle={t('client.history.subtitle')}
             />
 
-            {historyWithReviews.length === 0 ? (
+            {history.length === 0 ? (
               <EmptyState
                 icon="history"
                 title={t('empty.history.title')}
@@ -112,7 +132,7 @@ export default function ClientHistoryPage() {
               />
             ) : (
               <div className={styles.historyList}>
-                {historyWithReviews.map((entry) => {
+                {history.map((entry) => {
                   const allPhotos = [...entry.beforePhotos, ...entry.afterPhotos];
 
                   return (

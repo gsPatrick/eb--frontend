@@ -19,6 +19,12 @@ export async function create(payload) {
   return mapProperty(result.property);
 }
 
+export async function updateAccess(id, payload) {
+  const response = await apiClient.patch(`/properties/${id}/access`, payload);
+  const result = unwrapResponse(response);
+  return mapProperty(result.property);
+}
+
 export async function update(id, payload) {
   const response = await apiClient.put(`/properties/${id}`, payload);
   const result = unwrapResponse(response);

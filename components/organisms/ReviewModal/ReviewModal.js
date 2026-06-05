@@ -19,12 +19,14 @@ export default function ReviewModal({ isOpen, onClose, service, onSubmit }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 600));
-    onSubmit?.({ rating, comment: comment.trim() });
-    setLoading(false);
-    setComment('');
-    setRating(5);
-    onClose();
+    try {
+      await onSubmit?.({ rating, comment: comment.trim() });
+      setComment('');
+      setRating(5);
+      onClose();
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

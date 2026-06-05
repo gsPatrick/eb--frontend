@@ -54,12 +54,20 @@ export function mapProperty(property) {
   };
 }
 
+function displayFirstName(name) {
+  if (!name || typeof name !== 'string') return name || null;
+  const trimmed = name.trim();
+  return trimmed.split(/\s+/)[0] || trimmed;
+}
+
 export function mapServiceOrder(order) {
   if (!order) return null;
 
   const property = order.property || {};
   const provider = order.provider || {};
   const client = property.client || order.client || {};
+  const providerName = provider.name || order.providerName || null;
+  const clientName = typeof client === 'string' ? client : client?.name || order.clientName || null;
 
   return {
     id: order.id,
@@ -74,8 +82,10 @@ export function mapServiceOrder(order) {
     doorCode: property.doorCode || property.door_code || '',
     lockboxCode: property.lockboxCode || property.lockbox_code || '',
     providerId: order.providerId,
-    provider: provider.name || order.providerName || null,
-    client: typeof client === 'string' ? client : client?.name || order.clientName || null,
+    provider: displayFirstName(providerName),
+    providerFullName: providerName,
+    client: clientName,
+    clientFirstName: displayFirstName(clientName),
     status: order.status,
     scheduledDate: order.scheduledDate,
     cleaningType: order.cleaningType || null,
@@ -98,6 +108,7 @@ export function mapServiceOrder(order) {
     providerPayoutAmount: Number(order.providerPayoutAmount || 0),
     clientPaymentStatus: order.clientPaymentStatus || 'pending',
     providerPaymentStatus: order.providerPaymentStatus || 'pending',
+    providerPaymentMethod: order.providerPaymentMethod || '',
     clientPaidAt: order.clientPaidAt || null,
     providerPaidAt: order.providerPaidAt || null,
     invoiceNumber: order.invoiceNumber || null,
@@ -159,11 +170,12 @@ export function mapReview(review) {
 
   return {
     id: review.id,
+    serviceOrderId: review.serviceOrderId || review.serviceOrder?.id || null,
     rating: review.rating,
     comment: review.comment,
-    provider: review.provider?.name || review.providerName,
-    client: review.client?.name || review.clientName,
-    property: review.property?.name || review.propertyName,
+    provider: displayFirstName(review.reviewed?.name || review.provider?.name || review.providerName),
+    client: displayFirstName(review.reviewer?.name || review.client?.name || review.clientName),
+    property: review.serviceOrder?.property?.name || review.property?.name || review.propertyName,
     createdAt: review.createdAt,
   };
 }

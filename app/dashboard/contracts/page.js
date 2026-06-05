@@ -12,6 +12,7 @@ import Modal from '@/components/molecules/Modal';
 import PageHeader from '@/components/molecules/PageHeader';
 import PageHeaderSkeleton from '@/components/molecules/PageHeaderSkeleton';
 import Pagination from '@/components/molecules/Pagination';
+import Tabs from '@/components/molecules/Tabs';
 import DataTable from '@/components/organisms/DataTable';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { usePagination } from '@/hooks/usePagination';
@@ -40,16 +41,32 @@ function normalizeContract(contract) {
 export default function AdminContractsPage() {
   const { t } = useTranslation();
   const toast = useToast();
+  const [activeTab, setActiveTab] = useState('templates');
   const { data: templates = [], loading, setData } = useApiQuery(
     () => contractsApi.list().then((response) => response.items.map(normalizeContract)),
     [],
     { initialData: [] }
+  );
+  const { data: acceptances = [], loading: loadingAcceptances } = useApiQuery(
+    () => contractsApi.listAcceptances({ limit: 200 }).then((response) => response.items),
+    [],
+    { initialData: [], enabled: activeTab === 'acceptances' }
   );
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
   const { paginatedItems, paginationProps } = usePagination(templates);
+  const { paginatedItems: paginatedAcceptances, paginationProps: acceptancePagination } =
+    usePagination(acceptances);
+
+  const tabs = useMemo(
+    () => [
+      { id: 'templates', label: t('admin.contracts.tabs.templates') },
+      { id: 'acceptances', label: t('admin.contracts.tabs.acceptances') },
+    ],
+    [t]
+  );
 
   const openCreate = () => {
     setEditing(null);
@@ -128,6 +145,42 @@ export default function AdminContractsPage() {
     [t]
   );
 
+  const acceptanceColumns = useMemo(
+    () => [
+      {
+        key: 'user',
+        label: t('admin.contracts.acceptances.user'),
+        render: (row) => row.user?.name || '—',
+      },
+      {
+        key: 'role',
+        label: t('admin.contracts.acceptances.role'),
+        render: (row) => row.user?.role || '—',
+      },
+      {
+        key: 'contract',
+        label: t('admin.contracts.acceptances.contract'),
+        render: (row) => row.contract?.title || '—',
+      },
+      {
+        key: 'version',
+        label: t('admin.contracts.columns.version'),
+        render: (row) => row.contract?.version || '—',
+      },
+      {
+        key: 'acceptedAt',
+        label: t('admin.contracts.acceptances.acceptedAt'),
+        render: (row) => formatDate(row.acceptedAt),
+      },
+      {
+        key: 'ip',
+        label: t('admin.contracts.acceptances.ip'),
+        render: (row) => row.ipAddress || '—',
+      },
+    ],
+    [t]
+  );
+
   return (
       <div className={styles.page}>
         {loading ? (
@@ -137,14 +190,19 @@ export default function AdminContractsPage() {
             title={t('admin.contracts.title')}
             subtitle={t('admin.contracts.subtitle')}
             actions={
-              <Button onClick={openCreate}>
-                <Icon name="plus" size={16} />
-                {t('admin.contracts.newTemplate')}
-              </Button>
+              activeTab === 'templates' ? (
+                <Button onClick={openCreate}>
+                  <Icon name="plus" size={16} />
+                  {t('admin.contracts.newTemplate')}
+                </Button>
+              ) : null
             }
           />
         )}
 
+        <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
+
+        {activeTab === 'templates' ? (
         <DataTable
           columns={columns}
           rows={paginatedItems}
@@ -152,6 +210,15 @@ export default function AdminContractsPage() {
           emptyMessage={t('common.emptyNoRecords')}
           footer={!loading ? <Pagination {...paginationProps} /> : null}
         />
+        ) : (
+        <DataTable
+          columns={acceptanceColumns}
+          rows={paginatedAcceptances}
+          loading={loadingAcceptances}
+          emptyMessage={t('admin.contracts.acceptances.empty')}
+          footer={!loadingAcceptances ? <Pagination {...acceptancePagination} /> : null}
+        />
+        )}
 
         <Modal
           isOpen={modalOpen}
